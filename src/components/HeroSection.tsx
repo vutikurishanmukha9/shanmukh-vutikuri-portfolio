@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Github, Linkedin, Mail, ExternalLink, Download, ArrowRight } from 'lucide-react';
-import heroPhoto from '@/assets/hero-photo.jpg';
+const heroPhoto = '/lovable-uploads/9280c102-fa01-4f44-8cb2-47a6c6af1d71.png';
 
 export const HeroSection = () => {
   const [currentTitle, setCurrentTitle] = useState(0);

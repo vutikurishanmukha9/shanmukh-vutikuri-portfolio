@@ -17,8 +17,8 @@ export const ProjectsSection = () => {
       description: 'AI prompt refinement platform integrating multiple large language models including OpenAI, Claude, Gemini, and Cohere.',
       technologies: ['Flask', 'React', 'Python', 'REST API', 'OpenAI', 'Vercel'],
       icon: Zap,
-      liveDemo: '#',
-      github: '#',
+      liveDemo: 'https://prompt-buddy-ten.vercel.app/',
+      github: 'https://github.com/vutikurishanmukha9/PromptBuddy',
       featured: true,
     },
     {
