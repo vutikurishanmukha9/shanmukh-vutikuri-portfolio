@@ -8,7 +8,7 @@ export const ProjectsSection = () => {
       description: 'NLP-powered chatbot with 92% accuracy in over-the-counter drug recommendations, deployed on AWS with 99.9% uptime.',
       technologies: ['Python', 'Flask', 'scikit-learn', 'Docker', 'AWS EC2', 'NLP'],
       icon: Brain,
-      liveDemo: '#',
+      liveDemo: 'https://odatyd.netlify.app/',
       github: '#',
       featured: true,
     },
