@@ -4,10 +4,10 @@ import { ExternalLink, BookOpen, Award } from 'lucide-react';
 export const PublicationsSection = () => {
   const publications = [
     {
-      title: 'IoT-Driven Smart System for Precision Agriculture',
+      title: 'Optimizing Energy Efficiency in Smart Buildings Through IOT-Driven Occupancy Sensing',
       authors: 'Vutikuri Shanmukha, et al.',
       journal: 'IEEE Xplore',
-      year: '2023',
+      year: '2025',
       description: 'Research on implementing IoT solutions for precision agriculture, focusing on smart monitoring systems and data-driven farming techniques.',
       link: 'https://ieeexplore.ieee.org/document/11101373',
       type: 'Conference Paper',
