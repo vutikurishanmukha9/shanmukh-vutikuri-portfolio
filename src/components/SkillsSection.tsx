@@ -10,7 +10,7 @@ export const SkillsSection = () => {
         { name: 'Python', level: 92 },
         { name: 'SQL', level: 85 },
         { name: 'Git', level: 88 },
-        { name: 'Jenkins', level: 75 },
+        { name: 'IoT', level: 85 },
       ],
     },
     {

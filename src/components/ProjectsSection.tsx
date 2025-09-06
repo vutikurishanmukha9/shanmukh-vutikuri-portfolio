@@ -9,7 +9,7 @@ export const ProjectsSection = () => {
       technologies: ['Python', 'Flask', 'scikit-learn', 'Docker', 'AWS EC2', 'NLP'],
       icon: Brain,
       liveDemo: 'https://odatyd.netlify.app/',
-      github: '#',
+      github: 'https://github.com/vutikurishanmukha9/OUR-D-at-YOUR-D',
       featured: true,
     },
     {
@@ -27,7 +27,7 @@ export const ProjectsSection = () => {
       technologies: ['React', 'Node.js', 'MongoDB', 'Face-API.js', 'AWS Lambda', 'AWS SES'],
       icon: Users,
       liveDemo: '#',
-      github: '#',
+      github: 'https://github.com/vutikurishanmukha9/Automated-Attendance-System',
       featured: false,
     },
   ];
