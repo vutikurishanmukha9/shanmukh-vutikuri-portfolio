@@ -15,8 +15,8 @@ export const AboutSection = () => {
       label: 'Efficiency Improvement',
     },
     {
-      number: '3+',
-      label: 'Years Experience',
+      number: '3',
+      label: 'Successful Project Completions',
     },
   ];
 
