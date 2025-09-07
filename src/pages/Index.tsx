@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Navigation } from '@/components/Navigation';
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
@@ -8,6 +9,7 @@ import { PublicationsSection } from '@/components/PublicationsSection';
 import { CertificationsSection } from '@/components/CertificationsSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
+import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
   const [isDark, setIsDark] = useState(true);
@@ -45,17 +47,20 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header isDark={isDark} toggleTheme={toggleTheme} />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ProjectsSection />
-        <CertificationsSection />
-        <PublicationsSection />
-        <ContactSection />
-      </main>
-      <Footer />
+      <Navigation />
+      <div className="pt-16">
+        <main>
+          <HeroSection />
+          <AboutSection />
+          <SkillsSection />
+          <ProjectsSection />
+          <CertificationsSection />
+          <PublicationsSection />
+          <ContactSection />
+        </main>
+        <Footer />
+      </div>
+      <Toaster />
     </div>
   );
 };
