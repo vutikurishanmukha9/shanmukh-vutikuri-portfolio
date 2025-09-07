@@ -8,7 +8,7 @@ export const PublicationsSection = () => {
       authors: 'Vutikuri Shanmukha, et al.',
       journal: 'IEEE Xplore',
       year: '2025',
-      description: 'Research on implementing IoT solutions for precision agriculture, focusing on smart monitoring systems and data-driven farming techniques.',
+      description: 'Published a research paper on an IoT-driven occupancy detection system for smart buildings, integrating Arduino, IR, and DHT sensors with cloud connectivity. The framework achieved 96% accuracy, 60ms response time, and significant energy savings through real-time automation and intelligent control, enhancing scalability and efficiency in energy management.',
       link: 'https://ieeexplore.ieee.org/document/11101373',
       type: 'Conference Paper',
       featured: true,
