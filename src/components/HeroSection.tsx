@@ -88,9 +88,11 @@ export const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button variant="hero" size="lg" className="group">
-                <Download className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-                Download Resume
+              <Button variant="hero" size="lg" className="group" asChild>
+                <a href="https://drive.google.com/file/d/16x2kGp4mp_g5qFjJPlF4XXhUyDOA1e10/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                  <Download className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                  View Resume
+                </a>
               </Button>
               
               <Button 
