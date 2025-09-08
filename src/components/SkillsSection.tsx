@@ -10,8 +10,6 @@ export const SkillsSection = () => {
       skills: [
         { name: 'Python', level: 95, icon: Code },
         { name: 'SQL', level: 90, icon: Database },
-        { name: 'JavaScript', level: 85, icon: Code2 },
-        { name: 'HTML/CSS', level: 88, icon: Globe },
       ],
     },
     {
@@ -39,6 +37,7 @@ export const SkillsSection = () => {
         { name: 'NumPy', level: 90, icon: Calculator },
         { name: 'Tableau', level: 85, icon: PieChart },
         { name: 'Power BI', level: 80, icon: BarChart4 },
+        { name: 'Microsoft Excel', level: 88, icon: BarChart3 },
       ],
     },
     {
