@@ -5,7 +5,7 @@ const heroPhoto = '/lovable-uploads/9280c102-fa01-4f44-8cb2-47a6c6af1d71.png';
 
 export const HeroSection = () => {
   const [currentTitle, setCurrentTitle] = useState(0);
-  const titles = ['Software Engineer' , 'Data Analyst' , 'Cloud Engineer' , 'AI/ML Engineer', 'IoT Engineer', 'Research Engineer'];
+  const titles = ['Software engineer', 'Data Analyst', 'Cloud Engineer', 'AI/ML Engineer', 'IOT Engineer', 'Research Engineer'];
 
   useEffect(() => {
     const interval = setInterval(() => {
