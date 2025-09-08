@@ -36,8 +36,8 @@ export const SkillsSection = () => {
         { name: 'Pandas', level: 92, icon: BarChart3 },
         { name: 'NumPy', level: 90, icon: Calculator },
         { name: 'Tableau', level: 85, icon: PieChart },
-        { name: 'Power BI', level: 80, icon: BarChart4 },
-        { name: 'Microsoft Excel', level: 88, icon: BarChart3 },
+        { name: 'Power BI', level: 92, icon: BarChart4 },
+        { name: 'Microsoft Excel', level: 95, icon: BarChart3 },
       ],
     },
     {
