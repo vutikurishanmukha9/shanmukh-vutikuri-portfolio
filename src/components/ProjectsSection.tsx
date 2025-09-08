@@ -35,7 +35,7 @@ export const ProjectsSection = () => {
       category: 'IoT',
       github: '#',
       demo: '#',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop',
+      image: '/lovable-uploads/7ee8508c-3ca5-460d-903f-85eedeeb2ca7.png',
       achievements: ['96% detection accuracy', '60ms response time', '30% energy savings'],
       featured: true,
     },
