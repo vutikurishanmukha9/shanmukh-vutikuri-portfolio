@@ -50,14 +50,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        coral: {
-          primary: "hsl(var(--coral-primary))",
-          light: "hsl(var(--coral-light))",
-          accent: "hsl(var(--coral-accent))",
+        teal: {
+          primary: "hsl(var(--teal-primary))",
+          light: "hsl(var(--teal-light))",
+          accent: "hsl(var(--teal-accent))",
         },
-        navy: {
-          primary: "hsl(var(--navy-primary))",
-          light: "hsl(var(--navy-light))",
+        slate: {
+          primary: "hsl(var(--slate-primary))",
+          light: "hsl(var(--slate-light))",
         },
       },
       borderRadius: {

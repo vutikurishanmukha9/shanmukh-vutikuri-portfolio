@@ -6,58 +6,58 @@
 
 @layer base {
   :root {
-    /* Core Brand Colors - Coral, Navy & White Theme */
-    --background: 212 18% 97%; /* Light gray-white */
-    --foreground: 210 22% 22%; /* Navy dark */
+    /* Core Brand Colors - Teal & Charcoal Theme */
+    --background: 60 6% 98%; /* Soft ivory #FAFAF9 */
+    --foreground: 220 42% 12%; /* Charcoal #111827 */
 
     --card: 0 0% 100%; /* Pure white */
-    --card-foreground: 210 22% 22%;
+    --card-foreground: 220 42% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 22% 22%;
+    --popover-foreground: 220 42% 12%;
 
-    /* Primary - Coral */
-    --primary: 0 72% 70%; /* Coral #FF6B6B */
+    /* Primary - Teal */
+    --primary: 173 85% 32%; /* Teal 600 #0D9488 */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Navy */
-    --secondary: 210 48% 14%; /* Navy #1B263B */
+    /* Secondary - Slate */
+    --secondary: 213 39% 27%; /* Slate 700 #334155 */
     --secondary-foreground: 0 0% 100%;
 
-    /* Muted - Light Gray */
-    --muted: 210 18% 95%;
-    --muted-foreground: 210 22% 45%;
+    /* Muted - Light Slate */
+    --muted: 213 27% 97%; /* #F1F5F9 */
+    --muted-foreground: 213 39% 27%;
 
-    /* Accent - Light Coral */
-    --accent: 0 72% 80%;
-    --accent-foreground: 210 22% 22%;
+    /* Accent - Teal Light */
+    --accent: 173 78% 40%; /* Teal 500 #14B8A6 */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 210 18% 88%;
-    --input: 210 18% 90%;
-    --ring: 0 72% 70%;
+    --border: 214 32% 91%; /* #E2E8F0 */
+    --input: 213 27% 97%;
+    --ring: 173 85% 32%;
 
     --radius: 0.75rem;
 
     /* Custom Design Tokens */
-    --coral-primary: 0 72% 70%;
-    --coral-light: 0 72% 80%;
-    --coral-accent: 0 72% 85%;
-    --navy-primary: 210 48% 14%;
-    --navy-light: 210 48% 25%;
+    --teal-primary: 173 85% 32%;
+    --teal-light: 173 78% 40%;
+    --teal-accent: 173 68% 50%;
+    --slate-primary: 213 39% 27%;
+    --slate-light: 213 32% 35%;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(0 72% 70%) 0%, hsl(0 72% 80%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(212 18% 97%) 0%, hsl(210 18% 95%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(210 18% 98%) 100%);
-    --gradient-navy: linear-gradient(135deg, hsl(210 48% 14%) 0%, hsl(210 48% 25%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(173 85% 32%) 0%, hsl(173 78% 40%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(60 6% 98%) 0%, hsl(213 27% 97%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(213 27% 99%) 100%);
+    --gradient-slate: linear-gradient(135deg, hsl(213 39% 27%) 0%, hsl(213 32% 35%) 100%);
     
     /* Shadows */
-    --shadow-glow: 0 0 30px hsl(0 72% 70% / 0.3);
+    --shadow-glow: 0 0 30px hsl(173 85% 32% / 0.3);
     --shadow-card: 0 10px 30px -5px hsl(0 0% 0% / 0.1);
-    --shadow-elegant: 0 20px 40px -10px hsl(0 72% 70% / 0.2);
+    --shadow-elegant: 0 20px 40px -10px hsl(173 85% 32% / 0.2);
     
     /* Typography */
     --font-primary: 'Poppins', sans-serif;
@@ -89,12 +89,12 @@
     background: var(--gradient-hero);
   }
 
-  .coral-gradient {
+  .teal-gradient {
     background: var(--gradient-primary);
   }
 
-  .navy-gradient {
-    background: var(--gradient-navy);
+  .slate-gradient {
+    background: var(--gradient-slate);
   }
 
   .card-gradient {
