@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
 import { Navigation } from '@/components/Navigation';
-import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
 import { SkillsSection } from '@/components/SkillsSection';
@@ -12,38 +10,6 @@ import { Footer } from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    // Check for saved theme preference or default to dark
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setIsDark(savedTheme === 'dark');
-    }
-    
-    // Apply theme to document
-    if (isDark) {
-      document.documentElement.classList.remove('light');
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-    }
-  }, [isDark]);
-
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-    
-    if (newTheme) {
-      document.documentElement.classList.remove('light');
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background">

@@ -1,4 +1,4 @@
-import aboutPhoto from '@/assets/about-photo.jpg';
+
 
 export const AboutSection = () => {
   const highlights = [
@@ -30,25 +30,9 @@ export const AboutSection = () => {
           <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Photo */}
-          <div className="flex justify-center lg:justify-start">
-            <div className="relative">
-              <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-2xl overflow-hidden hover-lift">
-                <img
-                  src={aboutPhoto}
-                  alt="About Vutikuri Shanmukha"
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-              
-              {/* Decorative elements */}
-              <div className="absolute -z-10 top-8 left-8 w-full h-full border-2 border-primary/30 rounded-2xl"></div>
-            </div>
-          </div>
-
+        <div className="flex justify-center">
           {/* Content */}
-          <div className="space-y-8">
+          <div className="max-w-4xl space-y-8">
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I am a <span className="text-primary font-semibold">B.Tech graduate in Electronics & Communication Engineering</span> with 

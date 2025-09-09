@@ -2,60 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Professional Portfolio Design System - Yellow/Gold & Black Theme */
+/* Professional Portfolio Design System - Coral, Navy & White Theme */
 
 @layer base {
   :root {
-    /* Core Brand Colors - Gold/Yellow & Black Theme */
-    --background: 0 0% 6%;
-    --foreground: 48 100% 96%;
+    /* Core Brand Colors - Coral, Navy & White Theme */
+    --background: 212 18% 97%; /* Light gray-white */
+    --foreground: 210 22% 22%; /* Navy dark */
 
-    --card: 0 0% 8%;
-    --card-foreground: 48 100% 96%;
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 210 22% 22%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 48 100% 96%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 22% 22%;
 
-    /* Primary - Golden Yellow */
-    --primary: 51 100% 50%;
-    --primary-foreground: 0 0% 6%;
+    /* Primary - Coral */
+    --primary: 0 72% 70%; /* Coral #FF6B6B */
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Warm Gold */
-    --secondary: 45 100% 35%;
-    --secondary-foreground: 48 100% 96%;
+    /* Secondary - Navy */
+    --secondary: 210 48% 14%; /* Navy #1B263B */
+    --secondary-foreground: 0 0% 100%;
 
-    /* Muted - Dark Gray */
-    --muted: 0 0% 12%;
-    --muted-foreground: 48 100% 75%;
+    /* Muted - Light Gray */
+    --muted: 210 18% 95%;
+    --muted-foreground: 210 22% 45%;
 
-    /* Accent - Light Gold */
-    --accent: 48 100% 65%;
-    --accent-foreground: 0 0% 6%;
+    /* Accent - Light Coral */
+    --accent: 0 72% 80%;
+    --accent-foreground: 210 22% 22%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 12%;
-    --ring: 51 100% 50%;
+    --border: 210 18% 88%;
+    --input: 210 18% 90%;
+    --ring: 0 72% 70%;
 
     --radius: 0.75rem;
 
     /* Custom Design Tokens */
-    --gold-primary: 51 100% 50%;
-    --gold-secondary: 45 100% 35%;
-    --gold-light: 48 100% 65%;
-    --gold-accent: 42 100% 70%;
+    --coral-primary: 0 72% 70%;
+    --coral-light: 0 72% 80%;
+    --coral-accent: 0 72% 85%;
+    --navy-primary: 210 48% 14%;
+    --navy-light: 210 48% 25%;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(51 100% 50%) 0%, hsl(45 100% 35%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 6%) 0%, hsl(0 0% 10%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 12%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(0 72% 70%) 0%, hsl(0 72% 80%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(212 18% 97%) 0%, hsl(210 18% 95%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(210 18% 98%) 100%);
+    --gradient-navy: linear-gradient(135deg, hsl(210 48% 14%) 0%, hsl(210 48% 25%) 100%);
     
     /* Shadows */
-    --shadow-glow: 0 0 30px hsl(51 100% 50% / 0.3);
-    --shadow-card: 0 10px 30px -5px hsl(0 0% 0% / 0.3);
-    --shadow-elegant: 0 20px 40px -10px hsl(51 100% 50% / 0.2);
+    --shadow-glow: 0 0 30px hsl(0 72% 70% / 0.3);
+    --shadow-card: 0 10px 30px -5px hsl(0 0% 0% / 0.1);
+    --shadow-elegant: 0 20px 40px -10px hsl(0 72% 70% / 0.2);
     
     /* Typography */
     --font-primary: 'Poppins', sans-serif;
@@ -63,40 +65,6 @@
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  .light {
-    --background: 48 100% 98%;
-    --foreground: 0 0% 6%;
-
-    --card: 48 100% 96%;
-    --card-foreground: 0 0% 6%;
-
-    --popover: 48 100% 96%;
-    --popover-foreground: 0 0% 6%;
-
-    --primary: 51 100% 50%;
-    --primary-foreground: 0 0% 6%;
-
-    --secondary: 48 100% 90%;
-    --secondary-foreground: 0 0% 6%;
-
-    --muted: 48 100% 92%;
-    --muted-foreground: 0 0% 35%;
-
-    --accent: 48 100% 85%;
-    --accent-foreground: 0 0% 6%;
-
-    --border: 48 100% 85%;
-    --input: 48 100% 85%;
-    --ring: 51 100% 50%;
-
-    /* Light mode gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(48 100% 98%) 0%, hsl(48 100% 94%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(48 100% 96%) 0%, hsl(48 100% 92%) 100%);
-    
-    --shadow-glow: 0 0 30px hsl(51 100% 50% / 0.2);
-    --shadow-card: 0 10px 30px -5px hsl(0 0% 0% / 0.1);
   }
 }
 
@@ -121,8 +89,12 @@
     background: var(--gradient-hero);
   }
 
-  .gold-gradient {
+  .coral-gradient {
     background: var(--gradient-primary);
+  }
+
+  .navy-gradient {
+    background: var(--gradient-navy);
   }
 
   .card-gradient {
