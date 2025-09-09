@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg transform hover:-translate-y-0.5",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 transform hover:-translate-y-0.5",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border-2 border-primary/20 bg-transparent text-foreground hover:border-primary hover:bg-primary/10 hover:shadow-lg",
+        outline: "border-2 border-primary/20 bg-transparent text-foreground hover:border-primary hover:bg-primary/10",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        hero: "bg-gradient-to-r from-primary to-gold-accent text-primary-foreground hover:shadow-xl hover:scale-105 transform transition-all duration-300 font-semibold border-0 glow-effect",
-        premium: "bg-gradient-to-r from-gold-secondary to-primary text-primary-foreground hover:from-primary hover:to-gold-light hover:shadow-2xl transform hover:-translate-y-1 border border-primary/30",
-        glass: "bg-card/10 backdrop-blur-md border border-primary/20 text-foreground hover:bg-card/20 hover:border-primary/40 hover:shadow-lg",
+        hero: "bg-gradient-to-r from-primary to-teal-light text-primary-foreground hover:scale-105 transform transition-all duration-300 font-semibold border-0",
+        premium: "bg-gradient-to-r from-teal-light to-primary text-primary-foreground hover:from-primary hover:to-teal-accent transform hover:-translate-y-1 border border-primary/30",
+        glass: "bg-card/10 backdrop-blur-md border border-primary/20 text-foreground hover:bg-card/20 hover:border-primary/40",
       },
       size: {
         default: "h-11 px-6 py-2",
