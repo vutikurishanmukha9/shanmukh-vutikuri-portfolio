@@ -1,4 +1,4 @@
-import { Award, Cloud, Database, Code, BarChart3, FileSpreadsheet } from 'lucide-react';
+import { Award, Cloud, Database, Code, BarChart3, FileSpreadsheet, Brain } from 'lucide-react';
 
 export const CertificationsSection = () => {
   const certifications = [
@@ -8,6 +8,13 @@ export const CertificationsSection = () => {
       icon: Cloud,
       description: 'Foundational understanding of AWS cloud services, architecture, and best practices',
       category: 'Cloud Computing',
+    },
+    {
+      title: 'Oracle Certified AI Foundations Associate',
+      issuer: 'Oracle',
+      icon: Brain,
+      description: 'Foundational knowledge of artificial intelligence concepts, machine learning, and AI implementation strategies',
+      category: 'Artificial Intelligence',
     },
     {
       title: 'Oracle Certified Foundations Associate',
