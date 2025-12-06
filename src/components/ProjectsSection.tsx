@@ -1,75 +1,187 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github, Code } from 'lucide-react';
+import { ExternalLink, Github, Code, Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
 
 export const ProjectsSection = () => {
   const [activeFilter, setActiveFilter] = useState('All');
-  
+  const [isVisible, setIsVisible] = useState(false);
+  const [showAll, setShowAll] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
   const projects = [
+    // Featured projects first (top 3)
     {
       title: 'AI Health ChatBot',
-      description: 'Developed an intelligent healthcare chatbot using advanced NLP and machine learning algorithms. Features include symptom analysis, medical consultation assistance, and real-time health monitoring integration.',
+      description: 'Intelligent healthcare chatbot using advanced NLP and machine learning for symptom analysis, medical consultation assistance, and real-time health monitoring.',
       tech: ['Python', 'NLP', 'TensorFlow', 'Flask', 'React'],
       category: 'AI/ML',
       github: 'https://github.com/vutikurishanmukha9/OUR-D-at-YOUR-D',
       demo: 'https://odatyd.netlify.app/',
       image: '/lovable-uploads/467f512b-9e12-4f80-bd90-5707014f83bb.png',
-      achievements: ['96% accuracy in symptom detection', 'Reduced consultation time by 40%'],
       featured: true,
     },
     {
-      title: 'Automated Attendance System',
-      description: 'Implemented a computer vision-based attendance tracking system using facial recognition technology. Integrated with cloud storage and real-time notifications for seamless attendance management.',
-      tech: ['Python', 'OpenCV', 'AWS', 'MySQL', 'React'],
+      title: 'Jarvis PDF Chatbot',
+      description: 'AI-powered PDF question answering system with multi-provider LLM support (OpenAI, OpenRouter). Upload PDFs and chat with your documents using RAG technology.',
+      tech: ['Python', 'LangChain', 'Streamlit', 'OpenAI', 'FAISS'],
+      category: 'AI/ML',
+      github: 'https://github.com/vutikurishanmukha9/Jarvis',
+      demo: '',
+      image: '',
+      featured: true,
+    },
+    {
+      title: 'Touchless Keyboard',
+      description: 'Gesture-controlled virtual keyboard using computer vision and hand tracking. Type without touching any physical surface using AI-enhanced gesture recognition.',
+      tech: ['Python', 'OpenCV', 'MediaPipe', 'Machine Learning'],
       category: 'Computer Vision',
-      github: 'https://github.com/vutikurishanmukha9/Automated-Attendance-System',
-      demo: '#',
-      image: '/lovable-uploads/b6f3bc70-e6d7-4258-92c6-118f746875ac.png',
-      achievements: ['99.2% recognition accuracy', 'Automated record keeping'],
+      github: 'https://github.com/vutikurishanmukha9/Touchless-Keyboard',
+      demo: '',
+      image: '',
+      featured: true,
+    },
+    // Other projects
+    {
+      title: 'Resume Analyzer AI',
+      description: 'Smart resume analysis tool that provides ATS scoring, keyword recommendations, skills extraction, salary predictions, and detailed improvement suggestions.',
+      tech: ['Python', 'Flask', 'NLP', 'Machine Learning', 'REST API'],
+      category: 'AI/ML',
+      github: 'https://github.com/vutikurishanmukha9/Resume_App',
+      demo: '',
+      image: '',
       featured: false,
     },
     {
-      title: 'Smart IoT Energy Management',
-      description: 'Built an IoT-driven occupancy detection system for smart buildings with Arduino, IR sensors, and DHT sensors. Achieved significant energy savings through real-time automation and intelligent control systems.',
-      tech: ['Arduino', 'IoT', 'Python', 'AWS IoT', 'React'],
-      category: 'IoT',
-      github: '#',
-      demo: '#',
-      image: '/lovable-uploads/7ee8508c-3ca5-460d-903f-85eedeeb2ca7.png',
-      achievements: ['96% detection accuracy', '60ms response time', '30% energy savings'],
-      featured: true,
+      title: 'PromptBuddy',
+      description: 'AI prompt engineering tool that transforms basic prompts into structured, optimized templates using intelligent template matching - no API keys required.',
+      tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS'],
+      category: 'Web App',
+      github: 'https://github.com/vutikurishanmukha9/PromptBuddy',
+      demo: '',
+      image: '',
+      featured: false,
+    },
+    {
+      title: 'HeartOut',
+      description: 'Personal storytelling platform where users can share achievements, lessons learned, unsent letters, and life journeys. Built with a focus on authentic self-expression.',
+      tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
+      category: 'Web App',
+      github: 'https://github.com/vutikurishanmukha9/HeartOut',
+      demo: '',
+      image: '',
+      featured: false,
+    },
+    {
+      title: 'HiHR - HR Email Outreach',
+      description: 'Smart HR cold emailing platform with campaign management, Gmail integration, encrypted credentials, and automated email sending for job seekers.',
+      tech: ['Node.js', 'Express', 'React', 'SQLite', 'SMTP'],
+      category: 'Web App',
+      github: 'https://github.com/vutikurishanmukha9/HR_Cold_Email',
+      demo: '',
+      image: '',
+      featured: false,
+    },
+    {
+      title: 'Automated Attendance System',
+      description: 'Computer vision-based attendance tracking using facial recognition technology with cloud storage and real-time notifications.',
+      tech: ['Python', 'OpenCV', 'AWS', 'MySQL', 'React'],
+      category: 'Computer Vision',
+      github: 'https://github.com/vutikurishanmukha9/Automated-Attendance-System',
+      demo: '',
+      image: '/lovable-uploads/b6f3bc70-e6d7-4258-92c6-118f746875ac.png',
+      featured: false,
+    },
+    {
+      title: 'Employee Data Analysis',
+      description: 'Comprehensive EDA project analyzing employee data with data preprocessing, visualization, and actionable HR insights using Python data science stack.',
+      tech: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
+      category: 'Data Analysis',
+      github: 'https://github.com/vutikurishanmukha9/Employee_Data_Analysis',
+      demo: '',
+      image: '',
+      featured: false,
+    },
+    {
+      title: 'Adidas US Sales Analysis',
+      description: 'Business intelligence project analyzing Adidas US sales data to uncover insights on revenue trends, regional performance, and product categories.',
+      tech: ['Python', 'Pandas', 'Power BI', 'Excel', 'Visualization'],
+      category: 'Data Analysis',
+      github: 'https://github.com/vutikurishanmukha9/Adidas_US_Sales',
+      demo: '',
+      image: '',
+      featured: false,
     },
   ];
 
-  const categories = ['All', 'AI/ML', 'Computer Vision', 'IoT'];
-  const filteredProjects = activeFilter === 'All' 
-    ? projects 
+  const categories = ['All', 'AI/ML', 'Computer Vision', 'Web App', 'Data Analysis'];
+
+  // Filter projects based on category
+  const filteredProjects = activeFilter === 'All'
+    ? projects
     : projects.filter(project => project.category === activeFilter);
 
+  // Show only top 3 initially, or all if showAll is true or if filtering
+  const displayedProjects = (showAll || activeFilter !== 'All')
+    ? filteredProjects
+    : filteredProjects.slice(0, 3);
+
+  const remainingCount = filteredProjects.length - 3;
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Reset showAll when filter changes
+  useEffect(() => {
+    if (activeFilter !== 'All') {
+      setShowAll(false);
+    }
+  }, [activeFilter]);
+
   return (
-    <section id="projects" className="py-20 lg:py-32">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section ref={sectionRef} id="projects" className="py-24 lg:py-32 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 grid-pattern opacity-10" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold mb-4">
+          <span className="inline-block px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-4">
+            My Work
+          </span>
+          <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
             Featured <span className="text-gradient">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             A showcase of innovative solutions combining AI, cloud computing, and modern web technologies
           </p>
-          <div className="w-24 h-1 bg-primary mx-auto rounded-full mt-6"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
         </div>
-        
+
         {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveFilter(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeFilter === category
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-card/50 text-muted-foreground hover:bg-primary/20 hover:text-primary'
-              }`}
+              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === category
+                  ? 'btn-glow text-background'
+                  : 'glass text-muted-foreground hover:text-primary hover:border-primary/30'
+                }`}
             >
               {category}
             </button>
@@ -77,26 +189,35 @@ export const ProjectsSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <div
               key={index}
-              className="group bg-card/50 backdrop-blur-sm border border-border rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+              className={`group glass rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 ${isVisible ? 'slide-up' : 'opacity-0'
+                }`}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Project Image */}
+              {/* Project Image or Gradient Placeholder */}
               <div className="relative h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/10 flex items-center justify-center">
+                    <Code className="h-16 w-16 text-primary/40" />
+                  </div>
+                )}
                 {project.featured && (
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-primary text-primary-foreground text-xs rounded-full">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-primary to-secondary text-background text-xs font-semibold rounded-full">
+                      <Sparkles className="h-3 w-3" />
                       Featured
                     </span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
               </div>
 
               <div className="p-6">
@@ -109,58 +230,56 @@ export const ProjectsSection = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-gradient transition-colors duration-300">
+                <h3 className="text-xl font-bold text-foreground font-display mb-3 group-hover:text-gradient transition-colors duration-300">
                   {project.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
                   {project.description}
                 </p>
 
-                {/* Achievements */}
-                {project.achievements && (
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-1">
-                      {project.achievements.map((achievement, achIndex) => (
-                        <span
-                          key={achIndex}
-                          className="px-2 py-1 bg-accent/10 text-accent text-xs rounded-md border border-accent/20"
-                        >
-                          {achievement}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
                 {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((tech, techIndex) => (
+                  {project.tech.slice(0, 4).map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20"
+                      className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground"
                     >
                       {tech}
                     </span>
                   ))}
+                  {project.tech.length > 4 && (
+                    <span className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground">
+                      +{project.tech.length - 4}
+                    </span>
+                  )}
                 </div>
 
                 {/* Action Buttons */}
                 <div className="flex gap-3">
-                  <Button variant="hero" size="sm" className="flex-1 group/btn" asChild>
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Github className="h-4 w-4 group-hover/btn:scale-110 transition-transform duration-300" />
-                      Code
-                    </a>
-                  </Button>
-                  
-                  {project.demo !== '#' && (
-                    <Button variant="outline" size="sm" className="flex-1 group/btn" asChild>
+                  {project.github !== '#' && (
+                    <Button className="flex-1 btn-glow group/btn" size="sm" asChild>
+                      <a href={project.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="h-4 w-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
+                        Code
+                      </a>
+                    </Button>
+                  )}
+
+                  {project.demo && (
+                    <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 group/btn" asChild>
                       <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 group-hover/btn:scale-110 transition-transform duration-300" />
+                        <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                         Demo
                       </a>
+                    </Button>
+                  )}
+
+                  {!project.demo && project.github !== '#' && (
+                    <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 opacity-50 cursor-not-allowed" disabled>
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Coming Soon
                     </Button>
                   )}
                 </div>
@@ -169,16 +288,39 @@ export const ProjectsSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg" asChild>
+        {/* See All / Show Less Button */}
+        {activeFilter === 'All' && remainingCount > 0 && (
+          <div className="text-center mt-12">
+            <Button
+              variant="outline"
+              size="lg"
+              className="glass hover:border-primary/50 group"
+              onClick={() => setShowAll(!showAll)}
+            >
+              {showAll ? (
+                <>
+                  <ChevronUp className="h-5 w-5 mr-2 group-hover:-translate-y-0.5 transition-transform" />
+                  Show Less
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="h-5 w-5 mr-2 group-hover:translate-y-0.5 transition-transform" />
+                  See All Projects ({remainingCount} more)
+                </>
+              )}
+            </Button>
+          </div>
+        )}
+
+        <div className="text-center mt-8">
+          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary group" asChild>
             <a
               href="https://github.com/vutikurishanmukha9"
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
             >
-              <Github className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-              View More on GitHub
+              <Github className="h-4 w-4 mr-2 group-hover:rotate-12 transition-transform" />
+              View GitHub Profile
             </a>
           </Button>
         </div>

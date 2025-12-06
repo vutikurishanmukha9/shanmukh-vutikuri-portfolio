@@ -1,53 +1,40 @@
-import { useEffect, useState } from 'react';
-import { Code, Database, Cloud, Brain, BarChart3, Calculator, PieChart, BarChart4, Cpu, Microchip, Radio, Wifi, Code2, Globe, Package, GitBranch, Terminal, Eye } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import { Code, Database, Cloud, Brain, BarChart3, Cpu } from 'lucide-react';
 
 export const SkillsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const skillCategories = [
     {
-      title: 'Programming Languages',
-      skills: [
-        { name: 'Python', level: 95, icon: Code },
-        { name: 'SQL', level: 90, icon: Database },
-      ],
+      title: 'Programming',
+      icon: Code,
+      color: 'from-cyan-500 to-blue-500',
+      skills: ['Python', 'SQL'],
     },
     {
       title: 'AI & Machine Learning',
-      skills: [
-        { name: 'TensorFlow', level: 85, icon: Brain },
-        { name: 'PyTorch', level: 80, icon: Brain },
-        { name: 'Scikit-learn', level: 90, icon: BarChart3 },
-        { name: 'OpenCV', level: 75, icon: Eye },
-      ],
+      icon: Brain,
+      color: 'from-purple-500 to-pink-500',
+      skills: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'OpenCV'],
     },
     {
       title: 'Cloud & DevOps',
-      skills: [
-        { name: 'AWS', level: 88, icon: Cloud },
-        { name: 'Docker', level: 75, icon: Package },
-        { name: 'Git', level: 92, icon: GitBranch },
-        { name: 'Linux', level: 80, icon: Terminal },
-      ],
+      icon: Cloud,
+      color: 'from-blue-500 to-cyan-500',
+      skills: ['AWS', 'Docker', 'Git', 'Linux'],
     },
     {
       title: 'Data & Analytics',
-      skills: [
-        { name: 'Pandas', level: 92, icon: BarChart3 },
-        { name: 'NumPy', level: 90, icon: Calculator },
-        { name: 'Tableau', level: 85, icon: PieChart },
-        { name: 'Power BI', level: 92, icon: BarChart4 },
-        { name: 'Microsoft Excel', level: 95, icon: BarChart3 },
-      ],
+      icon: BarChart3,
+      color: 'from-green-500 to-emerald-500',
+      skills: ['Pandas', 'NumPy', 'Tableau', 'Power BI', 'Excel'],
     },
     {
       title: 'IoT & Hardware',
-      skills: [
-        { name: 'Arduino', level: 85, icon: Cpu },
-        { name: 'Raspberry Pi', level: 80, icon: Microchip },
-        { name: 'Sensor Integration', level: 88, icon: Radio },
-        { name: 'MQTT', level: 75, icon: Wifi },
-      ],
+      icon: Cpu,
+      color: 'from-orange-500 to-red-500',
+      skills: ['Arduino', 'Raspberry Pi', 'Sensors', 'MQTT'],
     },
   ];
 
@@ -58,67 +45,64 @@ export const SkillsSection = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
-    const element = document.getElementById('skills');
-    if (element) {
-      observer.observe(element);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
 
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="skills" className="py-20 lg:py-32">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section ref={sectionRef} id="skills" className="py-24 lg:py-32 relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 grid-pattern opacity-20" />
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold mb-4">
+          <span className="inline-block px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-4">
+            What I do best
+          </span>
+          <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
             Technical <span className="text-gradient">Skills</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Comprehensive expertise across AI, cloud computing, and data analytics
           </p>
-          <div className="w-24 h-1 bg-primary mx-auto rounded-full mt-6"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {skillCategories.map((category, categoryIndex) => (
             <div
               key={categoryIndex}
-              className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-lg"
+              className={`group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 ${isVisible ? 'slide-up' : 'opacity-0'
+                }`}
+              style={{ animationDelay: `${categoryIndex * 0.1}s` }}
             >
-              <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
-                {category.title}
-              </h3>
-              
-              <div className="space-y-4">
+              {/* Category Header */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                  <category.icon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground font-display">
+                  {category.title}
+                </h3>
+              </div>
+
+              {/* Skills as tags */}
+              <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <skill.icon className="h-4 w-4 text-primary" />
-                        <span className="text-sm font-medium text-foreground">
-                          {skill.name}
-                        </span>
-                      </div>
-                      <span className="text-xs text-muted-foreground font-medium">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    
-                    <div className="w-full bg-muted rounded-full h-2">
-                      <div
-                        className="bg-gradient-to-r from-primary to-primary/80 h-2 rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.level}%` }}
-                      ></div>
-                    </div>
-                  </div>
+                  <span
+                    key={skillIndex}
+                    className="px-3 py-2 glass rounded-lg text-sm font-medium text-foreground hover:border-primary/30 hover:text-primary transition-all duration-300"
+                  >
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>

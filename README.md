@@ -1,73 +1,132 @@
-# Welcome to your Lovable project
+# Shanmukha Vutikuri - Portfolio
 
-## Project info
+A modern, responsive portfolio website showcasing my projects, skills, and professional experience in AI/ML, Cloud Computing, and Data Analytics.
 
-**URL**: https://lovable.dev/projects/d7294ffd-fcd7-41bd-b595-f78c5f8ae224
+## Live Demo
 
-## How can I edit this code?
+[View Portfolio](https://shanmukha-vutikuri.netlify.app) *(Add your deployed URL)*
 
-There are several ways of editing your application.
+## Preview
 
-**Use Lovable**
+![Portfolio Preview](./preview.png) *(Add a screenshot)*
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d7294ffd-fcd7-41bd-b595-f78c5f8ae224) and start prompting.
+## Features
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Premium Dark Theme** - Elegant dark design with cyan/purple gradient accents
+- **Glassmorphism UI** - Modern frosted glass effect cards and containers
+- **Custom Cursor** - Interactive cursor with glow effect and hover states
+- **Animated Particles** - Floating particle background in hero section
+- **Smooth Animations** - Scroll-triggered animations and micro-interactions
+- **Responsive Design** - Fully optimized for mobile, tablet, and desktop
+- **SEO Optimized** - Proper meta tags and semantic HTML structure
 
-**Use your preferred IDE**
+## Sections
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+| Section | Description |
+|---------|-------------|
+| **Hero** | Animated intro with rotating titles and social links |
+| **About** | Professional summary with animated statistics |
+| **Skills** | Categorized technical skills with clean tag layout |
+| **Projects** | 10 featured projects with filtering and expand/collapse |
+| **Certifications** | AWS, Oracle, and IBM professional certifications |
+| **Publications** | IEEE research publication with key metrics |
+| **Contact** | Contact form with email and social links |
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Tech Stack
 
-Follow these steps:
+- **Framework:** React 18 + TypeScript
+- **Build Tool:** Vite
+- **Styling:** TailwindCSS + Custom CSS
+- **UI Components:** shadcn/ui (minimal)
+- **Icons:** Lucide React
+- **Routing:** React Router DOM
+- **State Management:** TanStack Query
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Quick Start
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+# Clone the repository
+git clone https://github.com/vutikurishanmukha9/shanmukh-vutikuri-portfolio.git
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Navigate to directory
+cd shanmukh-vutikuri-portfolio
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## Project Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+├── components/
+│   ├── ui/              # Minimal shadcn/ui components
+│   ├── AboutSection.tsx
+│   ├── CertificationsSection.tsx
+│   ├── ContactForm.tsx
+│   ├── ContactSection.tsx
+│   ├── CustomCursor.tsx
+│   ├── Footer.tsx
+│   ├── HeroSection.tsx
+│   ├── Navigation.tsx
+│   ├── ParticlesBackground.tsx
+│   ├── ProjectsSection.tsx
+│   ├── PublicationsSection.tsx
+│   └── SkillsSection.tsx
+├── hooks/               # Custom React hooks
+├── lib/                 # Utility functions
+├── pages/
+│   ├── Index.tsx        # Main portfolio page
+│   └── NotFound.tsx     # 404 page
+├── App.tsx              # App entry with routing
+├── index.css            # Global styles & design system
+└── main.tsx             # React entry point
+```
 
-**Use GitHub Codespaces**
+## Customization
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Colors
+Edit the CSS variables in `src/index.css`:
+```css
+:root {
+  --primary: 187 100% 42%;    /* Cyan */
+  --secondary: 262 83% 58%;   /* Purple */
+  --background: 240 10% 4%;   /* Dark */
+}
+```
 
-## What technologies are used for this project?
+### Content
+Update your information in the component files:
+- **Projects:** `src/components/ProjectsSection.tsx`
+- **Skills:** `src/components/SkillsSection.tsx`
+- **Certifications:** `src/components/CertificationsSection.tsx`
+- **Contact Info:** `src/components/ContactSection.tsx` & `Footer.tsx`
 
-This project is built with:
+## Deployment
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Build the production bundle:
+```bash
+npm run build
+```
 
-## How can I deploy this project?
+Deploy the `dist` folder to:
+- **Netlify** - Drag & drop or connect GitHub
+- **Vercel** - Import from GitHub
+- **GitHub Pages** - Use gh-pages package
 
-Simply open [Lovable](https://lovable.dev/projects/d7294ffd-fcd7-41bd-b595-f78c5f8ae224) and click on Share -> Publish.
+## Author
 
-## Can I connect a custom domain to my Lovable project?
+**Vutikuri Shanmukha**
+- GitHub: [@vutikurishanmukha9](https://github.com/vutikurishanmukha9)
+- LinkedIn: [shanmukha-vutikuri](https://linkedin.com/in/shanmukha-vutikuri)
+- Email: vutikurishanmukh17@gmail.com
 
-Yes, you can!
+## License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is open source and available under the [MIT License](LICENSE).
