@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { ContactForm } from '@/components/ContactForm';
-import { Github, Linkedin, Mail, ExternalLink, Phone } from 'lucide-react';
+import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
 
 export const ContactSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,13 +13,6 @@ export const ContactSection = () => {
       value: 'vutikurishanmukh17@gmail.com',
       href: 'mailto:vutikurishanmukh17@gmail.com',
       color: 'from-cyan-500 to-blue-500',
-    },
-    {
-      icon: Phone,
-      label: 'Available for',
-      value: 'Remote & On-site Work',
-      href: '#',
-      color: 'from-purple-500 to-pink-500',
     },
   ];
 

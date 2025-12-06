@@ -86,7 +86,6 @@ export const Footer = () => {
                 <p className="hover:text-primary transition-colors">
                   <a href="mailto:vutikurishanmukh17@gmail.com">vutikurishanmukh17@gmail.com</a>
                 </p>
-                <p>+91-8978467769</p>
               </div>
             </div>
           </div>
