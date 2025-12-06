@@ -13,6 +13,7 @@ export const Navigation = () => {
     { href: '#home', label: 'Home' },
     { href: '#about', label: 'About' },
     { href: '#skills', label: 'Skills' },
+    { href: '#career', label: 'Career' },
     { href: '#projects', label: 'Projects' },
     { href: '#certifications', label: 'Certifications' },
     { href: '#publications', label: 'Publications' },
@@ -78,8 +79,8 @@ export const Navigation = () => {
                   key={item.href}
                   onClick={() => scrollToSection(item.href)}
                   className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${activeSection === item.href.substring(1)
-                      ? 'text-primary'
-                      : 'text-muted-foreground hover:text-foreground'
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
                   {item.label}
@@ -112,8 +113,8 @@ export const Navigation = () => {
                   key={item.href}
                   onClick={() => scrollToSection(item.href)}
                   className={`text-left px-4 py-3 text-sm font-medium rounded-lg transition-all duration-300 ${activeSection === item.href.substring(1)
-                      ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                    ? 'text-primary bg-primary/10'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                     }`}
                 >
                   {item.label}
