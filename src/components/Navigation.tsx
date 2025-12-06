@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,9 +59,7 @@ export const Navigation = () => {
   return (
     <>
       {/* Fixed Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? 'glass-strong shadow-lg shadow-background/50'
-          : 'bg-transparent'
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-strong shadow-lg shadow-background/50' : 'bg-transparent'
         }`}>
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -89,15 +88,19 @@ export const Navigation = () => {
                   )}
                 </button>
               ))}
+              <ThemeToggle />
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-muted-foreground hover:text-primary transition-colors glass rounded-lg"
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
+            {/* Mobile Menu Button + Theme Toggle */}
+            <div className="md:hidden flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 text-muted-foreground hover:text-primary transition-colors glass rounded-lg"
+              >
+                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+            </div>
           </div>
 
           {/* Mobile Navigation */}
