@@ -4,11 +4,11 @@ A modern, responsive portfolio website showcasing my projects, skills, and profe
 
 ## Live Demo
 
-[View Portfolio](https://shanmukha-vutikuri.netlify.app) *(Add your deployed URL)*
+**[View Portfolio](https://shanmukhworld.netlify.app/)**
 
 ## Preview
 
-![Portfolio Preview](./preview.png) *(Add a screenshot)*
+![Portfolio Preview](./Portfolio.png)
 
 ## Features
 
