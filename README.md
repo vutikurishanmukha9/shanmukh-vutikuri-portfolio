@@ -12,13 +12,14 @@ A modern, responsive portfolio website showcasing my projects, skills, and profe
 
 ## Features
 
-- **Premium Dark Theme** - Elegant dark design with cyan/purple gradient accents
-- **Glassmorphism UI** - Modern frosted glass effect cards and containers
+- **Light/Dark Theme** - Toggle between elegant dark and clean light themes
+- **Premium UI Design** - Glassmorphism cards with gradient accents
 - **Custom Cursor** - Interactive cursor with glow effect and hover states
 - **Animated Particles** - Floating particle background in hero section
 - **Smooth Animations** - Scroll-triggered animations and micro-interactions
+- **Career Timeline** - Animated journey showcase with current status indicators
+- **Working Contact Form** - Netlify Forms integration for real email submissions
 - **Responsive Design** - Fully optimized for mobile, tablet, and desktop
-- **SEO Optimized** - Proper meta tags and semantic HTML structure
 
 ## Sections
 
@@ -27,10 +28,11 @@ A modern, responsive portfolio website showcasing my projects, skills, and profe
 | **Hero** | Animated intro with rotating titles and social links |
 | **About** | Professional summary with animated statistics |
 | **Skills** | Categorized technical skills with clean tag layout |
-| **Projects** | 10 featured projects with filtering and expand/collapse |
-| **Certifications** | AWS, Oracle, and IBM professional certifications |
+| **Career Journey** | Timeline of internship experiences with animations |
+| **Projects** | 10 projects with filtering and expand/collapse |
+| **Certifications** | AWS, Oracle, and IBM certifications |
 | **Publications** | IEEE research publication with key metrics |
-| **Contact** | Contact form with email and social links |
+| **Contact** | Working contact form with Netlify Forms |
 
 ## Tech Stack
 
@@ -39,8 +41,8 @@ A modern, responsive portfolio website showcasing my projects, skills, and profe
 - **Styling:** TailwindCSS + Custom CSS
 - **UI Components:** shadcn/ui (minimal)
 - **Icons:** Lucide React
-- **Routing:** React Router DOM
-- **State Management:** TanStack Query
+- **Forms:** Netlify Forms
+- **Hosting:** Netlify
 
 ## Quick Start
 
@@ -66,8 +68,9 @@ npm run build
 ```
 src/
 ├── components/
-│   ├── ui/              # Minimal shadcn/ui components
+│   ├── ui/                    # Minimal shadcn/ui components
 │   ├── AboutSection.tsx
+│   ├── CareerJourneySection.tsx
 │   ├── CertificationsSection.tsx
 │   ├── ContactForm.tsx
 │   ├── ContactSection.tsx
@@ -78,47 +81,43 @@ src/
 │   ├── ParticlesBackground.tsx
 │   ├── ProjectsSection.tsx
 │   ├── PublicationsSection.tsx
-│   └── SkillsSection.tsx
-├── hooks/               # Custom React hooks
-├── lib/                 # Utility functions
+│   ├── SkillsSection.tsx
+│   └── ThemeToggle.tsx
+├── context/
+│   └── ThemeContext.tsx       # Theme state management
+├── hooks/                     # Custom React hooks
+├── lib/                       # Utility functions
 ├── pages/
-│   ├── Index.tsx        # Main portfolio page
-│   └── NotFound.tsx     # 404 page
-├── App.tsx              # App entry with routing
-├── index.css            # Global styles & design system
-└── main.tsx             # React entry point
+│   ├── Index.tsx              # Main portfolio page
+│   └── NotFound.tsx           # 404 page
+├── App.tsx                    # App entry with routing
+├── index.css                  # Global styles & design system
+└── main.tsx                   # React entry point
 ```
 
 ## Customization
 
-### Colors
+### Theme Colors
 Edit the CSS variables in `src/index.css`:
 ```css
-:root {
-  --primary: 187 100% 42%;    /* Cyan */
-  --secondary: 262 83% 58%;   /* Purple */
-  --background: 240 10% 4%;   /* Dark */
+/* Dark Theme */
+:root, .dark {
+  --primary: 187 100% 42%;
+  --background: 240 10% 4%;
+}
+
+/* Light Theme */
+.light {
+  --primary: 187 100% 35%;
+  --background: 0 0% 100%;
 }
 ```
 
 ### Content
-Update your information in the component files:
 - **Projects:** `src/components/ProjectsSection.tsx`
 - **Skills:** `src/components/SkillsSection.tsx`
+- **Career:** `src/components/CareerJourneySection.tsx`
 - **Certifications:** `src/components/CertificationsSection.tsx`
-- **Contact Info:** `src/components/ContactSection.tsx` & `Footer.tsx`
-
-## Deployment
-
-Build the production bundle:
-```bash
-npm run build
-```
-
-Deploy the `dist` folder to:
-- **Netlify** - Drag & drop or connect GitHub
-- **Vercel** - Import from GitHub
-- **GitHub Pages** - Use gh-pages package
 
 ## Author
 
