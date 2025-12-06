@@ -1,3 +1,8 @@
+/**
+ * Tailwind CSS Configuration
+ * Custom theme with CSS variable-based colors for light/dark mode support
+ */
+
 import type { Config } from "tailwindcss";
 
 export default {
