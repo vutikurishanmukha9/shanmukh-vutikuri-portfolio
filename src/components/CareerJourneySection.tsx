@@ -61,7 +61,7 @@ export const CareerJourneySection = () => {
                         Career <span className="text-gradient">Journey</span>
                     </h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Every destination is a new opportunity to learn and grow in cloud computing
+                        Every destination is a new opportunity to learn and grow
                     </p>
                     <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
                 </div>
