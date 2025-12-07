@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Calendar, MapPin, Cloud, Train, CircleDot, ArrowRight } from 'lucide-react';
+import { Calendar, MapPin, Cloud, Train, CircleDot, Hourglass } from 'lucide-react';
 
 export const CareerJourneySection = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -7,21 +7,21 @@ export const CareerJourneySection = () => {
 
     const experiences = [
         {
-            title: 'Cloud Computing Engineering Intern',
-            company: 'EXCELr EdTech',
-            location: 'Remote',
-            period: 'Dec 2024 – Apr 2025',
-            description: 'Gaining hands-on experience in cloud computing technologies, working with AWS services, and developing cloud-native solutions.',
-            skills: ['AWS', 'Cloud Architecture', 'DevOps', 'Infrastructure'],
-            current: true,
-        },
-        {
             title: 'Cloud Engineering Intern',
             company: 'Brain O Vision',
             location: 'Remote',
             period: 'June 2024 – Aug 2024',
             description: 'Worked on cloud infrastructure projects, learned cloud deployment strategies, and gained practical experience with cloud platforms.',
             skills: ['Cloud Computing', 'Python', 'AWS', 'Automation'],
+            current: false,
+        },
+        {
+            title: 'Cloud Computing Engineering Intern',
+            company: 'EXCELr EdTech',
+            location: 'Remote',
+            period: 'Dec 2024 – Apr 2025',
+            description: 'Gained hands-on experience in cloud computing technologies, worked with AWS services, and developed cloud-native solutions.',
+            skills: ['AWS', 'Cloud Architecture', 'DevOps', 'Infrastructure'],
             current: false,
         },
     ];
@@ -68,64 +68,34 @@ export const CareerJourneySection = () => {
 
                 {/* Journey Track */}
                 <div className="max-w-4xl mx-auto relative">
-                    {/* The Railway Track - Animated gradient line */}
+                    {/* The Railway Track */}
                     <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-1">
                         <div className="absolute inset-0 bg-gradient-to-b from-primary via-secondary to-primary/20 rounded-full" />
-                        {/* Moving train indicator */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary rounded-full shadow-lg shadow-primary/50 animate-bounce"
-                            style={{ animationDuration: '2s' }} />
                     </div>
 
                     {/* Experience Stops */}
                     {experiences.map((exp, index) => (
                         <div
                             key={index}
-                            className={`relative mb-16 last:mb-0 ${isVisible ? 'slide-up' : 'opacity-0'}`}
+                            className={`relative mb-16 ${isVisible ? 'slide-up' : 'opacity-0'}`}
                             style={{ animationDelay: `${0.2 + index * 0.2}s` }}
                         >
                             {/* Station Stop Marker */}
                             <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-20">
-                                <div className={`relative ${exp.current ? 'scale-110' : ''}`}>
-                                    {/* Outer glow ring for current */}
-                                    {exp.current && (
-                                        <div className="absolute inset-0 w-14 h-14 -translate-x-1 -translate-y-1 bg-gradient-to-r from-primary to-secondary rounded-full opacity-30 animate-ping" />
-                                    )}
-                                    {/* Station marker */}
-                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-all duration-500 ${exp.current
-                                            ? 'bg-gradient-to-br from-primary to-secondary border-background shadow-lg shadow-primary/50'
-                                            : 'glass border-primary/30 hover:border-primary/60'
-                                        }`}>
-                                        {exp.current ? (
-                                            <Cloud className="h-5 w-5 text-background" />
-                                        ) : (
-                                            <CircleDot className="h-5 w-5 text-primary" />
-                                        )}
-                                    </div>
-                                    {/* Current badge */}
-                                    {exp.current && (
-                                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full whitespace-nowrap shadow-lg">
-                                            NOW HERE
-                                        </span>
-                                    )}
+                                <div className="w-12 h-12 rounded-full flex items-center justify-center border-4 glass border-primary/30 hover:border-primary/60 transition-all duration-500">
+                                    <CircleDot className="h-5 w-5 text-primary" />
                                 </div>
                             </div>
 
                             {/* Experience Card */}
-                            <div className={`ml-20 md:ml-0 ${index % 2 === 0
-                                    ? 'md:mr-[55%] md:pr-12'
-                                    : 'md:ml-[55%] md:pl-12'
+                            <div className={`ml-20 md:ml-0 ${index % 2 === 0 ? 'md:mr-[55%] md:pr-12' : 'md:ml-[55%] md:pl-12'
                                 }`}>
                                 <div className="group glass rounded-2xl p-6 lg:p-8 hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
                                     {/* Header */}
                                     <div className="mb-4">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${exp.current
-                                                    ? 'bg-gradient-to-r from-primary to-secondary text-background'
-                                                    : 'glass text-muted-foreground'
-                                                }`}>
-                                                {exp.current ? 'Current Stop' : 'Completed Stop'}
-                                            </span>
-                                        </div>
+                                        <span className="px-3 py-1 rounded-full text-xs font-semibold glass text-muted-foreground mb-2 inline-block">
+                                            Completed Stop
+                                        </span>
                                         <h3 className="text-xl lg:text-2xl font-bold text-foreground font-display group-hover:text-gradient transition-colors duration-300">
                                             {exp.title}
                                         </h3>
@@ -165,27 +135,36 @@ export const CareerJourneySection = () => {
                         </div>
                     ))}
 
-                    {/* Journey Continues Indicator */}
-                    <div className={`relative pt-8 ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.8s' }}>
-                        {/* End of track marker */}
+                    {/* Current Position - Waiting for Next Stop */}
+                    <div className={`relative pt-4 ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.8s' }}>
+                        {/* Current position marker with glow */}
                         <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-20">
-                            <div className="w-12 h-12 rounded-full glass border-2 border-dashed border-primary/40 flex items-center justify-center">
-                                <ArrowRight className="h-5 w-5 text-primary animate-pulse" />
+                            <div className="relative">
+                                <div className="absolute inset-0 w-14 h-14 -translate-x-1 -translate-y-1 bg-gradient-to-r from-primary to-secondary rounded-full opacity-30 animate-ping" />
+                                <div className="w-12 h-12 rounded-full flex items-center justify-center border-4 bg-gradient-to-br from-primary to-secondary border-background shadow-lg shadow-primary/50">
+                                    <Hourglass className="h-5 w-5 text-background" />
+                                </div>
+                                <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold rounded-full whitespace-nowrap shadow-lg">
+                                    NOW HERE
+                                </span>
                             </div>
                         </div>
 
-                        {/* Next destination card */}
-                        <div className="ml-20 md:ml-auto md:mr-[55%] md:pr-12">
-                            <div className="glass rounded-xl p-5 border-dashed border-2 border-primary/20 opacity-70 hover:opacity-100 transition-opacity">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                                        <Train className="h-5 w-5 text-primary" />
+                        {/* Waiting for next stop card */}
+                        <div className="ml-20 md:ml-[55%] md:pl-12">
+                            <div className="glass rounded-2xl p-6 lg:p-8 border-2 border-dashed border-primary/30">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                                        <Train className="h-7 w-7 text-primary" />
                                     </div>
                                     <div>
-                                        <p className="font-semibold text-foreground">Next Destination</p>
-                                        <p className="text-sm text-muted-foreground">The journey continues...</p>
+                                        <p className="text-xl font-bold text-foreground font-display">Waiting at the Station</p>
+                                        <p className="text-muted-foreground">Looking for the next exciting destination...</p>
                                     </div>
                                 </div>
+                                <p className="text-sm text-muted-foreground mt-4 italic">
+                                    The journey never ends — just new stops to explore!
+                                </p>
                             </div>
                         </div>
                     </div>
