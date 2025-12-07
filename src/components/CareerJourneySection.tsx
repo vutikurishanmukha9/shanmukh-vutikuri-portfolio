@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
-import { Briefcase, Calendar, MapPin, Cloud, Award } from 'lucide-react';
+import { Calendar, MapPin, Cloud, Rocket, GraduationCap, Zap } from 'lucide-react';
 
 export const CareerJourneySection = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [activeCard, setActiveCard] = useState<number | null>(null);
     const sectionRef = useRef<HTMLElement>(null);
 
     const experiences = [
@@ -11,10 +12,12 @@ export const CareerJourneySection = () => {
             company: 'EXCELr EdTech',
             location: 'Remote',
             period: 'Dec 2024 – Apr 2025',
-            type: 'Internship',
+            duration: '5 months',
             description: 'Gaining hands-on experience in cloud computing technologies, working with AWS services, and developing cloud-native solutions.',
             skills: ['AWS', 'Cloud Architecture', 'DevOps', 'Infrastructure'],
             icon: Cloud,
+            color: 'from-cyan-500 to-blue-600',
+            bgColor: 'bg-cyan-500/10',
             current: true,
         },
         {
@@ -22,10 +25,12 @@ export const CareerJourneySection = () => {
             company: 'Brain O Vision',
             location: 'Remote',
             period: 'June 2024 – Aug 2024',
-            type: 'Internship',
+            duration: '3 months',
             description: 'Worked on cloud infrastructure projects, learned cloud deployment strategies, and gained practical experience with cloud platforms.',
             skills: ['Cloud Computing', 'Python', 'AWS', 'Automation'],
             icon: Cloud,
+            color: 'from-purple-500 to-pink-600',
+            bgColor: 'bg-purple-500/10',
             current: false,
         },
     ];
@@ -49,99 +54,104 @@ export const CareerJourneySection = () => {
 
     return (
         <section ref={sectionRef} id="career" className="py-24 lg:py-32 relative overflow-hidden">
-            {/* Background elements */}
-            <div className="absolute inset-0 grid-pattern opacity-10" />
-            <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
+            {/* Animated background orbs */}
+            <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-3xl" />
 
             <div className="container mx-auto px-4 lg:px-8 relative z-10">
-                <div className="text-center mb-16">
-                    <span className="inline-block px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-4">
-                        Experience
-                    </span>
-                    <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
-                        Career <span className="text-gradient">Journey</span>
+                {/* Section Header */}
+                <div className={`text-center mb-20 ${isVisible ? 'slide-up' : 'opacity-0'}`}>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-6">
+                        <Rocket className="h-4 w-4" />
+                        Professional Experience
+                    </div>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-6">
+                        My Career <span className="text-gradient">Journey</span>
                     </h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        My professional growth path through impactful internship experiences in cloud computing
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        Building expertise in cloud computing through hands-on internship experiences
                     </p>
-                    <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
                 </div>
 
-                {/* Timeline */}
-                <div className="max-w-4xl mx-auto">
-                    <div className="relative">
-                        {/* Timeline line */}
-                        <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-secondary to-primary/30" />
+                {/* Experience Cards - Stacked Layout */}
+                <div className="max-w-5xl mx-auto space-y-8">
+                    {experiences.map((exp, index) => (
+                        <div
+                            key={index}
+                            className={`group relative ${isVisible ? 'slide-up' : 'opacity-0'}`}
+                            style={{ animationDelay: `${0.2 + index * 0.15}s` }}
+                            onMouseEnter={() => setActiveCard(index)}
+                            onMouseLeave={() => setActiveCard(null)}
+                        >
+                            {/* Glowing border on hover */}
+                            <div className={`absolute -inset-0.5 bg-gradient-to-r ${exp.color} rounded-3xl opacity-0 group-hover:opacity-100 blur transition-all duration-500`} />
 
-                        {experiences.map((exp, index) => (
-                            <div
-                                key={index}
-                                className={`relative flex items-start gap-8 mb-12 ${isVisible ? 'slide-up' : 'opacity-0'
-                                    }`}
-                                style={{ animationDelay: `${index * 0.2}s` }}
-                            >
-                                {/* Timeline dot */}
-                                <div className={`absolute left-8 md:left-1/2 -translate-x-1/2 z-10`}>
-                                    <div className={`w-16 h-16 rounded-full flex items-center justify-center ${exp.current
-                                            ? 'bg-gradient-to-br from-primary to-secondary animate-pulse'
-                                            : 'glass border-2 border-primary/30'
-                                        }`}>
-                                        <exp.icon className={`h-7 w-7 ${exp.current ? 'text-background' : 'text-primary'}`} />
+                            {/* Main Card */}
+                            <div className="relative glass rounded-3xl p-8 lg:p-10 hover:border-transparent transition-all duration-500">
+                                <div className="flex flex-col lg:flex-row gap-8">
+                                    {/* Left Section - Icon & Timeline */}
+                                    <div className="flex flex-row lg:flex-col items-center lg:items-start gap-4 lg:gap-6">
+                                        {/* Icon Container */}
+                                        <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${exp.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                                            <exp.icon className="h-10 w-10 text-white" />
+                                            {exp.current && (
+                                                <span className="absolute -top-2 -right-2 flex h-5 w-5">
+                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                                                    <span className="relative inline-flex rounded-full h-5 w-5 bg-green-500 border-2 border-background" />
+                                                </span>
+                                            )}
+                                        </div>
+
+                                        {/* Duration Badge */}
+                                        <div className={`px-4 py-2 rounded-xl ${exp.bgColor} text-sm font-medium whitespace-nowrap`}>
+                                            <span className="text-gradient font-bold">{exp.duration}</span>
+                                        </div>
                                     </div>
-                                    {exp.current && (
-                                        <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background animate-pulse" />
-                                    )}
-                                </div>
 
-                                {/* Content card */}
-                                <div className={`ml-24 md:ml-0 md:w-[calc(50%-3rem)] ${index % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'
-                                    }`}>
-                                    <div className="group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
+                                    {/* Right Section - Content */}
+                                    <div className="flex-1 space-y-5">
                                         {/* Header */}
-                                        <div className="flex items-start justify-between gap-4 mb-4">
+                                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
                                             <div>
                                                 {exp.current && (
-                                                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full mb-2">
-                                                        <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                                                        Current
+                                                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full mb-3 border border-green-500/30">
+                                                        <Zap className="h-3 w-3" />
+                                                        CURRENTLY WORKING
                                                     </span>
                                                 )}
-                                                <h3 className="text-xl font-bold text-foreground font-display group-hover:text-gradient transition-colors duration-300">
+                                                <h3 className="text-2xl lg:text-3xl font-bold text-foreground font-display group-hover:text-gradient transition-colors duration-300">
                                                     {exp.title}
                                                 </h3>
-                                                <p className="text-primary font-medium">{exp.company}</p>
-                                            </div>
-                                            <div className="flex-shrink-0">
-                                                <span className="inline-block px-3 py-1 glass text-xs text-muted-foreground rounded-lg">
-                                                    {exp.type}
-                                                </span>
+                                                <p className={`text-lg font-semibold bg-gradient-to-r ${exp.color} bg-clip-text text-transparent mt-1`}>
+                                                    {exp.company}
+                                                </p>
                                             </div>
                                         </div>
 
-                                        {/* Meta info */}
-                                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                                            <div className="flex items-center gap-1.5">
+                                        {/* Meta Info */}
+                                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                                            <div className="flex items-center gap-2 px-3 py-1.5 glass rounded-lg">
                                                 <Calendar className="h-4 w-4 text-primary" />
-                                                {exp.period}
+                                                <span>{exp.period}</span>
                                             </div>
-                                            <div className="flex items-center gap-1.5">
+                                            <div className="flex items-center gap-2 px-3 py-1.5 glass rounded-lg">
                                                 <MapPin className="h-4 w-4 text-primary" />
-                                                {exp.location}
+                                                <span>{exp.location}</span>
                                             </div>
                                         </div>
 
                                         {/* Description */}
-                                        <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                                        <p className="text-muted-foreground leading-relaxed text-base">
                                             {exp.description}
                                         </p>
 
                                         {/* Skills */}
-                                        <div className="flex flex-wrap gap-2">
+                                        <div className="flex flex-wrap gap-2 pt-2">
                                             {exp.skills.map((skill, skillIndex) => (
                                                 <span
                                                     key={skillIndex}
-                                                    className="px-2.5 py-1 bg-primary/10 text-primary text-xs rounded-lg font-medium"
+                                                    className={`px-4 py-2 rounded-xl text-sm font-medium ${exp.bgColor} border border-transparent hover:border-primary/30 transition-all duration-300 hover:scale-105 cursor-default`}
                                                 >
                                                     {skill}
                                                 </span>
@@ -149,16 +159,23 @@ export const CareerJourneySection = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
 
-                    {/* Journey start indicator */}
-                    <div className={`relative flex justify-center ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
-                        <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-0.5 h-12 bg-gradient-to-b from-primary/30 to-transparent" />
-                        <div className="mt-16 glass rounded-full px-6 py-3 flex items-center gap-2">
-                            <Award className="h-5 w-5 text-primary" />
-                            <span className="text-sm text-muted-foreground">Learning & Growing</span>
+                                {/* Decorative Elements */}
+                                <div className={`absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl ${exp.color} opacity-5 rounded-tl-full pointer-events-none`} />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Journey Indicator */}
+                <div className={`text-center mt-16 ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
+                    <div className="inline-flex items-center gap-3 px-6 py-4 glass rounded-2xl">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                            <GraduationCap className="h-5 w-5 text-white" />
+                        </div>
+                        <div className="text-left">
+                            <p className="text-sm text-muted-foreground">Continuous Learning</p>
+                            <p className="font-semibold text-foreground">Building Cloud Expertise</p>
                         </div>
                     </div>
                 </div>
