@@ -1,9 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
-import { Calendar, MapPin, Cloud, Rocket, GraduationCap, Zap } from 'lucide-react';
+import { Calendar, MapPin, Cloud, Train, CircleDot, ArrowRight } from 'lucide-react';
 
 export const CareerJourneySection = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [activeCard, setActiveCard] = useState<number | null>(null);
     const sectionRef = useRef<HTMLElement>(null);
 
     const experiences = [
@@ -12,12 +11,8 @@ export const CareerJourneySection = () => {
             company: 'EXCELr EdTech',
             location: 'Remote',
             period: 'Dec 2024 – Apr 2025',
-            duration: '5 months',
             description: 'Gaining hands-on experience in cloud computing technologies, working with AWS services, and developing cloud-native solutions.',
             skills: ['AWS', 'Cloud Architecture', 'DevOps', 'Infrastructure'],
-            icon: Cloud,
-            color: 'from-cyan-500 to-blue-600',
-            bgColor: 'bg-cyan-500/10',
             current: true,
         },
         {
@@ -25,12 +20,8 @@ export const CareerJourneySection = () => {
             company: 'Brain O Vision',
             location: 'Remote',
             period: 'June 2024 – Aug 2024',
-            duration: '3 months',
             description: 'Worked on cloud infrastructure projects, learned cloud deployment strategies, and gained practical experience with cloud platforms.',
             skills: ['Cloud Computing', 'Python', 'AWS', 'Automation'],
-            icon: Cloud,
-            color: 'from-purple-500 to-pink-600',
-            bgColor: 'bg-purple-500/10',
             current: false,
         },
     ];
@@ -54,128 +45,148 @@ export const CareerJourneySection = () => {
 
     return (
         <section ref={sectionRef} id="career" className="py-24 lg:py-32 relative overflow-hidden">
-            {/* Animated background orbs */}
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary/5 to-secondary/5 rounded-full blur-3xl" />
+            {/* Background */}
+            <div className="absolute inset-0 grid-pattern opacity-10" />
+            <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
 
             <div className="container mx-auto px-4 lg:px-8 relative z-10">
-                {/* Section Header */}
+                {/* Header */}
                 <div className={`text-center mb-20 ${isVisible ? 'slide-up' : 'opacity-0'}`}>
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-6">
-                        <Rocket className="h-4 w-4" />
+                        <Train className="h-4 w-4" />
                         Professional Experience
                     </div>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-6">
-                        My Career <span className="text-gradient">Journey</span>
+                    <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
+                        Career <span className="text-gradient">Journey</span>
                     </h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        Building expertise in cloud computing through hands-on internship experiences
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                        Every destination is a new opportunity to learn and grow in cloud computing
                     </p>
+                    <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
                 </div>
 
-                {/* Experience Cards - Stacked Layout */}
-                <div className="max-w-5xl mx-auto space-y-8">
+                {/* Journey Track */}
+                <div className="max-w-4xl mx-auto relative">
+                    {/* The Railway Track - Animated gradient line */}
+                    <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-1">
+                        <div className="absolute inset-0 bg-gradient-to-b from-primary via-secondary to-primary/20 rounded-full" />
+                        {/* Moving train indicator */}
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary rounded-full shadow-lg shadow-primary/50 animate-bounce"
+                            style={{ animationDuration: '2s' }} />
+                    </div>
+
+                    {/* Experience Stops */}
                     {experiences.map((exp, index) => (
                         <div
                             key={index}
-                            className={`group relative ${isVisible ? 'slide-up' : 'opacity-0'}`}
-                            style={{ animationDelay: `${0.2 + index * 0.15}s` }}
-                            onMouseEnter={() => setActiveCard(index)}
-                            onMouseLeave={() => setActiveCard(null)}
+                            className={`relative mb-16 last:mb-0 ${isVisible ? 'slide-up' : 'opacity-0'}`}
+                            style={{ animationDelay: `${0.2 + index * 0.2}s` }}
                         >
-                            {/* Glowing border on hover */}
-                            <div className={`absolute -inset-0.5 bg-gradient-to-r ${exp.color} rounded-3xl opacity-0 group-hover:opacity-100 blur transition-all duration-500`} />
+                            {/* Station Stop Marker */}
+                            <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-20">
+                                <div className={`relative ${exp.current ? 'scale-110' : ''}`}>
+                                    {/* Outer glow ring for current */}
+                                    {exp.current && (
+                                        <div className="absolute inset-0 w-14 h-14 -translate-x-1 -translate-y-1 bg-gradient-to-r from-primary to-secondary rounded-full opacity-30 animate-ping" />
+                                    )}
+                                    {/* Station marker */}
+                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-all duration-500 ${exp.current
+                                            ? 'bg-gradient-to-br from-primary to-secondary border-background shadow-lg shadow-primary/50'
+                                            : 'glass border-primary/30 hover:border-primary/60'
+                                        }`}>
+                                        {exp.current ? (
+                                            <Cloud className="h-5 w-5 text-background" />
+                                        ) : (
+                                            <CircleDot className="h-5 w-5 text-primary" />
+                                        )}
+                                    </div>
+                                    {/* Current badge */}
+                                    {exp.current && (
+                                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full whitespace-nowrap shadow-lg">
+                                            NOW HERE
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
 
-                            {/* Main Card */}
-                            <div className="relative glass rounded-3xl p-8 lg:p-10 hover:border-transparent transition-all duration-500">
-                                <div className="flex flex-col lg:flex-row gap-8">
-                                    {/* Left Section - Icon & Timeline */}
-                                    <div className="flex flex-row lg:flex-col items-center lg:items-start gap-4 lg:gap-6">
-                                        {/* Icon Container */}
-                                        <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${exp.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                                            <exp.icon className="h-10 w-10 text-white" />
-                                            {exp.current && (
-                                                <span className="absolute -top-2 -right-2 flex h-5 w-5">
-                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                                                    <span className="relative inline-flex rounded-full h-5 w-5 bg-green-500 border-2 border-background" />
-                                                </span>
-                                            )}
+                            {/* Experience Card */}
+                            <div className={`ml-20 md:ml-0 ${index % 2 === 0
+                                    ? 'md:mr-[55%] md:pr-12'
+                                    : 'md:ml-[55%] md:pl-12'
+                                }`}>
+                                <div className="group glass rounded-2xl p-6 lg:p-8 hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1">
+                                    {/* Header */}
+                                    <div className="mb-4">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${exp.current
+                                                    ? 'bg-gradient-to-r from-primary to-secondary text-background'
+                                                    : 'glass text-muted-foreground'
+                                                }`}>
+                                                {exp.current ? 'Current Stop' : 'Completed Stop'}
+                                            </span>
                                         </div>
+                                        <h3 className="text-xl lg:text-2xl font-bold text-foreground font-display group-hover:text-gradient transition-colors duration-300">
+                                            {exp.title}
+                                        </h3>
+                                        <p className="text-primary font-semibold text-lg mt-1">{exp.company}</p>
+                                    </div>
 
-                                        {/* Duration Badge */}
-                                        <div className={`px-4 py-2 rounded-xl ${exp.bgColor} text-sm font-medium whitespace-nowrap`}>
-                                            <span className="text-gradient font-bold">{exp.duration}</span>
+                                    {/* Meta info */}
+                                    <div className="flex flex-wrap gap-3 text-sm text-muted-foreground mb-4">
+                                        <div className="flex items-center gap-2 px-3 py-1.5 glass rounded-lg">
+                                            <Calendar className="h-4 w-4 text-primary" />
+                                            {exp.period}
+                                        </div>
+                                        <div className="flex items-center gap-2 px-3 py-1.5 glass rounded-lg">
+                                            <MapPin className="h-4 w-4 text-primary" />
+                                            {exp.location}
                                         </div>
                                     </div>
 
-                                    {/* Right Section - Content */}
-                                    <div className="flex-1 space-y-5">
-                                        {/* Header */}
-                                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
-                                            <div>
-                                                {exp.current && (
-                                                    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full mb-3 border border-green-500/30">
-                                                        <Zap className="h-3 w-3" />
-                                                        CURRENTLY WORKING
-                                                    </span>
-                                                )}
-                                                <h3 className="text-2xl lg:text-3xl font-bold text-foreground font-display group-hover:text-gradient transition-colors duration-300">
-                                                    {exp.title}
-                                                </h3>
-                                                <p className={`text-lg font-semibold bg-gradient-to-r ${exp.color} bg-clip-text text-transparent mt-1`}>
-                                                    {exp.company}
-                                                </p>
-                                            </div>
-                                        </div>
+                                    {/* Description */}
+                                    <p className="text-muted-foreground leading-relaxed mb-5">
+                                        {exp.description}
+                                    </p>
 
-                                        {/* Meta Info */}
-                                        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                                            <div className="flex items-center gap-2 px-3 py-1.5 glass rounded-lg">
-                                                <Calendar className="h-4 w-4 text-primary" />
-                                                <span>{exp.period}</span>
-                                            </div>
-                                            <div className="flex items-center gap-2 px-3 py-1.5 glass rounded-lg">
-                                                <MapPin className="h-4 w-4 text-primary" />
-                                                <span>{exp.location}</span>
-                                            </div>
-                                        </div>
-
-                                        {/* Description */}
-                                        <p className="text-muted-foreground leading-relaxed text-base">
-                                            {exp.description}
-                                        </p>
-
-                                        {/* Skills */}
-                                        <div className="flex flex-wrap gap-2 pt-2">
-                                            {exp.skills.map((skill, skillIndex) => (
-                                                <span
-                                                    key={skillIndex}
-                                                    className={`px-4 py-2 rounded-xl text-sm font-medium ${exp.bgColor} border border-transparent hover:border-primary/30 transition-all duration-300 hover:scale-105 cursor-default`}
-                                                >
-                                                    {skill}
-                                                </span>
-                                            ))}
-                                        </div>
+                                    {/* Skills */}
+                                    <div className="flex flex-wrap gap-2">
+                                        {exp.skills.map((skill, skillIndex) => (
+                                            <span
+                                                key={skillIndex}
+                                                className="px-3 py-1.5 bg-primary/10 text-primary text-sm rounded-lg font-medium hover:bg-primary/20 transition-colors"
+                                            >
+                                                {skill}
+                                            </span>
+                                        ))}
                                     </div>
                                 </div>
-
-                                {/* Decorative Elements */}
-                                <div className={`absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl ${exp.color} opacity-5 rounded-tl-full pointer-events-none`} />
                             </div>
                         </div>
                     ))}
-                </div>
 
-                {/* Journey Indicator */}
-                <div className={`text-center mt-16 ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
-                    <div className="inline-flex items-center gap-3 px-6 py-4 glass rounded-2xl">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                            <GraduationCap className="h-5 w-5 text-white" />
+                    {/* Journey Continues Indicator */}
+                    <div className={`relative pt-8 ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.8s' }}>
+                        {/* End of track marker */}
+                        <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-20">
+                            <div className="w-12 h-12 rounded-full glass border-2 border-dashed border-primary/40 flex items-center justify-center">
+                                <ArrowRight className="h-5 w-5 text-primary animate-pulse" />
+                            </div>
                         </div>
-                        <div className="text-left">
-                            <p className="text-sm text-muted-foreground">Continuous Learning</p>
-                            <p className="font-semibold text-foreground">Building Cloud Expertise</p>
+
+                        {/* Next destination card */}
+                        <div className="ml-20 md:ml-auto md:mr-[55%] md:pr-12">
+                            <div className="glass rounded-xl p-5 border-dashed border-2 border-primary/20 opacity-70 hover:opacity-100 transition-opacity">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                                        <Train className="h-5 w-5 text-primary" />
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-foreground">Next Destination</p>
+                                        <p className="text-sm text-muted-foreground">The journey continues...</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
