@@ -80,7 +80,7 @@ export const SkillsSection = () => {
           {skillCategories.map((category, categoryIndex) => (
             <div
               key={categoryIndex}
-              className={`group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 ${isVisible ? 'slide-up' : 'opacity-0'
+              className={`group glass card-shine rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 ${isVisible ? 'slide-up' : 'opacity-0'
                 }`}
               style={{ animationDelay: `${categoryIndex * 0.1}s` }}
             >
@@ -99,7 +99,7 @@ export const SkillsSection = () => {
                 {category.skills.map((skill, skillIndex) => (
                   <span
                     key={skillIndex}
-                    className="px-3 py-2 glass rounded-lg text-sm font-medium text-foreground hover:border-primary/30 hover:text-primary transition-all duration-300"
+                    className="skill-tag px-3 py-2 glass rounded-lg text-sm font-medium text-foreground hover:border-primary/30 hover:text-primary"
                   >
                     {skill}
                   </span>
