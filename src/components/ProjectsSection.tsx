@@ -57,7 +57,7 @@ export const ProjectsSection = () => {
       tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS'],
       category: 'Web App',
       github: 'https://github.com/vutikurishanmukha9/PromptBuddy',
-      demo: '',
+      demo: 'https://prompt-buddy-64y2.vercel.app/',
       image: '',
       featured: false,
     },
@@ -179,8 +179,8 @@ export const ProjectsSection = () => {
               key={category}
               onClick={() => setActiveFilter(category)}
               className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === category
-                  ? 'btn-glow text-background'
-                  : 'glass text-muted-foreground hover:text-primary hover:border-primary/30'
+                ? 'btn-glow text-background'
+                : 'glass text-muted-foreground hover:text-primary hover:border-primary/30'
                 }`}
             >
               {category}
