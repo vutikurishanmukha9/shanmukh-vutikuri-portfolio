@@ -145,22 +145,6 @@ export const SkillsSection = () => {
             </div>
           ))}
         </div>
-
-        {/* Skills count summary */}
-        <div className={`text-center mt-12 ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.6s' }}>
-          <div className="inline-flex items-center gap-4 px-6 py-3 glass rounded-full">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-primary to-secondary animate-pulse" />
-              <span className="text-sm text-muted-foreground">
-                <span className="text-foreground font-bold">{skillCategories.reduce((acc, cat) => acc + cat.skills.length, 0)}+</span> Technical Skills
-              </span>
-            </div>
-            <div className="w-px h-4 bg-border" />
-            <span className="text-sm text-muted-foreground">
-              <span className="text-foreground font-bold">{skillCategories.length}</span> Domains
-            </span>
-          </div>
-        </div>
       </div>
     </section>
   );
