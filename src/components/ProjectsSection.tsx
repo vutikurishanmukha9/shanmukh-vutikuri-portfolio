@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github, Sparkles, ChevronDown, ChevronUp, Brain, Cloud, Eye, Globe, BarChart3 } from 'lucide-react';
+import { ExternalLink, Github, Sparkles, ChevronDown, ChevronUp, Brain, Cloud, Eye, Globe, BarChart3, X, Filter } from 'lucide-react';
+import { useSkillFilter } from '@/context/SkillFilterContext';
 
 // Category config for dynamic visuals
 const categoryConfig: Record<string, { gradient: string; icon: typeof Brain; pattern: string }> = {
@@ -36,6 +37,7 @@ export const ProjectsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { selectedSkill, setSelectedSkill } = useSkillFilter();
 
   const projects = [
     // Featured projects first (top 3)
@@ -70,7 +72,7 @@ export const ProjectsSection = () => {
     {
       title: 'Resume Analyzer AI',
       description: 'Smart resume analysis tool that provides ATS scoring, keyword recommendations, skills extraction, salary predictions, and detailed improvement suggestions.',
-      tech: ['Python', 'Flask', 'NLP', 'Machine Learning', 'REST API'],
+      tech: ['Python', 'Flask', 'NLP', 'Machine Learning', 'REST API', 'Pytorch', 'TensorFlow'],
       category: 'AI/ML',
       github: 'https://github.com/vutikurishanmukha9/Resume_App',
       demo: '',
@@ -134,13 +136,23 @@ export const ProjectsSection = () => {
 
   const categories = ['All', 'AI/ML', 'Computer Vision', 'Web App', 'Data Analysis'];
 
-  // Filter projects based on category
-  const filteredProjects = activeFilter === 'All'
+  // Filter projects based on category AND skill filter
+  const filteredByCategory = activeFilter === 'All'
     ? projects
     : projects.filter(project => project.category === activeFilter);
 
+  // If a skill is selected, further filter by tech stack
+  const filteredProjects = selectedSkill
+    ? filteredByCategory.filter(project =>
+      project.tech.some(tech =>
+        tech.toLowerCase().includes(selectedSkill.toLowerCase()) ||
+        selectedSkill.toLowerCase().includes(tech.toLowerCase())
+      )
+    )
+    : filteredByCategory;
+
   // Show only top 3 initially, or all if showAll is true or if filtering
-  const displayedProjects = (showAll || activeFilter !== 'All')
+  const displayedProjects = (showAll || activeFilter !== 'All' || selectedSkill)
     ? filteredProjects
     : filteredProjects.slice(0, 3);
 
@@ -165,10 +177,21 @@ export const ProjectsSection = () => {
 
   // Reset showAll when filter changes
   useEffect(() => {
-    if (activeFilter !== 'All') {
+    if (activeFilter !== 'All' || selectedSkill) {
       setShowAll(false);
     }
-  }, [activeFilter]);
+  }, [activeFilter, selectedSkill]);
+
+  // Clear skill filter when switching category
+  const handleCategoryFilter = (category: string) => {
+    setActiveFilter(category);
+    setSelectedSkill(null);
+  };
+
+  // Clear skill filter
+  const clearSkillFilter = () => {
+    setSelectedSkill(null);
+  };
 
   // Get category visual config
   const getCategoryVisual = (category: string) => {
@@ -197,12 +220,12 @@ export const ProjectsSection = () => {
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 mb-6">
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => setActiveFilter(category)}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === category
+              onClick={() => handleCategoryFilter(category)}
+              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === category && !selectedSkill
                 ? 'btn-glow text-background'
                 : 'glass text-muted-foreground hover:text-primary hover:border-primary/30'
                 }`}
@@ -211,6 +234,39 @@ export const ProjectsSection = () => {
             </button>
           ))}
         </div>
+
+        {/* Active Skill Filter Badge */}
+        {selectedSkill && (
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex items-center gap-3 px-4 py-2 glass rounded-full border border-primary/30">
+              <Filter className="h-4 w-4 text-primary" />
+              <span className="text-sm text-muted-foreground">Showing projects with</span>
+              <span className="px-3 py-1 bg-gradient-to-r from-primary to-secondary text-background text-sm font-semibold rounded-full">
+                {selectedSkill}
+              </span>
+              <button
+                onClick={clearSkillFilter}
+                className="p-1 rounded-full hover:bg-destructive/20 transition-colors"
+                title="Clear filter"
+              >
+                <X className="h-4 w-4 text-muted-foreground hover:text-destructive" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* No results message */}
+        {filteredProjects.length === 0 && selectedSkill && (
+          <div className="text-center py-12 glass rounded-2xl mb-8">
+            <p className="text-lg text-muted-foreground mb-4">
+              No projects found using <span className="text-primary font-semibold">{selectedSkill}</span>
+            </p>
+            <Button variant="outline" size="sm" onClick={clearSkillFilter} className="glass">
+              <X className="h-4 w-4 mr-2" />
+              Clear Filter
+            </Button>
+          </div>
+        )}
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedProjects.map((project, index) => {

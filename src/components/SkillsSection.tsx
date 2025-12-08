@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
 import { Code, Database, Cloud, Brain, BarChart3, Cpu, Zap } from 'lucide-react';
+import { useSkillFilter } from '@/context/SkillFilterContext';
 
 export const SkillsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const { selectedSkill, setSelectedSkill } = useSkillFilter();
 
   const skillCategories = [
     {
@@ -68,6 +70,17 @@ export const SkillsSection = () => {
     return () => observer.disconnect();
   }, []);
 
+  const handleSkillClick = (skill: string) => {
+    // Set the selected skill and scroll to projects
+    setSelectedSkill(skill);
+
+    // Scroll to projects section
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section ref={sectionRef} id="skills" className="py-24 lg:py-32 relative overflow-hidden">
       {/* Background elements */}
@@ -85,7 +98,7 @@ export const SkillsSection = () => {
             Technical <span className="text-gradient">Skills</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive expertise across AI, cloud computing, and data analytics
+            Click on any skill to see related projects
           </p>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
         </div>
@@ -122,22 +135,30 @@ export const SkillsSection = () => {
                 </div>
               </div>
 
-              {/* Skills as interactive tags */}
+              {/* Skills as clickable interactive tags */}
               <div className="relative flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <span
-                    key={skillIndex}
-                    className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 cursor-default
-                      ${hoveredSkill === `${categoryIndex}-${skillIndex}`
-                        ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105`
-                        : 'glass text-foreground hover:text-primary border border-transparent hover:border-primary/20'
-                      }`}
-                    onMouseEnter={() => setHoveredSkill(`${categoryIndex}-${skillIndex}`)}
-                    onMouseLeave={() => setHoveredSkill(null)}
-                  >
-                    {skill}
-                  </span>
-                ))}
+                {category.skills.map((skill, skillIndex) => {
+                  const isSelected = selectedSkill === skill;
+                  const isHovered = hoveredSkill === `${categoryIndex}-${skillIndex}`;
+
+                  return (
+                    <button
+                      key={skillIndex}
+                      onClick={() => handleSkillClick(skill)}
+                      className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer
+                        ${isSelected
+                          ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105 ring-2 ring-white/30`
+                          : isHovered
+                            ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105`
+                            : 'glass text-foreground hover:text-primary border border-transparent hover:border-primary/20'
+                        }`}
+                      onMouseEnter={() => setHoveredSkill(`${categoryIndex}-${skillIndex}`)}
+                      onMouseLeave={() => setHoveredSkill(null)}
+                    >
+                      {skill}
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Decorative corner accent */}
