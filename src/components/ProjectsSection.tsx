@@ -318,7 +318,7 @@ export const ProjectsSection = () => {
                       <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 group/btn" asChild>
                         <a href={project.demo} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                          Demo
+                          Live
                         </a>
                       </Button>
                     )}
@@ -326,7 +326,7 @@ export const ProjectsSection = () => {
                     {!project.demo && project.github !== '#' && (
                       <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 opacity-50 cursor-not-allowed" disabled>
                         <ExternalLink className="h-4 w-4 mr-2" />
-                        Coming Soon
+                        In Process
                       </Button>
                     )}
                   </div>
