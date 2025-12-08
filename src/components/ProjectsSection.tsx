@@ -1,6 +1,35 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github, Code, Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
+import { ExternalLink, Github, Sparkles, ChevronDown, ChevronUp, Brain, Cloud, Eye, Globe, BarChart3 } from 'lucide-react';
+
+// Category config for dynamic visuals
+const categoryConfig: Record<string, { gradient: string; icon: typeof Brain; pattern: string }> = {
+  'AI/ML': {
+    gradient: 'from-violet-600 via-purple-500 to-fuchsia-500',
+    icon: Brain,
+    pattern: 'radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%)',
+  },
+  'Computer Vision': {
+    gradient: 'from-cyan-500 via-blue-500 to-indigo-600',
+    icon: Eye,
+    pattern: 'radial-gradient(circle at 30% 70%, rgba(6, 182, 212, 0.4) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.3) 0%, transparent 50%)',
+  },
+  'Web App': {
+    gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
+    icon: Globe,
+    pattern: 'radial-gradient(circle at 25% 75%, rgba(16, 185, 129, 0.4) 0%, transparent 50%), radial-gradient(circle at 75% 25%, rgba(6, 182, 212, 0.3) 0%, transparent 50%)',
+  },
+  'Data Analysis': {
+    gradient: 'from-amber-500 via-orange-500 to-red-500',
+    icon: BarChart3,
+    pattern: 'radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.3) 0%, transparent 50%)',
+  },
+  'Cloud': {
+    gradient: 'from-sky-500 via-blue-500 to-indigo-500',
+    icon: Cloud,
+    pattern: 'radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.4) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.3) 0%, transparent 50%)',
+  },
+};
 
 export const ProjectsSection = () => {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -17,7 +46,6 @@ export const ProjectsSection = () => {
       category: 'AI/ML',
       github: 'https://github.com/vutikurishanmukha9/OUR-D-at-YOUR-D',
       demo: 'https://odatyd.netlify.app/',
-      image: '/lovable-uploads/467f512b-9e12-4f80-bd90-5707014f83bb.png',
       featured: true,
     },
     {
@@ -27,7 +55,6 @@ export const ProjectsSection = () => {
       category: 'AI/ML',
       github: 'https://github.com/vutikurishanmukha9/Jarvis',
       demo: '',
-      image: '',
       featured: true,
     },
     {
@@ -37,7 +64,6 @@ export const ProjectsSection = () => {
       category: 'Computer Vision',
       github: 'https://github.com/vutikurishanmukha9/Touchless-Keyboard',
       demo: '',
-      image: '',
       featured: true,
     },
     // Other projects
@@ -48,7 +74,6 @@ export const ProjectsSection = () => {
       category: 'AI/ML',
       github: 'https://github.com/vutikurishanmukha9/Resume_App',
       demo: '',
-      image: '',
       featured: false,
     },
     {
@@ -58,7 +83,6 @@ export const ProjectsSection = () => {
       category: 'Web App',
       github: 'https://github.com/vutikurishanmukha9/PromptBuddy',
       demo: 'https://prompt-buddy-64y2.vercel.app/',
-      image: '',
       featured: false,
     },
     {
@@ -68,7 +92,6 @@ export const ProjectsSection = () => {
       category: 'Web App',
       github: 'https://github.com/vutikurishanmukha9/HeartOut',
       demo: '',
-      image: '',
       featured: false,
     },
     {
@@ -78,7 +101,6 @@ export const ProjectsSection = () => {
       category: 'Web App',
       github: 'https://github.com/vutikurishanmukha9/HR_Cold_Email',
       demo: '',
-      image: '',
       featured: false,
     },
     {
@@ -88,7 +110,6 @@ export const ProjectsSection = () => {
       category: 'Computer Vision',
       github: 'https://github.com/vutikurishanmukha9/Automated-Attendance-System',
       demo: '',
-      image: '/lovable-uploads/b6f3bc70-e6d7-4258-92c6-118f746875ac.png',
       featured: false,
     },
     {
@@ -98,7 +119,6 @@ export const ProjectsSection = () => {
       category: 'Data Analysis',
       github: 'https://github.com/vutikurishanmukha9/Employee_Data_Analysis',
       demo: '',
-      image: '',
       featured: false,
     },
     {
@@ -108,7 +128,6 @@ export const ProjectsSection = () => {
       category: 'Data Analysis',
       github: 'https://github.com/vutikurishanmukha9/Adidas_US_Sales',
       demo: '',
-      image: '',
       featured: false,
     },
   ];
@@ -151,6 +170,11 @@ export const ProjectsSection = () => {
     }
   }, [activeFilter]);
 
+  // Get category visual config
+  const getCategoryVisual = (category: string) => {
+    return categoryConfig[category] || categoryConfig['AI/ML'];
+  };
+
   return (
     <section ref={sectionRef} id="projects" className="py-24 lg:py-32 relative overflow-hidden">
       {/* Background elements */}
@@ -189,103 +213,127 @@ export const ProjectsSection = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {displayedProjects.map((project, index) => (
-            <div
-              key={index}
-              className={`group glass rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 ${isVisible ? 'slide-up' : 'opacity-0'
-                }`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Project Image or Gradient Placeholder */}
-              <div className="relative h-48 overflow-hidden">
-                {project.image ? (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          {displayedProjects.map((project, index) => {
+            const visual = getCategoryVisual(project.category);
+            const IconComponent = visual.icon;
+
+            return (
+              <div
+                key={index}
+                className={`group glass rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 ${isVisible ? 'slide-up' : 'opacity-0'
+                  }`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Dynamic Gradient Visual Header */}
+                <div className="relative h-48 overflow-hidden">
+                  {/* Base gradient */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${visual.gradient} opacity-90`} />
+
+                  {/* Animated pattern overlay */}
+                  <div
+                    className="absolute inset-0 opacity-60"
+                    style={{ background: visual.pattern }}
                   />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/10 flex items-center justify-center">
-                    <Code className="h-16 w-16 text-primary/40" />
+
+                  {/* Mesh gradient animation */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+                  {/* Animated floating shapes */}
+                  <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute top-4 right-4 w-20 h-20 border border-white/20 rounded-full animate-pulse" />
+                    <div className="absolute bottom-8 left-8 w-12 h-12 border border-white/10 rounded-lg rotate-45 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-white/10 rounded-full" />
                   </div>
-                )}
-                {project.featured && (
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-primary to-secondary text-background text-xs font-semibold rounded-full">
-                      <Sparkles className="h-3 w-3" />
-                      Featured
+
+                  {/* Category icon */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative">
+                      <IconComponent className="h-16 w-16 text-white/80 group-hover:scale-110 transition-transform duration-500" />
+                      <div className="absolute inset-0 blur-xl bg-white/20 rounded-full scale-150" />
+                    </div>
+                  </div>
+
+                  {/* Featured badge */}
+                  {project.featured && (
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/30">
+                        <Sparkles className="h-3 w-3" />
+                        Featured
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Bottom gradient fade */}
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
+                </div>
+
+                <div className="p-6">
+                  {/* Category tag */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <IconComponent className="h-4 w-4 text-primary" />
+                    <span className="text-xs text-primary font-medium">
+                      {project.category}
                     </span>
                   </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-              </div>
 
-              <div className="p-6">
-                {/* Category */}
-                <div className="flex items-center gap-2 mb-3">
-                  <Code className="h-4 w-4 text-primary" />
-                  <span className="text-xs text-primary font-medium">
-                    {project.category}
-                  </span>
-                </div>
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-foreground font-display mb-3 group-hover:text-gradient transition-colors duration-300">
+                    {project.title}
+                  </h3>
 
-                {/* Title */}
-                <h3 className="text-xl font-bold text-foreground font-display mb-3 group-hover:text-gradient transition-colors duration-300">
-                  {project.title}
-                </h3>
+                  {/* Description */}
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                    {project.description}
+                  </p>
 
-                {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
-                  {project.description}
-                </p>
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tech.slice(0, 4).map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.tech.length > 4 && (
+                      <span className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground">
+                        +{project.tech.length - 4}
+                      </span>
+                    )}
+                  </div>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.slice(0, 4).map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.tech.length > 4 && (
-                    <span className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground">
-                      +{project.tech.length - 4}
-                    </span>
-                  )}
-                </div>
+                  {/* Action Buttons */}
+                  <div className="flex gap-3">
+                    {project.github !== '#' && (
+                      <Button className="flex-1 btn-glow group/btn" size="sm" asChild>
+                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                          <Github className="h-4 w-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
+                          Code
+                        </a>
+                      </Button>
+                    )}
 
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  {project.github !== '#' && (
-                    <Button className="flex-1 btn-glow group/btn" size="sm" asChild>
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
-                        Code
-                      </a>
-                    </Button>
-                  )}
+                    {project.demo && (
+                      <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 group/btn" asChild>
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                          Demo
+                        </a>
+                      </Button>
+                    )}
 
-                  {project.demo && (
-                    <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 group/btn" asChild>
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                        Demo
-                      </a>
-                    </Button>
-                  )}
-
-                  {!project.demo && project.github !== '#' && (
-                    <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 opacity-50 cursor-not-allowed" disabled>
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Coming Soon
-                    </Button>
-                  )}
+                    {!project.demo && project.github !== '#' && (
+                      <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 opacity-50 cursor-not-allowed" disabled>
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Coming Soon
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* See All / Show Less Button */}
