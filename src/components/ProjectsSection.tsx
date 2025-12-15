@@ -93,7 +93,7 @@ export const ProjectsSection = () => {
       tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
       category: 'Web App',
       github: 'https://github.com/vutikurishanmukha9/HeartOut',
-      demo: '',
+      demo: 'https://heart-out.vercel.app/',
       featured: false,
     },
     {

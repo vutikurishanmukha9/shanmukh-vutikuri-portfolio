@@ -11,48 +11,54 @@ export const CertificationsSection = () => {
       issuer: 'Amazon Web Services',
       icon: Cloud,
       color: 'from-orange-500 to-amber-500',
-      description: 'Foundational understanding of AWS cloud services, architecture, and best practices',
+      description: 'Foundational understanding of AWS Cloud concepts, services, and terminology.',
       category: 'Cloud Computing',
+      credentialFile: '/certifications/AWS Certified Cloud Practitioner certificate.pdf',
     },
     {
       title: 'Oracle Certified AI Foundations Associate',
       issuer: 'Oracle',
       icon: Brain,
       color: 'from-red-500 to-rose-500',
-      description: 'Foundational knowledge of artificial intelligence concepts and machine learning',
+      description: 'Foundational knowledge of AI and machine learning concepts.',
       category: 'Artificial Intelligence',
+      credentialFile: '/certifications/Oracle AI Certified Foundations Associate.pdf',
     },
     {
       title: 'Oracle Certified Foundations Associate',
       issuer: 'Oracle',
       icon: Database,
       color: 'from-red-500 to-orange-500',
-      description: 'Comprehensive knowledge of Oracle database fundamentals and SQL concepts',
-      category: 'Database',
+      description: 'Comprehensive knowledge of Oracle Cloud Infrastructure fundamentals.',
+      category: 'Cloud & Database',
+      credentialFile: '/certifications/Oracle Certified Foundations Associate.pdf',
     },
     {
       title: 'IBM Data Analysis with Python',
       issuer: 'IBM',
       icon: BarChart3,
       color: 'from-blue-500 to-cyan-500',
-      description: 'Advanced data analysis techniques using Python libraries like pandas and NumPy',
+      description: 'Data analysis techniques using Python, pandas, and NumPy.',
       category: 'Data Analysis',
+      credentialFile: '/certifications/IBM-Data Analysis with Python.pdf',
     },
     {
       title: 'IBM SQL for Data Science',
       issuer: 'IBM',
       icon: FileSpreadsheet,
       color: 'from-blue-600 to-blue-400',
-      description: 'SQL fundamentals for data science applications and database querying',
+      description: 'SQL fundamentals for data science and database querying.',
       category: 'Data Science',
+      credentialFile: '/certifications/IBM-SQL and Relational Databases.pdf',
     },
     {
       title: 'IBM Python for Data Science',
       issuer: 'IBM',
       icon: Code,
       color: 'from-indigo-500 to-blue-500',
-      description: 'Python programming fundamentals for data science and machine learning',
+      description: 'Python programming fundamentals for data science.',
       category: 'Programming',
+      credentialFile: '/certifications/IBM-python for data science.pdf',
     },
   ];
 
@@ -96,9 +102,12 @@ export const CertificationsSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {certifications.map((cert, index) => (
-            <div
+            <a
               key={index}
-              className={`group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 relative ${isVisible ? 'slide-up' : 'opacity-0'
+              href={cert.credentialFile}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 relative block ${isVisible ? 'slide-up' : 'opacity-0'
                 }`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -130,11 +139,16 @@ export const CertificationsSection = () => {
                 </p>
               </div>
 
+              {/* View Certificate indicator */}
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <ExternalLink className="h-4 w-4 text-primary" />
+              </div>
+
               {/* Decorative Element */}
               <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
                 <Award className="h-8 w-8 text-primary" />
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
