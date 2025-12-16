@@ -92,9 +92,14 @@ export const Footer = () => {
 
           {/* Bottom Bar */}
           <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {currentYear} Vutikuri Shanmukha. All rights reserved.
-            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-sm text-muted-foreground text-center md:text-left">
+              <p>© {currentYear} Vutikuri Shanmukha. All rights reserved.</p>
+              <span className="hidden sm:inline text-border">•</span>
+              <p className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                Last updated: December 2025
+              </p>
+            </div>
 
             <Button
               variant="ghost"

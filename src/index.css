@@ -736,3 +736,115 @@ select,
 .border-glow-pulse {
   animation: border-glow 2s ease-in-out infinite;
 }
+
+/* ========================================
+   Smooth Section Transitions (AOS-style)
+   ======================================== */
+
+/* Base state for animated sections */
+.section-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children animations */
+.section-animate.visible .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+.section-animate.visible .stagger-item:nth-child(2) { transition-delay: 0.2s; }
+.section-animate.visible .stagger-item:nth-child(3) { transition-delay: 0.3s; }
+.section-animate.visible .stagger-item:nth-child(4) { transition-delay: 0.4s; }
+.section-animate.visible .stagger-item:nth-child(5) { transition-delay: 0.5s; }
+.section-animate.visible .stagger-item:nth-child(6) { transition-delay: 0.6s; }
+
+/* Fade variations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale up animation */
+.scale-up {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scale-up.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Blur in animation */
+.blur-in {
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.8s ease-out, filter 0.8s ease-out;
+}
+
+.blur-in.visible {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Smooth section divider */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* Page transition smoothness */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .section-animate,
+  .fade-up,
+  .fade-left,
+  .fade-right,
+  .scale-up,
+  .blur-in {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -20,6 +20,9 @@ A modern, responsive portfolio website showcasing my projects, skills, and profe
 - **Career Timeline** - Animated journey showcase with current status indicators
 - **Working Contact Form** - Netlify Forms integration for real email submissions
 - **Responsive Design** - Fully optimized for mobile, tablet, and desktop
+- **GitHub Activity** - Live contribution calendar with tooltips
+- **Skills-to-Projects Filter** - Click skills to filter related projects
+- **Page Loading Animation** - Elegant loading spinner on page load
 
 ## Sections
 
@@ -27,10 +30,11 @@ A modern, responsive portfolio website showcasing my projects, skills, and profe
 |---------|-------------|
 | **Hero** | Animated intro with rotating titles and social links |
 | **About** | Professional summary with animated statistics |
-| **Skills** | Categorized technical skills with clean tag layout |
+| **Building Activity** | GitHub contribution calendar with purple theme |
+| **Skills** | Interactive skills with project filtering |
 | **Career Journey** | Timeline of internship experiences with animations |
-| **Projects** | 10 projects with filtering and expand/collapse |
-| **Certifications** | AWS, Oracle, and IBM certifications |
+| **Projects** | 10+ projects with filtering and expand/collapse |
+| **Certifications** | AWS, Oracle, and IBM certifications (clickable PDFs) |
 | **Publications** | IEEE research publication with key metrics |
 | **Contact** | Working contact form with Netlify Forms |
 
@@ -41,6 +45,8 @@ A modern, responsive portfolio website showcasing my projects, skills, and profe
 - **Styling:** TailwindCSS + Custom CSS
 - **UI Components:** shadcn/ui (minimal)
 - **Icons:** Lucide React
+- **GitHub Calendar:** react-github-calendar
+- **Tooltips:** react-tooltip
 - **Forms:** Netlify Forms
 - **Hosting:** Netlify
 
@@ -68,7 +74,7 @@ npm run build
 ```
 src/
 ├── components/
-│   ├── ui/                    # Minimal shadcn/ui components
+│   ├── ui/                       # Minimal shadcn/ui components
 │   ├── AboutSection.tsx
 │   ├── CareerJourneySection.tsx
 │   ├── CertificationsSection.tsx
@@ -76,23 +82,26 @@ src/
 │   ├── ContactSection.tsx
 │   ├── CustomCursor.tsx
 │   ├── Footer.tsx
+│   ├── GrindingActivitySection.tsx  # GitHub contribution calendar
 │   ├── HeroSection.tsx
 │   ├── Navigation.tsx
+│   ├── PageLoader.tsx            # Loading animation
 │   ├── ParticlesBackground.tsx
 │   ├── ProjectsSection.tsx
 │   ├── PublicationsSection.tsx
 │   ├── SkillsSection.tsx
 │   └── ThemeToggle.tsx
 ├── context/
-│   └── ThemeContext.tsx       # Theme state management
-├── hooks/                     # Custom React hooks
-├── lib/                       # Utility functions
+│   ├── ThemeContext.tsx          # Theme state management
+│   └── SkillFilterContext.tsx    # Skills-to-projects filter
+├── hooks/                        # Custom React hooks
+├── lib/                          # Utility functions
 ├── pages/
-│   ├── Index.tsx              # Main portfolio page
-│   └── NotFound.tsx           # 404 page
-├── App.tsx                    # App entry with routing
-├── index.css                  # Global styles & design system
-└── main.tsx                   # React entry point
+│   ├── Index.tsx                 # Main portfolio page
+│   └── NotFound.tsx              # 404 page
+├── App.tsx                       # App entry with routing
+├── index.css                     # Global styles & design system
+└── main.tsx                      # React entry point
 ```
 
 ## Customization
@@ -118,6 +127,7 @@ Edit the CSS variables in `src/index.css`:
 - **Skills:** `src/components/SkillsSection.tsx`
 - **Career:** `src/components/CareerJourneySection.tsx`
 - **Certifications:** `src/components/CertificationsSection.tsx`
+- **GitHub Activity:** `src/components/GrindingActivitySection.tsx`
 
 ## Author
 
