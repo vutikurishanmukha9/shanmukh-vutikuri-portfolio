@@ -344,14 +344,23 @@ export const ProjectsSection = () => {
 
                   {/* Tech Stack */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.slice(0, 4).map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                    {project.tech.slice(0, 4).map((tech, techIndex) => {
+                      const isMatchedSkill = selectedSkill && tech.toLowerCase().includes(selectedSkill.toLowerCase());
+                      return (
+                        <span
+                          key={techIndex}
+                          className={`px-2.5 py-1 text-xs rounded-lg transition-all duration-300 ${isMatchedSkill
+                            ? 'bg-gradient-to-r from-primary to-secondary text-background font-semibold scale-105 shadow-lg shadow-primary/20 ring-2 ring-primary/30'
+                            : 'glass text-muted-foreground'
+                            }`}
+                        >
+                          {tech}
+                          {isMatchedSkill && (
+                            <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                          )}
+                        </span>
+                      );
+                    })}
                     {project.tech.length > 4 && (
                       <span className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground">
                         +{project.tech.length - 4}
@@ -429,6 +438,6 @@ export const ProjectsSection = () => {
           </Button>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
