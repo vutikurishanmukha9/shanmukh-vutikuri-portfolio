@@ -16,7 +16,7 @@ export const Footer = () => {
     { name: 'GitHub', url: 'https://github.com/vutikurishanmukha9', icon: Github },
     { name: 'LinkedIn', url: 'https://linkedin.com/in/shanmukha-vutikuri', icon: Linkedin },
     { name: 'Email', url: 'mailto:vutikurishanmukh17@gmail.com', icon: Mail },
-    { name: 'Codolio', url: 'https://codolio.com/profile/Shanmukh1122', icon: ExternalLink },
+    { name: 'LeetCode', url: 'https://leetcode.com/u/vutikurishanmukh9/', icon: ExternalLink },
   ];
 
   const scrollToTop = () => {

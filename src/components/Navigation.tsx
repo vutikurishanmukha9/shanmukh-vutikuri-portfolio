@@ -120,18 +120,30 @@ export const Navigation = () => {
       </nav>
 
       {/* Mobile Slide-In Drawer */}
-      <>
+      {/* Only render on mobile - use conditional rendering to prevent flash */}
+      <div className="md:hidden">
         {/* Backdrop */}
-        <div
-          className={`fixed inset-0 bg-background/80 backdrop-blur-sm z-[60] md:hidden transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-          onClick={() => setIsOpen(false)}
-        />
+        {isOpen && (
+          <div
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[60] transition-opacity duration-300"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsOpen(false);
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              setIsOpen(false);
+            }}
+            aria-hidden="true"
+          />
+        )}
 
         {/* Drawer */}
         <div
-          className={`fixed top-0 right-0 h-full w-[280px] max-w-[80vw] glass-strong z-[70] md:hidden transition-transform duration-300 ease-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          className={`fixed top-0 right-0 h-full w-[280px] max-w-[80vw] glass-strong z-[70] transition-transform duration-300 ease-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
+          aria-hidden={!isOpen}
         >
           {/* Drawer Header */}
           <div className="flex items-center justify-between p-4 border-b border-border/50">
@@ -211,7 +223,7 @@ export const Navigation = () => {
             </div>
           </div>
         </div>
-      </>
+      </div>
 
       {/* Back to Top Button */}
       <Button

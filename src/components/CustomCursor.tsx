@@ -11,6 +11,21 @@ export const CustomCursor = () => {
     const [isHovering, setIsHovering] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+    // Check if it's a touch device on mount
+    useEffect(() => {
+        const checkTouchDevice = () => {
+            setIsTouchDevice(
+                'ontouchstart' in window ||
+                navigator.maxTouchPoints > 0 ||
+                window.matchMedia('(pointer: coarse)').matches
+            );
+        };
+        checkTouchDevice();
+        window.addEventListener('resize', checkTouchDevice);
+        return () => window.removeEventListener('resize', checkTouchDevice);
+    }, []);
 
     const handleMouseMove = useCallback((e: MouseEvent) => {
         setPosition({ x: e.clientX, y: e.clientY });
@@ -94,7 +109,8 @@ export const CustomCursor = () => {
         };
     }, [position]);
 
-    if (!isVisible) return null;
+    // Don't render on touch devices or when not visible
+    if (isTouchDevice || !isVisible) return null;
 
     return (
         <>
