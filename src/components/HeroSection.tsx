@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Github, Linkedin, Mail, ExternalLink, Download, ArrowRight, ChevronDown } from 'lucide-react';
+import { Github, Linkedin, Mail, ExternalLink, Download, ArrowRight, ChevronDown, Loader2 } from 'lucide-react';
 import { ParticlesBackground } from '@/components/ParticlesBackground';
 
 const heroPhoto = '/lovable-uploads/9280c102-fa01-4f44-8cb2-47a6c6af1d71.png';
@@ -8,6 +8,7 @@ const heroPhoto = '/lovable-uploads/9280c102-fa01-4f44-8cb2-47a6c6af1d71.png';
 export const HeroSection = () => {
   const [currentTitle, setCurrentTitle] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isResumeLoading, setIsResumeLoading] = useState(false);
   const titles = ['Software Engineer', 'Data Analyst', 'Cloud Engineer', 'AI/ML Engineer', 'IoT Engineer', 'Research Engineer'];
 
   useEffect(() => {
@@ -30,6 +31,16 @@ export const HeroSection = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleResumeClick = () => {
+    setIsResumeLoading(true);
+    // Open in new tab
+    window.open('https://drive.google.com/file/d/16x2kGp4mp_g5qFjJPlF4XXhUyDOA1e10/view?usp=sharing', '_blank');
+    // Reset loading state after 2 seconds
+    setTimeout(() => {
+      setIsResumeLoading(false);
+    }, 2000);
   };
 
   return (
@@ -94,11 +105,22 @@ export const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button className="btn-glow group px-8 py-6 text-base" asChild>
-                <a href="https://drive.google.com/file/d/16x2kGp4mp_g5qFjJPlF4XXhUyDOA1e10/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                  <Download className="h-5 w-5 mr-2 group-hover:animate-bounce" />
-                  View Resume
-                </a>
+              <Button
+                className="btn-glow group px-8 py-6 text-base"
+                onClick={handleResumeClick}
+                disabled={isResumeLoading}
+              >
+                {isResumeLoading ? (
+                  <>
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                    Opening...
+                  </>
+                ) : (
+                  <>
+                    <Download className="h-5 w-5 mr-2 group-hover:animate-bounce" />
+                    View Resume
+                  </>
+                )}
               </Button>
 
               <Button
