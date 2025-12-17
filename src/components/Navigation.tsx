@@ -96,7 +96,7 @@ export const Navigation = () => {
             </div>
 
             {/* Mobile Menu Button + Theme Toggle */}
-            <div className="md:hidden flex items-center gap-2">
+            <div className="md:hidden flex items-center gap-2 ml-auto">
               <ThemeToggle />
               <button
                 type="button"
