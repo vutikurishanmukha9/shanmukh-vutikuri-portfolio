@@ -1,12 +1,50 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Suspense } from 'react';
 import { GitHubCalendar } from 'react-github-calendar';
 import { Flame, Github } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 
+// Skeleton component for loading state
+const CalendarSkeleton = () => (
+    <div className="space-y-4 animate-pulse">
+        {/* Month labels skeleton */}
+        <div className="flex gap-6 mb-2">
+            {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className="w-8 h-3 bg-muted/50 rounded" />
+            ))}
+        </div>
+        {/* Calendar grid skeleton */}
+        <div className="flex gap-1">
+            {Array.from({ length: 53 }).map((_, weekIndex) => (
+                <div key={weekIndex} className="flex flex-col gap-1">
+                    {Array.from({ length: 7 }).map((_, dayIndex) => (
+                        <div
+                            key={dayIndex}
+                            className="w-3 h-3 bg-muted/40 rounded-sm skeleton-shimmer"
+                            style={{ animationDelay: `${(weekIndex + dayIndex) * 10}ms` }}
+                        />
+                    ))}
+                </div>
+            ))}
+        </div>
+        {/* Footer skeleton */}
+        <div className="flex justify-between items-center pt-2">
+            <div className="w-48 h-4 bg-muted/50 rounded" />
+            <div className="flex gap-1 items-center">
+                <div className="w-8 h-3 bg-muted/50 rounded" />
+                {Array.from({ length: 5 }).map((_, i) => (
+                    <div key={i} className="w-3 h-3 bg-muted/40 rounded-sm" />
+                ))}
+                <div className="w-8 h-3 bg-muted/50 rounded" />
+            </div>
+        </div>
+    </div>
+);
+
 export const GrindingActivitySection = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [calendarLoaded, setCalendarLoaded] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
     const { theme } = useTheme();
 
@@ -28,6 +66,16 @@ export const GrindingActivitySection = () => {
 
         return () => observer.disconnect();
     }, []);
+
+    // Simulate calendar load detection
+    useEffect(() => {
+        if (isVisible) {
+            const timer = setTimeout(() => {
+                setCalendarLoaded(true);
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [isVisible]);
 
     return (
         <section ref={sectionRef} id="grinding" className="py-16 md:py-24 lg:py-32 relative overflow-hidden">
@@ -70,37 +118,40 @@ export const GrindingActivitySection = () => {
                                 href={`https://github.com/${GITHUB_USERNAME}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs md:text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/20"
+                                className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs md:text-sm font-semibold rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-violet-500/20"
                             >
                                 <Github className="h-3.5 w-3.5 md:h-4 md:w-4" />
                                 View Profile
                             </a>
                         </div>
 
-                        {/* GitHub Calendar */}
+                        {/* GitHub Calendar with Loading State */}
                         <div className="overflow-x-auto pb-4">
                             <div className="min-w-[750px]">
-                                <GitHubCalendar
-                                    username={GITHUB_USERNAME}
-                                    theme={{
-                                        dark: ['#1e1b4b', '#4c1d95', '#7c3aed', '#a78bfa', '#c4b5fd'],
-                                        light: ['#ede9fe', '#c4b5fd', '#a78bfa', '#8b5cf6', '#7c3aed'],
-                                    }}
-                                    colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                                    blockSize={14}
-                                    blockMargin={4}
-                                    fontSize={14}
-                                    labels={{
-                                        totalCount: '{{count}} contributions in the last year',
-                                    }}
-                                    renderBlock={(block, activity) =>
-                                        React.cloneElement(block, {
-                                            'data-tooltip-id': 'contribution-tooltip',
-                                            'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${new Date(activity.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`,
-                                            style: { cursor: 'pointer' }
-                                        })
-                                    }
-                                />
+                                {!calendarLoaded && <CalendarSkeleton />}
+                                <div className={`transition-opacity duration-500 ${calendarLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}>
+                                    <GitHubCalendar
+                                        username={GITHUB_USERNAME}
+                                        theme={{
+                                            dark: ['#1e1b4b', '#4c1d95', '#7c3aed', '#a78bfa', '#c4b5fd'],
+                                            light: ['#ede9fe', '#c4b5fd', '#a78bfa', '#8b5cf6', '#7c3aed'],
+                                        }}
+                                        colorScheme={theme === 'dark' ? 'dark' : 'light'}
+                                        blockSize={14}
+                                        blockMargin={4}
+                                        fontSize={14}
+                                        labels={{
+                                            totalCount: '{{count}} contributions in the last year',
+                                        }}
+                                        renderBlock={(block, activity) =>
+                                            React.cloneElement(block, {
+                                                'data-tooltip-id': 'contribution-tooltip',
+                                                'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${new Date(activity.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`,
+                                                style: { cursor: 'pointer' }
+                                            })
+                                        }
+                                    />
+                                </div>
                                 <Tooltip
                                     id="contribution-tooltip"
                                     style={{
@@ -121,8 +172,8 @@ export const GrindingActivitySection = () => {
                 </div>
 
                 {/* Motivational Quote */}
-                <div className={`text-center mt-12 ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
-                    <p className="text-muted-foreground italic flex items-center justify-center gap-2">
+                <div className={`text-center mt-8 md:mt-12 ${isVisible ? 'slide-up' : 'opacity-0'}`} style={{ animationDelay: '0.3s' }}>
+                    <p className="text-sm md:text-base text-muted-foreground italic flex items-center justify-center gap-2">
                         <span className="inline-block w-2 h-2 bg-violet-500 rounded-full animate-pulse" />
                         "The grind never stops. Every commit is a step towards mastery."
                     </p>
