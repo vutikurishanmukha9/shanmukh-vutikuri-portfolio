@@ -23,7 +23,6 @@ export const HeroSection = () => {
     { name: 'GitHub', url: 'https://github.com/vutikurishanmukha9', icon: Github },
     { name: 'LinkedIn', url: 'https://linkedin.com/in/shanmukha-vutikuri', icon: Linkedin },
     { name: 'Email', url: 'mailto:vutikurishanmukh17@gmail.com', icon: Mail },
-    { name: 'Codolio', url: 'https://codolio.com/profile/Shanmukh1122', icon: ExternalLink },
   ];
 
   const scrollToSection = (href: string) => {
@@ -35,8 +34,24 @@ export const HeroSection = () => {
 
   const handleResumeClick = () => {
     setIsResumeLoading(true);
+
+    // Analytics tracking for resume downloads
+    if (typeof window !== 'undefined') {
+      // Track with Google Analytics if available
+      if ((window as any).gtag) {
+        (window as any).gtag('event', 'resume_download', {
+          event_category: 'engagement',
+          event_label: 'Resume View',
+          value: 1
+        });
+      }
+      // Console log for development/debugging
+      console.log('[Analytics] Resume viewed at:', new Date().toISOString());
+    }
+
     // Open in new tab
     window.open('https://drive.google.com/file/d/16x2kGp4mp_g5qFjJPlF4XXhUyDOA1e10/view?usp=sharing', '_blank');
+
     // Reset loading state after 2 seconds
     setTimeout(() => {
       setIsResumeLoading(false);

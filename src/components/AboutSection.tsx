@@ -8,7 +8,7 @@ export const AboutSection = () => {
     { number: '92', suffix: '%', label: 'AI Model Accuracy' },
     { number: '99.9', suffix: '%', label: 'AWS Uptime' },
     { number: '85', suffix: '%', label: 'Efficiency Improvement' },
-    { number: '3', suffix: '+', label: 'Successful Projects' },
+    { number: '10', suffix: '+', label: 'Successful Projects' },
   ];
 
   useEffect(() => {

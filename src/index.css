@@ -949,6 +949,16 @@ html {
     line-height: 2.25rem;
   }
 
+  .text-3xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
   /* Reduce animation intensity on mobile */
   .floating {
     animation-duration: 4s;
@@ -956,6 +966,84 @@ html {
 
   .animate-pulse {
     animation-duration: 2.5s;
+  }
+
+  /* Better card spacing on mobile */
+  .glass {
+    border-radius: 1rem;
+  }
+
+  /* Grid improvements for mobile */
+  .grid-cols-2 {
+    gap: 0.75rem;
+  }
+
+  /* Mobile-friendly padding for cards */
+  .p-6 {
+    padding: 1rem;
+  }
+
+  .p-5 {
+    padding: 0.875rem;
+  }
+
+  /* Improve section spacing */
+  .py-24 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .py-32 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Better margin for mobile */
+  .mb-16 {
+    margin-bottom: 2rem;
+  }
+
+  .mt-12 {
+    margin-top: 2rem;
+  }
+
+  /* Touch-optimized gaps */
+  .gap-6 {
+    gap: 1rem;
+  }
+
+  .gap-4 {
+    gap: 0.75rem;
+  }
+
+  /* Better icon sizing on mobile */
+  .w-14,
+  .h-14 {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .w-16,
+  .h-16 {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  /* Horizontal scroll hint for calendars */
+  .overflow-x-auto::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 2rem;
+    background: linear-gradient(to right, transparent, var(--background));
+    pointer-events: none;
+  }
+
+  /* Better focus states for touch */
+  *:focus-visible {
+    outline-offset: 3px;
   }
 }
 
@@ -1146,4 +1234,78 @@ a[role="button"] {
 
 .bounce-subtle {
   animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* ========================================
+   Performance Optimizations
+   ======================================== */
+
+/* GPU acceleration hints for animated elements */
+.floating,
+.animate-pulse,
+.animate-spin,
+.slide-up,
+.slide-in-left,
+.slide-in-right,
+.fade-in {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Optimize particles for performance */
+canvas {
+  will-change: transform;
+}
+
+/* Content visibility for off-screen sections (reduces initial paint) */
+section:not(:first-of-type) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* Optimize blur effects for GPU */
+.blur-xl,
+.blur-2xl,
+.blur-3xl {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Reduce paint areas for fixed elements */
+.fixed {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Optimize glass effect rendering */
+.glass,
+.glass-strong {
+  transform: translateZ(0);
+  isolation: isolate;
+}
+
+/* Prevent layout thrashing on scroll */
+.overflow-x-auto,
+.overflow-y-auto {
+  will-change: scroll-position;
+}
+
+/* Hardware acceleration for cursor */
+.cursor-dot,
+.cursor-ring {
+  transform: translate(-50%, -50%) translateZ(0);
+  will-change: left, top;
+}
+
+/* Image rendering optimization */
+img {
+  content-visibility: auto;
+}
+
+/* Font rendering optimization */
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
