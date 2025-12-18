@@ -3,6 +3,7 @@ import { Menu, ChevronUp, Home, User, Wrench, Briefcase, FolderKanban, Award, Fi
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { MobileNavDrawer } from '@/components/MobileNavDrawer';
+import { MobileHeader } from '@/components/MobileHeader';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,25 +61,22 @@ export const Navigation = () => {
 
   return (
     <>
-      {/* Fixed Navigation Bar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-strong shadow-lg shadow-background/50' : 'bg-transparent'
+      {/* Desktop Navigation Bar - hidden on mobile */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden md:block ${scrolled ? 'glass-strong shadow-lg shadow-background/50' : 'bg-transparent'
         }`}>
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-16 w-full">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <button
               type="button"
               onClick={() => scrollToSection('#home')}
-              className="text-xl font-bold font-display text-gradient-animate hover:scale-105 active:scale-95 transition-transform flex-shrink-0"
+              className="text-xl font-bold font-display text-gradient-animate hover:scale-105 active:scale-95 transition-transform"
             >
               Shanmukha
             </button>
 
-            {/* Spacer - pushes everything after it to the right */}
-            <div className="flex-1" />
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
+            {/* Desktop Navigation Links */}
+            <div className="flex items-center gap-1">
               {navItems.map((item) => (
                 <button
                   key={item.href}
@@ -97,22 +95,16 @@ export const Navigation = () => {
               ))}
               <ThemeToggle />
             </div>
-
-            {/* Mobile Menu Button + Theme Toggle */}
-            <div className="md:hidden flex items-center gap-2">
-              <ThemeToggle />
-              <button
-                type="button"
-                onClick={() => setIsOpen(true)}
-                className="p-2 text-muted-foreground hover:text-primary active:scale-90 transition-all glass rounded-lg"
-                aria-label="Open menu"
-              >
-                <Menu className="h-5 w-5" />
-              </button>
-            </div>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Header - shown only on mobile */}
+      <MobileHeader
+        onMenuOpen={() => setIsOpen(true)}
+        onLogoClick={() => scrollToSection('#home')}
+        scrolled={scrolled}
+      />
 
       {/* Mobile Navigation Drawer */}
       <MobileNavDrawer
