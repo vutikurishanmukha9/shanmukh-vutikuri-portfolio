@@ -13,7 +13,6 @@ export const CertificationsSection = () => {
       color: 'from-orange-500 to-amber-500',
       description: 'Foundational understanding of AWS Cloud concepts, services, and terminology.',
       category: 'Cloud Computing',
-      credentialFile: '/certifications/AWS Certified Cloud Practitioner certificate.pdf',
     },
     {
       title: 'Oracle Certified AI Foundations Associate',
@@ -22,7 +21,6 @@ export const CertificationsSection = () => {
       color: 'from-red-500 to-rose-500',
       description: 'Foundational knowledge of AI and machine learning concepts.',
       category: 'Artificial Intelligence',
-      credentialFile: '/certifications/Oracle AI Certified Foundations Associate.pdf',
     },
     {
       title: 'Oracle Certified Foundations Associate',
@@ -31,7 +29,6 @@ export const CertificationsSection = () => {
       color: 'from-red-500 to-orange-500',
       description: 'Comprehensive knowledge of Oracle Cloud Infrastructure fundamentals.',
       category: 'Cloud & Database',
-      credentialFile: '/certifications/Oracle Certified Foundations Associate.pdf',
     },
     {
       title: 'IBM Data Analysis with Python',
@@ -40,7 +37,6 @@ export const CertificationsSection = () => {
       color: 'from-blue-500 to-cyan-500',
       description: 'Data analysis techniques using Python, pandas, and NumPy.',
       category: 'Data Analysis',
-      credentialFile: '/certifications/IBM-Data Analysis with Python.pdf',
     },
     {
       title: 'IBM SQL for Data Science',
@@ -49,7 +45,6 @@ export const CertificationsSection = () => {
       color: 'from-blue-600 to-blue-400',
       description: 'SQL fundamentals for data science and database querying.',
       category: 'Data Science',
-      credentialFile: '/certifications/IBM-SQL and Relational Databases.pdf',
     },
     {
       title: 'IBM Python for Data Science',
@@ -58,7 +53,6 @@ export const CertificationsSection = () => {
       color: 'from-indigo-500 to-blue-500',
       description: 'Python programming fundamentals for data science.',
       category: 'Programming',
-      credentialFile: '/certifications/IBM-python for data science.pdf',
     },
   ];
 
@@ -104,7 +98,6 @@ export const CertificationsSection = () => {
           {certifications.map((cert, index) => (
             <a
               key={index}
-              href={cert.credentialFile}
               target="_blank"
               rel="noopener noreferrer"
               className={`group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 relative block ${isVisible ? 'slide-up' : 'opacity-0'
