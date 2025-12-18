@@ -36,8 +36,8 @@
     /* Muted */
     --muted: 240 4% 16%;
     /* #242430 */
-    --muted-foreground: 240 5% 65%;
-    /* #9ca3af */
+    --muted-foreground: 240 5% 75%;
+    /* Brighter for better dark mode contrast */
 
     /* Accent - Gradient middle */
     --accent: 220 100% 60%;

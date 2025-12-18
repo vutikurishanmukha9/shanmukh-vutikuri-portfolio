@@ -30,10 +30,10 @@ export const ContactSection = () => {
       color: 'hover:border-blue-500/50 hover:shadow-blue-500/20',
     },
     {
-      name: 'Codolio',
-      url: 'https://codolio.com/profile/Shanmukh1122',
+      name: 'LeetCode',
+      url: 'https://leetcode.com/u/vutikurishanmukh9/',
       icon: ExternalLink,
-      color: 'hover:border-purple-500/50 hover:shadow-purple-500/20',
+      color: 'hover:border-amber-500/50 hover:shadow-amber-500/20',
     },
   ];
 
