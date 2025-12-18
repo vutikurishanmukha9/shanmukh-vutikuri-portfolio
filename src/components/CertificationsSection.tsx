@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Award, Cloud, Database, Code, BarChart3, FileSpreadsheet, Brain, ExternalLink } from 'lucide-react';
+import { Award, Cloud, Database, Code, BarChart3, FileSpreadsheet, Brain } from 'lucide-react';
 
 export const CertificationsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -96,11 +96,9 @@ export const CertificationsSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {certifications.map((cert, index) => (
-            <a
+            <div
               key={index}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 relative block ${isVisible ? 'slide-up' : 'opacity-0'
+              className={`group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 relative ${isVisible ? 'slide-up' : 'opacity-0'
                 }`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -132,16 +130,11 @@ export const CertificationsSection = () => {
                 </p>
               </div>
 
-              {/* View Certificate indicator */}
-              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ExternalLink className="h-4 w-4 text-primary" />
-              </div>
-
               {/* Decorative Element */}
               <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
                 <Award className="h-8 w-8 text-primary" />
               </div>
-            </a>
+            </div>
           ))}
         </div>
 

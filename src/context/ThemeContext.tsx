@@ -15,10 +15,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         const stored = localStorage.getItem('portfolio-theme') as Theme;
         if (stored) return stored;
 
-        if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            return 'light';
-        }
-        return 'dark';
+        // Default to light mode
+        return 'light';
     });
 
     useEffect(() => {
