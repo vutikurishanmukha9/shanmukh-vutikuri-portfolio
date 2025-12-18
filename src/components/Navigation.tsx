@@ -69,10 +69,13 @@ export const Navigation = () => {
             <button
               type="button"
               onClick={() => scrollToSection('#home')}
-              className="text-xl font-bold font-display text-gradient-animate hover:scale-105 active:scale-95 transition-transform"
+              className="text-xl font-bold font-display text-gradient-animate hover:scale-105 active:scale-95 transition-transform flex-shrink-0"
             >
               Shanmukha
             </button>
+
+            {/* Spacer - pushes everything after it to the right */}
+            <div className="flex-1" />
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1">
@@ -96,7 +99,7 @@ export const Navigation = () => {
             </div>
 
             {/* Mobile Menu Button + Theme Toggle */}
-            <div className="md:hidden flex items-center gap-2 ml-auto">
+            <div className="md:hidden flex items-center gap-2">
               <ThemeToggle />
               <button
                 type="button"
