@@ -76,6 +76,7 @@ export const ProjectsSection = () => {
       category: 'AI/ML',
       github: 'https://github.com/vutikurishanmukha9/Resume_App',
       demo: '',
+      demoNote: 'Requires 8GB+ RAM (ML models)',
       featured: false,
     },
     {
@@ -103,6 +104,7 @@ export const ProjectsSection = () => {
       category: 'Web App',
       github: 'https://github.com/vutikurishanmukha9/HR_Cold_Email',
       demo: '',
+      demoNote: 'SMTP requires paid hosting',
       featured: false,
     },
     {
@@ -389,10 +391,18 @@ export const ProjectsSection = () => {
                     )}
 
                     {!project.demo && project.github !== '#' && (
-                      <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 opacity-50 cursor-not-allowed" disabled>
-                        <ExternalLink className="h-4 w-4 mr-2" />
-                        In Process
-                      </Button>
+                      <div className="flex-1 flex items-center justify-center">
+                        {project.demoNote ? (
+                          <span className="text-xs text-muted-foreground text-center px-2">
+                            ⚠️ {project.demoNote}
+                          </span>
+                        ) : (
+                          <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 opacity-50 cursor-not-allowed" disabled>
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            In Process
+                          </Button>
+                        )}
+                      </div>
                     )}
                   </div>
                 </div>
