@@ -188,7 +188,7 @@ export const GrindingActivitySection = () => {
                     </div>
 
                     {/* Platform Cards Grid */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 max-w-6xl mx-auto">
                         {/* LeetCode */}
                         <a
                             href="https://leetcode.com/u/vutikurishanmukh9/"
@@ -315,6 +315,38 @@ export const GrindingActivitySection = () => {
                                     <div className="flex items-center justify-center gap-1 mt-1">
                                         <span className="text-xs text-muted-foreground group-hover:text-green-400/80 transition-colors">View Profile</span>
                                         <svg className="w-3 h-3 text-muted-foreground group-hover:text-green-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        {/* Codolio */}
+                        <a
+                            href="https://codolio.com/profile/Shanmukh1122"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative glass rounded-2xl p-5 md:p-6 overflow-hidden hover:border-violet-500/40 transition-all duration-500 hover:shadow-2xl hover:shadow-violet-500/20 hover:-translate-y-2"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/0 to-purple-500/0 group-hover:from-violet-500/10 group-hover:to-purple-500/5 transition-all duration-500" />
+                            <div className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500" />
+
+                            <div className="relative flex flex-col items-center gap-4">
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-opacity" />
+                                    <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-xl">
+                                        <svg className="w-7 h-7 md:w-8 md:h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <div className="text-center">
+                                    <p className="font-bold text-foreground text-base md:text-lg group-hover:text-violet-500 transition-colors duration-300">Codolio</p>
+                                    <div className="flex items-center justify-center gap-1 mt-1">
+                                        <span className="text-xs text-muted-foreground group-hover:text-violet-400/80 transition-colors">View Profile</span>
+                                        <svg className="w-3 h-3 text-muted-foreground group-hover:text-violet-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                         </svg>
                                     </div>
