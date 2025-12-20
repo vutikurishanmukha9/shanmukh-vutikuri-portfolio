@@ -175,56 +175,93 @@
   }
 }
 
-/* Custom Cursor */
+/* Custom Cursor - Enhanced Animation */
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
-  background: hsl(var(--primary));
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-  box-shadow: 0 0 20px hsl(var(--primary) / 0.8), 0 0 40px hsl(var(--primary) / 0.4);
+  transition: transform 0.1s ease, width 0.25s cubic-bezier(0.4, 0, 0.2, 1), height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  box-shadow:
+    0 0 10px hsl(var(--primary) / 0.8),
+    0 0 20px hsl(var(--primary) / 0.5),
+    0 0 40px hsl(var(--secondary) / 0.3);
 }
 
 .cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
-  border: 2px solid hsl(var(--primary) / 0.5);
+  width: 45px;
+  height: 45px;
+  border: 2px solid hsl(var(--primary) / 0.6);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+  animation: cursor-ring-rotate 4s linear infinite;
+}
+
+@keyframes cursor-ring-rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .cursor-ring.hovering {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-color: hsl(var(--secondary) / 0.8);
+  animation: cursor-ring-rotate 2s linear infinite, cursor-pulse 1s ease-in-out infinite;
+}
+
+@keyframes cursor-pulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
 }
 
 .cursor-dot.hovering {
-  width: 12px;
-  height: 12px;
-  background: hsl(var(--secondary));
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--primary)) 100%);
+  box-shadow:
+    0 0 15px hsl(var(--secondary) / 0.9),
+    0 0 30px hsl(var(--secondary) / 0.6),
+    0 0 50px hsl(var(--primary) / 0.3);
 }
 
 .cursor-ring.clicking {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-color: hsl(var(--primary));
+  animation: cursor-ring-rotate 1s linear infinite;
 }
 
 .cursor-dot.clicking {
-  transform: translate(-50%, -50%) scale(0.8);
+  transform: translate(-50%, -50%) scale(0.6);
+  box-shadow:
+    0 0 20px hsl(var(--primary) / 1),
+    0 0 40px hsl(var(--primary) / 0.7);
 }
 
 /* Hide default cursor on interactive elements */
