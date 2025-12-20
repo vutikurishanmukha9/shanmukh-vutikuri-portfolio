@@ -511,6 +511,17 @@ select,
   }
 }
 
+/* News Ticker Animation */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 @keyframes slide-in-left {
   0% {
     opacity: 0;

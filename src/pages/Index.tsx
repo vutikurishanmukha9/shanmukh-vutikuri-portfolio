@@ -1,4 +1,5 @@
 import { Navigation } from '@/components/Navigation';
+import { NewsTicker, defaultStatusItems } from '@/components/NewsTicker';
 import { HeroSection } from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
 import { GrindingActivitySection } from '@/components/GrindingActivitySection';
@@ -18,7 +19,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <PageLoader />
       <Navigation />
-      <div className="pt-16">
+      <NewsTicker items={defaultStatusItems} speed={25} />
+      <div className="pt-24">
         <main>
           <HeroSection />
           <AboutSection />
