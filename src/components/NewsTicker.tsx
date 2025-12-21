@@ -9,8 +9,8 @@ export const NewsTicker = ({ items, speed = 30 }: NewsTickerProps) => {
     const [isPaused, setIsPaused] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
-    // Triplicate items for seamless infinite scroll
-    const tickerContent = [...items, ...items, ...items];
+    // Duplicate items for seamless infinite scroll (only 2 copies needed)
+    const tickerContent = [...items, ...items];
 
     const handleMouseEnter = () => {
         setIsPaused(true);
@@ -74,11 +74,11 @@ export const NewsTicker = ({ items, speed = 30 }: NewsTickerProps) => {
                         }}
                     />
 
-                    {/* Scrolling content */}
+                    {/* Scrolling content - uses marquee-style animation */}
                     <div
-                        className="flex whitespace-nowrap"
+                        className="ticker-track flex whitespace-nowrap"
                         style={{
-                            animation: `ticker-scroll ${speed}s linear infinite`,
+                            animationDuration: `${speed}s`,
                             animationPlayState: isPaused ? 'paused' : 'running',
                         }}
                     >
@@ -105,12 +105,16 @@ export const NewsTicker = ({ items, speed = 30 }: NewsTickerProps) => {
             </div>
 
             <style>{`
-                @keyframes ticker-scroll {
+                .ticker-track {
+                    animation: ticker-seamless linear infinite;
+                }
+                
+                @keyframes ticker-seamless {
                     0% {
-                        transform: translate3d(0, 0, 0);
+                        transform: translateX(0);
                     }
                     100% {
-                        transform: translate3d(-33.333%, 0, 0);
+                        transform: translateX(-50%);
                     }
                 }
             `}</style>
