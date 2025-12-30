@@ -282,56 +282,23 @@ export const ProjectsSection = () => {
                   }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Dynamic Gradient Visual Header */}
-                <div className="relative h-48 overflow-hidden">
-                  {/* Base gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${visual.gradient} opacity-90`} />
-
-                  {/* Animated pattern overlay */}
-                  <div
-                    className="absolute inset-0 opacity-60"
-                    style={{ background: visual.pattern }}
-                  />
-
-                  {/* Mesh gradient animation */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-                  {/* Animated floating shapes */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute top-4 right-4 w-20 h-20 border border-white/20 rounded-full animate-pulse" />
-                    <div className="absolute bottom-8 left-8 w-12 h-12 border border-white/10 rounded-lg rotate-45 animate-pulse" style={{ animationDelay: '0.5s' }} />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-white/10 rounded-full" />
-                  </div>
-
-                  {/* Category icon */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative">
-                      <IconComponent className="h-16 w-16 text-white/80 group-hover:scale-110 transition-transform duration-500" />
-                      <div className="absolute inset-0 blur-xl bg-white/20 rounded-full scale-150" />
+                <div className="p-6">
+                  {/* Header - Category & Featured Badge */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${visual.gradient} shadow-lg`}>
+                        <IconComponent className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-xs text-primary font-medium uppercase tracking-wider">
+                        {project.category}
+                      </span>
                     </div>
-                  </div>
-
-                  {/* Featured badge */}
-                  {project.featured && (
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/30">
+                    {project.featured && (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-gradient-to-r from-primary/20 to-secondary/20 text-primary text-xs font-semibold rounded-full border border-primary/30">
                         <Sparkles className="h-3 w-3" />
                         Featured
                       </span>
-                    </div>
-                  )}
-
-                  {/* Bottom gradient fade */}
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
-                </div>
-
-                <div className="p-6">
-                  {/* Category tag */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <IconComponent className="h-4 w-4 text-primary" />
-                    <span className="text-xs text-primary font-medium">
-                      {project.category}
-                    </span>
+                    )}
                   </div>
 
                   {/* Title */}
@@ -340,7 +307,7 @@ export const ProjectsSection = () => {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-3">
                     {project.description}
                   </p>
 

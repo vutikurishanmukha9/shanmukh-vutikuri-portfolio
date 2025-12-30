@@ -19,7 +19,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <PageLoader />
       <Navigation />
-      <NewsTicker items={defaultStatusItems} speed={8} />
+      <NewsTicker items={defaultStatusItems} speed={10} />
       <div className="pt-24">
         <main>
           <HeroSection />
