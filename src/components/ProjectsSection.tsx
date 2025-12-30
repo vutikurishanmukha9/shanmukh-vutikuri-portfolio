@@ -1,35 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github, Sparkles, ChevronDown, ChevronUp, Brain, Cloud, Eye, Globe, BarChart3, X, Filter } from 'lucide-react';
+import { ExternalLink, Github, Sparkles, ChevronDown, ChevronUp, Brain, Cloud, Eye, Globe, BarChart3, X, Filter, ArrowUpRight } from 'lucide-react';
 import { useSkillFilter } from '@/context/SkillFilterContext';
+import { SpotlightCard } from '@/components/ui/spotlight-card';
 
 // Category config for dynamic visuals
-const categoryConfig: Record<string, { gradient: string; icon: typeof Brain; pattern: string }> = {
-  'AI/ML': {
-    gradient: 'from-violet-600 via-purple-500 to-fuchsia-500',
-    icon: Brain,
-    pattern: 'radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%)',
-  },
-  'Computer Vision': {
-    gradient: 'from-cyan-500 via-blue-500 to-indigo-600',
-    icon: Eye,
-    pattern: 'radial-gradient(circle at 30% 70%, rgba(6, 182, 212, 0.4) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.3) 0%, transparent 50%)',
-  },
-  'Web App': {
-    gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
-    icon: Globe,
-    pattern: 'radial-gradient(circle at 25% 75%, rgba(16, 185, 129, 0.4) 0%, transparent 50%), radial-gradient(circle at 75% 25%, rgba(6, 182, 212, 0.3) 0%, transparent 50%)',
-  },
-  'Data Analysis': {
-    gradient: 'from-amber-500 via-orange-500 to-red-500',
-    icon: BarChart3,
-    pattern: 'radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.3) 0%, transparent 50%)',
-  },
-  'Cloud': {
-    gradient: 'from-sky-500 via-blue-500 to-indigo-500',
-    icon: Cloud,
-    pattern: 'radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.4) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.3) 0%, transparent 50%)',
-  },
+const categoryConfig: Record<string, { color: string; icon: typeof Brain }> = {
+  'AI/ML': { color: 'text-violet-500', icon: Brain },
+  'Computer Vision': { color: 'text-cyan-500', icon: Eye },
+  'Web App': { color: 'text-emerald-500', icon: Globe },
+  'Data Analysis': { color: 'text-amber-500', icon: BarChart3 },
+  'Cloud': { color: 'text-sky-500', icon: Cloud },
 };
 
 export const ProjectsSection = () => {
@@ -201,35 +182,29 @@ export const ProjectsSection = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="py-24 lg:py-32 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 grid-pattern opacity-10" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
-
+    <section ref={sectionRef} id="projects" className="py-24 lg:py-32 relative bg-background/50">
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-4">
-            My Work
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-sm text-primary font-medium mb-4">
+            Portfolio
           </span>
           <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
-            Featured <span className="text-gradient">Projects</span>
+            Selected <span className="text-primary">Works</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A showcase of innovative solutions combining AI, cloud computing, and modern web technologies
+            Showcasing expertise in AI, Machine Learning, and Full-Stack Development
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-3 mb-6">
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => handleCategoryFilter(category)}
               className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === category && !selectedSkill
-                ? 'btn-glow text-background'
-                : 'glass text-muted-foreground hover:text-primary hover:border-primary/30'
+                ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20 transform scale-105'
+                : 'bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/50'
                 }`}
             >
               {category}
@@ -240,18 +215,18 @@ export const ProjectsSection = () => {
         {/* Active Skill Filter Badge */}
         {selectedSkill && (
           <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-3 px-4 py-2 glass rounded-full border border-primary/30">
+            <div className="inline-flex items-center gap-3 px-4 py-2 bg-card rounded-full border border-primary/30 shadow-sm">
               <Filter className="h-4 w-4 text-primary" />
               <span className="text-sm text-muted-foreground">Showing projects with</span>
-              <span className="px-3 py-1 bg-gradient-to-r from-primary to-secondary text-background text-sm font-semibold rounded-full">
+              <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full">
                 {selectedSkill}
               </span>
               <button
                 onClick={clearSkillFilter}
-                className="p-1 rounded-full hover:bg-destructive/20 transition-colors"
+                className="p-1 rounded-full hover:bg-destructive/10 transition-colors group"
                 title="Clear filter"
               >
-                <X className="h-4 w-4 text-muted-foreground hover:text-destructive" />
+                <X className="h-4 w-4 text-muted-foreground group-hover:text-destructive transition-colors" />
               </button>
             </div>
           </div>
@@ -259,162 +234,146 @@ export const ProjectsSection = () => {
 
         {/* No results message */}
         {filteredProjects.length === 0 && selectedSkill && (
-          <div className="text-center py-12 glass rounded-2xl mb-8">
+          <div className="text-center py-16 bg-card border border-border rounded-2xl mb-8">
             <p className="text-lg text-muted-foreground mb-4">
-              No projects found using <span className="text-primary font-semibold">{selectedSkill}</span>
+              No projects found searching for <span className="text-primary font-semibold">{selectedSkill}</span>
             </p>
-            <Button variant="outline" size="sm" onClick={clearSkillFilter} className="glass">
-              <X className="h-4 w-4 mr-2" />
+            <Button variant="outline" onClick={clearSkillFilter}>
               Clear Filter
             </Button>
           </div>
         )}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayedProjects.map((project, index) => {
             const visual = getCategoryVisual(project.category);
             const IconComponent = visual.icon;
 
             return (
-              <div
+              <SpotlightCard
                 key={index}
-                className={`group glass rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 ${isVisible ? 'slide-up' : 'opacity-0'
+                className={`flex flex-col h-full bg-card hover:border-primary/50 transition-colors duration-500 group ${isVisible ? 'animate-in fade-in slide-in-from-bottom-4 duration-700' : 'opacity-0'
                   }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
+                spotlightColor="hsl(var(--primary) / 0.2)"
               >
-                <div className="p-6">
-                  {/* Header - Category & Featured Badge */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <div className={`p-2 rounded-lg bg-gradient-to-br ${visual.gradient} shadow-lg`}>
-                        <IconComponent className="h-4 w-4 text-white" />
+                <div className="p-6 md:p-8 flex flex-col h-full">
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2.5 rounded-xl bg-primary/5 ${visual.color} ring-1 ring-inset ring-foreground/5`}>
+                        <IconComponent className="h-6 w-6" />
                       </div>
-                      <span className="text-xs text-primary font-medium uppercase tracking-wider">
-                        {project.category}
-                      </span>
+                      <div className="flex flex-col">
+                        <span className={`text-xs font-semibold uppercase tracking-wider ${visual.color}`}>
+                          {project.category}
+                        </span>
+                        {project.featured && (
+                          <span className="text-[10px] text-muted-foreground">Featured Project</span>
+                        )}
+                      </div>
                     </div>
-                    {project.featured && (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-gradient-to-r from-primary/20 to-secondary/20 text-primary text-xs font-semibold rounded-full border border-primary/30">
-                        <Sparkles className="h-3 w-3" />
-                        Featured
-                      </span>
-                    )}
+
+                    {/* External Link Overlay Button */}
+                    {project.demo || project.github ? (
+                      <a
+                        href={project.demo || project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 text-muted-foreground hover:text-primary transition-colors hover:bg-primary/5 rounded-full"
+                      >
+                        <ArrowUpRight className="h-5 w-5" />
+                      </a>
+                    ) : null}
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-foreground font-display mb-3 group-hover:text-gradient transition-colors duration-300">
-                    {project.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-3">
-                    {project.description}
-                  </p>
+                  {/* Content */}
+                  <div className="mb-6 flex-grow">
+                    <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-muted-foreground text-base leading-relaxed line-clamp-3">
+                      {project.description}
+                    </p>
+                  </div>
 
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.slice(0, 4).map((tech, techIndex) => {
-                      const isMatchedSkill = selectedSkill && tech.toLowerCase().includes(selectedSkill.toLowerCase());
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {project.tech.slice(0, 4).map((tech, i) => {
+                      const isMatched = selectedSkill && tech.toLowerCase().includes(selectedSkill.toLowerCase());
                       return (
                         <span
-                          key={techIndex}
-                          className={`px-2.5 py-1 text-xs rounded-lg transition-all duration-300 ${isMatchedSkill
-                            ? 'bg-gradient-to-r from-primary to-secondary text-background font-semibold scale-105 shadow-lg shadow-primary/20 ring-2 ring-primary/30'
-                            : 'glass text-muted-foreground'
+                          key={i}
+                          className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${isMatched
+                              ? 'bg-primary text-primary-foreground shadow-md'
+                              : 'bg-secondary/50 text-secondary-foreground hover:bg-secondary'
                             }`}
                         >
                           {tech}
-                          {isMatchedSkill && (
-                            <span className="ml-1 inline-block w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-                          )}
                         </span>
                       );
                     })}
                     {project.tech.length > 4 && (
-                      <span className="px-2.5 py-1 glass text-xs rounded-lg text-muted-foreground">
+                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-secondary/30 text-muted-foreground">
                         +{project.tech.length - 4}
                       </span>
                     )}
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex gap-3">
+                  {/* Footer / Actions */}
+                  <div className="flex items-center gap-3 mt-auto pt-6 border-t border-border/50">
                     {project.github !== '#' && (
-                      <Button className="flex-1 btn-glow group/btn" size="sm" asChild>
+                      <Button variant="outline" size="sm" className="flex-1 gap-2" asChild>
                         <a href={project.github} target="_blank" rel="noopener noreferrer">
-                          <Github className="h-4 w-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
-                          Code
+                          <Github className="h-4 w-4" />
+                          Source
                         </a>
                       </Button>
                     )}
-
                     {project.demo && (
-                      <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 group/btn" asChild>
+                      <Button size="sm" className="flex-1 gap-2" asChild>
                         <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                          Live
+                          <Globe className="h-4 w-4" />
+                          Demo
                         </a>
                       </Button>
                     )}
-
                     {!project.demo && project.github !== '#' && (
-                      <div className="flex-1 flex items-center justify-center">
-                        {project.demoNote ? (
-                          <span className="text-xs text-muted-foreground text-center px-2">
-                            ⚠️ {project.demoNote}
-                          </span>
-                        ) : (
-                          <Button variant="outline" size="sm" className="flex-1 glass hover:border-primary/50 opacity-50 cursor-not-allowed" disabled>
-                            <ExternalLink className="h-4 w-4 mr-2" />
-                            In Process
-                          </Button>
-                        )}
-                      </div>
+                      <span className="flex-1 text-center text-xs text-muted-foreground px-2 py-2 bg-secondary/30 rounded-md">
+                        {project.demoNote || "In Development"}
+                      </span>
                     )}
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             );
           })}
         </div>
 
-        {/* See All / Show Less Button */}
+        {/* View All Button */}
         {activeFilter === 'All' && remainingCount > 0 && (
           <div className="text-center mt-12">
             <Button
               variant="outline"
               size="lg"
-              className="glass hover:border-primary/50 group"
               onClick={() => setShowAll(!showAll)}
+              className="gap-2 min-w-[200px]"
             >
               {showAll ? (
                 <>
-                  <ChevronUp className="h-5 w-5 mr-2 group-hover:-translate-y-0.5 transition-transform" />
+                  <ChevronUp className="h-4 w-4" />
                   Show Less
                 </>
               ) : (
                 <>
-                  <ChevronDown className="h-5 w-5 mr-2 group-hover:translate-y-0.5 transition-transform" />
-                  See All Projects ({remainingCount} more)
+                  <ChevronDown className="h-4 w-4" />
+                  View All Projects
                 </>
               )}
             </Button>
           </div>
         )}
-
-        <div className="text-center mt-8">
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary group" asChild>
-            <a
-              href="https://github.com/vutikurishanmukha9"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="h-4 w-4 mr-2 group-hover:rotate-12 transition-transform" />
-              View GitHub Profile
-            </a>
-          </Button>
-        </div>
       </div>
-    </section >
+    </section>
   );
 };
