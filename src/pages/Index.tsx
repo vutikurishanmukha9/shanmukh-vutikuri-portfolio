@@ -12,11 +12,13 @@ import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { PageLoader } from '@/components/PageLoader';
+import { SeasonalWeather } from '@/components/SeasonalWeather';
 
 const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SeasonalWeather />
       <PageLoader />
       <Navigation />
       <NewsTicker items={defaultStatusItems} speed={10} />

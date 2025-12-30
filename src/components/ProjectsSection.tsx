@@ -305,8 +305,8 @@ export const ProjectsSection = () => {
                         <span
                           key={i}
                           className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${isMatched
-                              ? 'bg-primary text-primary-foreground shadow-md'
-                              : 'bg-secondary/50 text-secondary-foreground hover:bg-secondary'
+                            ? 'bg-primary text-primary-foreground shadow-md'
+                            : 'bg-secondary/50 text-secondary-foreground hover:bg-secondary'
                             }`}
                         >
                           {tech}
@@ -334,7 +334,7 @@ export const ProjectsSection = () => {
                       <Button size="sm" className="flex-1 gap-2" asChild>
                         <a href={project.demo} target="_blank" rel="noopener noreferrer">
                           <Globe className="h-4 w-4" />
-                          Demo
+                          Live
                         </a>
                       </Button>
                     )}
