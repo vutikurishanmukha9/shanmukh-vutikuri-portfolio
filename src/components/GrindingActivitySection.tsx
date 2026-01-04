@@ -126,8 +126,8 @@ export const GrindingActivitySection = () => {
                         </div>
 
                         {/* GitHub Calendar with Loading State */}
-                        <div className="overflow-x-auto pb-4">
-                            <div className="min-w-[750px]">
+                        <div className="overflow-x-auto overflow-y-visible pb-6 -mx-2 px-2 hide-scrollbar">
+                            <div className="min-w-[800px]">
                                 {!calendarLoaded && <CalendarSkeleton />}
                                 <div className={`transition-opacity duration-500 ${calendarLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}>
                                     <GitHubCalendar
@@ -137,19 +137,43 @@ export const GrindingActivitySection = () => {
                                             light: ['#ede9fe', '#c4b5fd', '#a78bfa', '#8b5cf6', '#7c3aed'],
                                         }}
                                         colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                                        blockSize={14}
-                                        blockMargin={4}
-                                        fontSize={14}
+                                        blockSize={15}
+                                        blockMargin={5}
+                                        fontSize={13}
+                                        hideColorLegend={true}
                                         labels={{
                                             totalCount: '{{count}} contributions in the last year',
                                         }}
-                                        renderBlock={(block, activity) =>
-                                            React.cloneElement(block, {
-                                                'data-tooltip-id': 'contribution-tooltip',
-                                                'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${new Date(activity.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`,
-                                                style: { cursor: 'pointer' }
-                                            })
-                                        }
+                                        renderBlock={(block, activity) => {
+                                            const level = activity.level;
+
+                                            if (level === 0) {
+                                                return React.cloneElement(block, {
+                                                    'data-tooltip-id': 'contribution-tooltip',
+                                                    'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${new Date(activity.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`,
+                                                });
+                                            }
+
+                                            // Emoji mapping: Baby → Boy → Man → Samurai
+                                            const emojis = ['', '👶🏻', '👦🏻', '🧔🏻‍♂️', '🥷🏻'];
+                                            // @ts-ignore
+                                            const { x, y, width, height } = block.props;
+
+                                            return (
+                                                <text
+                                                    x={x + width / 2}
+                                                    y={y + height / 2 + 1}
+                                                    dominantBaseline="central"
+                                                    textAnchor="middle"
+                                                    fontSize="12"
+                                                    style={{ cursor: 'pointer', userSelect: 'none' }}
+                                                    data-tooltip-id="contribution-tooltip"
+                                                    data-tooltip-content={`${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${new Date(activity.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`}
+                                                >
+                                                    {emojis[level]}
+                                                </text>
+                                            );
+                                        }}
                                     />
                                 </div>
                                 <Tooltip
@@ -166,6 +190,24 @@ export const GrindingActivitySection = () => {
                                         zIndex: 9999
                                     }}
                                 />
+                            </div>
+                        </div>
+
+                        {/* Custom Emoji Legend */}
+                        <div className="flex flex-col sm:flex-row items-center justify-between mt-4 gap-3">
+                            <p className="text-sm text-muted-foreground">
+                                Hover over cells to see contribution details
+                            </p>
+                            <div className="flex items-center gap-2 text-sm">
+                                <span className="text-muted-foreground">Less</span>
+                                <div className="flex items-center gap-1">
+                                    <span className="w-5 h-5 rounded bg-muted/30 flex items-center justify-center text-[10px]">⬜</span>
+                                    <span className="text-base">👶🏻</span>
+                                    <span className="text-base">👦🏻</span>
+                                    <span className="text-base">🧔🏻‍♂️</span>
+                                    <span className="text-base">🥷🏻</span>
+                                </div>
+                                <span className="text-muted-foreground">More</span>
                             </div>
                         </div>
                     </div>
