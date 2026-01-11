@@ -49,6 +49,15 @@ export const ProjectsSection = () => {
       demo: '',
       featured: true,
     },
+    {
+      title: 'Ele-Visualize',
+      description: 'Interactive 3D atomic explorer for periodic table elements and molecules. Features hand gesture controls using MediaPipe for touchless rotation, zoom, and navigation.',
+      tech: ['React', 'Three.js', 'MediaPipe', 'WebGL', 'TypeScript'],
+      category: 'Computer Vision',
+      github: 'https://github.com/vutikurishanmukha9/Ele-Visualize',
+      demo: 'https://ele-visualize.vercel.app/',
+      featured: true,
+    },
     // Other projects
     {
       title: 'Resume Analyzer AI',
