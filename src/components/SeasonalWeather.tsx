@@ -108,29 +108,29 @@ export const SeasonalWeather = () => {
 
             <style>{`
         @keyframes snowfall {
-          0% { transform: translateY(-30px) rotate(0deg); }
-          100% { transform: translateY(100vh) rotate(360deg); }
+          0% { transform: translateY(-100px) rotate(0deg); }
+          100% { transform: translateY(calc(100vh + 50px)) rotate(360deg); }
         }
         
         @keyframes rainfall {
-          0% { transform: translateY(-30px); }
-          100% { transform: translateY(100vh); }
+          0% { transform: translateY(-100px); }
+          100% { transform: translateY(calc(100vh + 50px)); }
         }
         
         @keyframes leaffall {
-          0% { transform: translateY(-30px) translateX(0) rotate(0deg); }
+          0% { transform: translateY(-100px) translateX(0) rotate(0deg); }
           25% { transform: translateY(25vh) translateX(30px) rotate(90deg); }
           50% { transform: translateY(50vh) translateX(-20px) rotate(180deg); }
           75% { transform: translateY(75vh) translateX(40px) rotate(270deg); }
-          100% { transform: translateY(100vh) translateX(0) rotate(360deg); }
+          100% { transform: translateY(calc(100vh + 50px)) translateX(0) rotate(360deg); }
         }
         
         @keyframes petalfall {
-          0% { transform: translateY(-30px) translateX(0) rotate(0deg); }
+          0% { transform: translateY(-100px) translateX(0) rotate(0deg); }
           25% { transform: translateY(25vh) translateX(20px) rotate(45deg); }
           50% { transform: translateY(50vh) translateX(-15px) rotate(90deg); }
           75% { transform: translateY(75vh) translateX(25px) rotate(135deg); }
-          100% { transform: translateY(100vh) translateX(0) rotate(180deg); }
+          100% { transform: translateY(calc(100vh + 50px)) translateX(0) rotate(180deg); }
         }
         
         @media (prefers-reduced-motion: reduce) {
