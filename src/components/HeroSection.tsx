@@ -50,7 +50,7 @@ export const HeroSection = () => {
     }
 
     // Open in new tab
-    window.open('https://drive.google.com/file/d/16x2kGp4mp_g5qFjJPlF4XXhUyDOA1e10/view?usp=sharing', '_blank');
+    window.open('https://drive.google.com/file/d/1ghslaZ6k533wyCvs8YkAs2bfd-uHPcAB/view?usp=drive_link', '_blank');
 
     // Reset loading state after 2 seconds
     setTimeout(() => {
