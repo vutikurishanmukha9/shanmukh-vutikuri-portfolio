@@ -58,6 +58,15 @@ export const ProjectsSection = () => {
       demo: 'https://ele-visualize.vercel.app/',
       featured: true,
     },
+    {
+      title: 'Candle-Light',
+      description: 'AI-powered candlestick pattern analysis platform for smarter trading decisions. Features instant pattern recognition, market bias prediction, and professional-grade analysis.',
+      tech: ['React', 'TailwindCSS', 'Machine Learning', 'OAuth', 'TypeScript'],
+      category: 'AI/ML',
+      github: 'https://github.com/vutikurishanmukha9/Candle-Light',
+      demo: 'https://candle-light-kappa.vercel.app',
+      featured: true,
+    },
     // Other projects
     {
       title: 'Resume Analyzer AI',
