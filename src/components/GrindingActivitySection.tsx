@@ -132,6 +132,18 @@ export const GrindingActivitySection = () => {
                                 <div className={`transition-opacity duration-500 ${calendarLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}>
                                     <GitHubCalendar
                                         username={GITHUB_USERNAME}
+                                        year="last"
+                                        transformData={(contributions) => {
+                                            // Filter to last 12 months from today
+                                            const today = new Date();
+                                            const oneYearAgo = new Date(today);
+                                            oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+                                            return contributions.filter(activity => {
+                                                const date = new Date(activity.date);
+                                                return date >= oneYearAgo && date <= today;
+                                            });
+                                        }}
                                         theme={{
                                             dark: ['#1e1b4b', '#4c1d95', '#7c3aed', '#a78bfa', '#c4b5fd'],
                                             light: ['#ede9fe', '#c4b5fd', '#a78bfa', '#8b5cf6', '#7c3aed'],
@@ -140,7 +152,7 @@ export const GrindingActivitySection = () => {
                                         blockSize={15}
                                         blockMargin={5}
                                         fontSize={13}
-                                        hideColorLegend={true}
+                                        renderColorLegend={() => null}
                                         labels={{
                                             totalCount: '{{count}} contributions in the last year',
                                         }}
