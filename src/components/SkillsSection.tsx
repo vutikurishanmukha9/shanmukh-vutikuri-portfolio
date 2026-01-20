@@ -1,14 +1,72 @@
 import { useEffect, useState, useRef } from 'react';
-import { Code, Database, Cloud, Brain, BarChart3, Cpu, Zap } from 'lucide-react';
+import { Code, Database, Cloud, Brain, BarChart3, Cpu, Zap, Palette, Hammer, Shield, Rocket, TrendingUp, ChevronRight } from 'lucide-react';
 import { useSkillFilter } from '@/context/SkillFilterContext';
+
+// Pipeline stages with associated skills
+const pipelineStages = [
+  {
+    id: 'design',
+    label: 'Design',
+    subtitle: 'Architecture & API contracts',
+    icon: Palette,
+    color: 'from-pink-500 to-rose-500',
+    prominent: false,
+    skills: ['System Architecture', 'System Design', 'REST API Design', 'Database', 'MongoDB', 'PostgreSQL', 'MySQL'],
+  },
+  {
+    id: 'build',
+    label: 'Build',
+    subtitle: 'Core services & async logic',
+    icon: Hammer,
+    color: 'from-cyan-500 to-blue-500',
+    prominent: true, // Execution stage
+    skills: ['FastAPI', 'Python', 'TypeScript', 'JavaScript', 'Async Programming', 'TensorFlow', 'PyTorch'],
+  },
+  {
+    id: 'secure',
+    label: 'Secure',
+    subtitle: 'Auth & trust boundaries',
+    icon: Shield,
+    color: 'from-amber-500 to-orange-500',
+    prominent: false,
+    skills: ['JWT Authentication', 'AWS', 'Git', 'Linux'],
+  },
+  {
+    id: 'deploy',
+    label: 'Deploy',
+    subtitle: 'Containers, CI/CD, cloud infra',
+    icon: Rocket,
+    color: 'from-violet-500 to-purple-500',
+    prominent: true, // Execution stage
+    skills: ['AWS', 'Docker', 'CI/CD', 'Linux', 'Git'],
+  },
+  {
+    id: 'optimize',
+    label: 'Optimize',
+    subtitle: 'Performance, cost, reliability',
+    icon: TrendingUp,
+    color: 'from-emerald-500 to-green-500',
+    prominent: false,
+    skills: ['Pandas', 'NumPy', 'Tableau', 'Power BI', 'Scikit-learn'],
+  },
+];
 
 export const SkillsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [selectedStage, setSelectedStage] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const pipelineRef = useRef<HTMLDivElement>(null);
   const { selectedSkill, setSelectedSkill } = useSkillFilter();
 
   const skillCategories = [
+    {
+      title: 'Backend & Systems',
+      icon: Zap,
+      color: 'from-violet-500 to-fuchsia-500',
+      bgPattern: 'radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)',
+      skills: ['FastAPI', 'REST API Design', 'JWT Authentication', 'Async Programming', 'System Architecture', 'System Design'],
+    },
     {
       title: 'Programming',
       icon: Code,
@@ -81,6 +139,24 @@ export const SkillsSection = () => {
     }
   };
 
+  // Filter skill categories based on selected pipeline stage
+  const getFilteredCategories = () => {
+    if (!selectedStage) return skillCategories;
+
+    const stageSkills = pipelineStages.find(s => s.id === selectedStage)?.skills || [];
+
+    return skillCategories.filter(category =>
+      category.skills.some(skill =>
+        stageSkills.some(stageSkill =>
+          skill.toLowerCase().includes(stageSkill.toLowerCase()) ||
+          stageSkill.toLowerCase().includes(skill.toLowerCase())
+        )
+      )
+    );
+  };
+
+  const filteredCategories = getFilteredCategories();
+
   return (
     <section ref={sectionRef} id="skills" className="py-24 lg:py-32 relative overflow-hidden">
       {/* Background elements */}
@@ -103,8 +179,145 @@ export const SkillsSection = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
         </div>
 
+        {/* How I Build Systems - Pipeline Strip */}
+        <div className={`mb-12 ${isVisible ? 'blur-in stagger-2' : 'opacity-0'}`}>
+          {/* Mindset tagline */}
+          <p className="text-center text-xs text-muted-foreground/60 uppercase tracking-widest mb-3">
+            End-to-end ownership mindset
+          </p>
+          <h3 className="text-center text-lg font-semibold text-foreground mb-2">
+            How I Build Systems
+          </h3>
+          {/* Philosophy microcopy */}
+          <p className="text-center text-sm text-muted-foreground mb-8 max-w-xl mx-auto">
+            From architecture decisions to production optimization — every step is intentional.
+          </p>
+
+          {/* Desktop: Horizontal strip with arrows + feedback loop */}
+          <div className="hidden md:flex flex-col items-center">
+            <div
+              ref={pipelineRef}
+              className="flex items-center justify-center gap-1 relative"
+            >
+              {pipelineStages.map((stage, index) => {
+                const Icon = stage.icon;
+                const isActive = selectedStage === stage.id;
+
+                return (
+                  <div key={stage.id} className="flex items-center">
+                    <button
+                      onClick={() => setSelectedStage(isActive ? null : stage.id)}
+                      className={`
+                        flex flex-col items-center gap-1 px-4 py-3 rounded-xl
+                        transition-all duration-200 group relative
+                        ${stage.prominent ? 'scale-[1.03]' : ''}
+                        ${isActive
+                          ? `bg-gradient-to-r ${stage.color} text-white shadow-lg shadow-primary/20`
+                          : `glass hover:border-primary/40 text-muted-foreground hover:text-foreground
+                             ${stage.prominent ? 'border-primary/20' : ''}`
+                        }
+                      `}
+                    >
+                      <div className="flex items-center gap-2">
+                        {/* Icon with accent dot */}
+                        <span className="relative">
+                          <Icon className={`h-4 w-4 ${isActive ? 'text-white' : 'group-hover:text-primary'} ${stage.prominent && !isActive ? 'text-primary/70' : ''}`} />
+                          <span className={`absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white/80' : 'bg-primary/60'}`} />
+                        </span>
+                        <span className={`font-medium text-sm ${stage.prominent && !isActive ? 'font-semibold' : ''}`}>{stage.label}</span>
+                      </div>
+                      {/* Subtitle - shows when active */}
+                      {isActive && (
+                        <span className="text-xs text-white/80 mt-0.5">{stage.subtitle}</span>
+                      )}
+                    </button>
+
+                    {index < pipelineStages.length - 1 && (
+                      <ChevronRight className="h-4 w-4 text-muted-foreground/40 mx-0.5 flex-shrink-0" />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Feedback loop arrow - subtle curved arrow from Optimize back to Design */}
+            <div className="relative w-full max-w-[600px] h-6 mt-2">
+              <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 600 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M550 6 Q575 6 575 18 Q575 24 300 24 Q25 24 25 18 Q25 6 50 6"
+                  stroke="url(#feedbackGradient)"
+                  strokeWidth="1"
+                  strokeDasharray="4 4"
+                  fill="none"
+                  opacity="0.3"
+                />
+                <defs>
+                  <linearGradient id="feedbackGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="hsl(var(--primary))" />
+                    <stop offset="100%" stopColor="hsl(var(--secondary))" />
+                  </linearGradient>
+                </defs>
+                {/* Arrow head pointing to Design */}
+                <polygon points="45,3 50,6 45,9" fill="hsl(var(--primary))" opacity="0.4" />
+              </svg>
+              <span className="absolute left-1/2 -translate-x-1/2 top-2 text-[10px] text-muted-foreground/40 italic">iterate</span>
+            </div>
+          </div>
+
+          {/* Mobile: Swipeable pills */}
+          <div
+            className="md:hidden overflow-x-auto scrollbar-hide pb-2 -mx-4 px-4"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <div className="flex items-center gap-3 w-max">
+              {pipelineStages.map((stage) => {
+                const Icon = stage.icon;
+                const isActive = selectedStage === stage.id;
+
+                return (
+                  <button
+                    key={stage.id}
+                    onClick={() => setSelectedStage(isActive ? null : stage.id)}
+                    className={`
+                      flex flex-col items-center gap-1 px-4 py-2.5 rounded-full whitespace-nowrap
+                      transition-all duration-300
+                      ${stage.prominent ? 'ring-1 ring-primary/30' : ''}
+                      ${isActive
+                        ? `bg-gradient-to-r ${stage.color} text-white shadow-lg`
+                        : 'glass text-muted-foreground'
+                      }
+                    `}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Icon className="h-4 w-4" />
+                      <span className="font-medium text-sm">{stage.label}</span>
+                    </div>
+                    {isActive && (
+                      <span className="text-[10px] text-white/80">{stage.subtitle}</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Active filter indicator with subtitle */}
+          {selectedStage && (
+            <div className="text-center mt-4">
+              <span className="text-sm text-muted-foreground">
+                Filtering by: <span className="text-primary font-semibold">{pipelineStages.find(s => s.id === selectedStage)?.label}</span>
+              </span>
+              <button
+                onClick={() => setSelectedStage(null)}
+                className="ml-3 text-sm text-muted-foreground hover:text-destructive transition-colors"
+              >
+                ✕ Clear
+              </button>
+            </div>
+          )}
+        </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {skillCategories.map((category, categoryIndex) => (
+          {filteredCategories.map((category, categoryIndex) => (
             <div
               key={categoryIndex}
               className={`group relative glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 overflow-hidden ${isVisible ? 'slide-up' : 'opacity-0'

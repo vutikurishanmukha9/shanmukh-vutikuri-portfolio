@@ -782,6 +782,144 @@ select,
   }
 }
 
+/* Scale-in with bounce */
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Wiggle effect */
+@keyframes wiggle {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-3deg);
+  }
+
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Blur-in (cool reveal) */
+@keyframes blur-in {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+/* Glowing border animation */
+@keyframes border-glow {
+
+  0%,
+  100% {
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: 0 0 15px hsl(var(--primary) / 0.2);
+  }
+
+  50% {
+    border-color: hsl(var(--primary) / 0.6);
+    box-shadow: 0 0 25px hsl(var(--primary) / 0.4);
+  }
+}
+
+/* Text reveal */
+@keyframes text-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Scale-in animation class */
+.scale-in {
+  animation: scale-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Blur-in animation class */
+.blur-in {
+  animation: blur-in 0.8s ease-out forwards;
+}
+
+/* Wiggle on hover */
+.hover-wiggle:hover {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+/* Glowing border animation */
+.glow-border-animate {
+  animation: border-glow 2s ease-in-out infinite;
+}
+
+/* Stagger delay utilities */
+.stagger-1 {
+  animation-delay: 0.1s;
+}
+
+.stagger-2 {
+  animation-delay: 0.2s;
+}
+
+.stagger-3 {
+  animation-delay: 0.3s;
+}
+
+.stagger-4 {
+  animation-delay: 0.4s;
+}
+
+.stagger-5 {
+  animation-delay: 0.5s;
+}
+
+.stagger-6 {
+  animation-delay: 0.6s;
+}
+
+.stagger-7 {
+  animation-delay: 0.7s;
+}
+
+.stagger-8 {
+  animation-delay: 0.8s;
+}
+
+/* Initially hidden for stagger effect */
+.stagger-item {
+  opacity: 0;
+}
+
+/* Animate when visible */
+.stagger-item.visible {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
 /* Responsive hiding of custom cursor on touch devices */
 @media (hover: none) and (pointer: coarse) {
 

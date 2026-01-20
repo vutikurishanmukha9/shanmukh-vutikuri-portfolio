@@ -21,49 +21,64 @@ export const ProjectsSection = () => {
   const { selectedSkill, setSelectedSkill } = useSkillFilter();
 
   const projects = [
-    // Featured projects first (HeartOut, Candle-Light, Ele-Visualize, PromptBuddy)
-    {
-      title: 'HeartOut',
-      description: 'Personal storytelling platform where users can share achievements, lessons learned, unsent letters, and life journeys. Built with a focus on authentic self-expression.',
-      tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
-      category: 'Web App',
-      github: 'https://github.com/vutikurishanmukha9/HeartOut',
-      demo: 'https://heart-out.vercel.app/',
-      featured: true,
-    },
+    // Featured projects first
     {
       title: 'Candle-Light',
-      description: 'AI-powered candlestick pattern analysis platform for smarter trading decisions. Features instant pattern recognition, market bias prediction, and professional-grade analysis.',
+      description: 'Trading platforms lack automated pattern recognition. Built an AI-powered computer vision pipeline with multi-model fallback. Implemented low-latency pattern recognition for real-time market data analysis.',
       tech: ['React', 'TailwindCSS', 'Machine Learning', 'OAuth', 'TypeScript'],
       category: 'AI/ML',
+      focus: 'AI Pipelines',
       github: 'https://github.com/vutikurishanmukha9/Candle-Light',
       demo: 'https://candle-light-kappa.vercel.app',
       featured: true,
     },
     {
+      title: 'HeartOut',
+      description: 'Social platforms lack true anonymity. Architected a secure anonymous storytelling platform. Engineered role-based access control and scalable database schema for high-volume content.',
+      tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
+      category: 'Web App',
+      focus: 'Backend Systems',
+      github: 'https://github.com/vutikurishanmukha9/HeartOut',
+      demo: 'https://heart-out.vercel.app/',
+      featured: true,
+    },
+    {
       title: 'Ele-Visualize',
-      description: 'Interactive 3D atomic explorer for periodic table elements and molecules. Features hand gesture controls using MediaPipe for touchless rotation, zoom, and navigation.',
+      description: 'Abstract atomic concepts are hard to visualize. Developed an interactive 3D visualization engine. Integrated MediaPipe hand-tracking for touchless, gesture-controlled molecule exploration.',
       tech: ['React', 'Three.js', 'MediaPipe', 'WebGL', 'TypeScript'],
       category: 'Computer Vision',
+      focus: '3D Interaction',
       github: 'https://github.com/vutikurishanmukha9/Ele-Visualize',
       demo: 'https://ele-visualize.vercel.app/',
       featured: true,
     },
     {
       title: 'PromptBuddy',
-      description: 'AI prompt engineering tool that transforms basic prompts into structured, optimized templates using intelligent template matching - no API keys required.',
+      description: 'Prompt engineering is repetitive. Created a template-based prompt optimization tool. Built a regex-free string matching engine for intelligent template filling without API dependencies.',
       tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS'],
       category: 'Web App',
+      focus: 'SaaS Product',
       github: 'https://github.com/vutikurishanmukha9/PromptBuddy',
       demo: 'https://prompt-buddy-64y2.vercel.app/',
       featured: true,
     },
     // Other projects
     {
-      title: 'Resume Analyzer AI',
-      description: 'Smart resume analysis tool that provides ATS scoring, keyword recommendations, skills extraction, salary predictions, and detailed improvement suggestions.',
-      tech: ['Python', 'Flask', 'NLP', 'Machine Learning', 'REST API', 'Pytorch', 'TensorFlow'],
+      title: 'Jarvis PDF Chatbot',
+      description: 'Static PDFs trap knowledge. Built a RAG-based document intelligence system. Implemented vector retrieval pipelines and provider fallback (OpenAI/OpenRouter) for reliable Q&A.',
+      tech: ['Python', 'LangChain', 'Streamlit', 'OpenAI', 'FAISS'],
       category: 'AI/ML',
+      focus: 'RAG Systems',
+      github: 'https://github.com/vutikurishanmukha9/Jarvis',
+      demo: '',
+      featured: false,
+    },
+    {
+      title: 'Resume Analyzer AI',
+      description: 'ATS systems are opaque. Developed an explainable resume scoring engine. Utilized NLP for keyword extraction and ML classification to give actionable improvement feedback.',
+      tech: ['Python', 'Flask', 'NLP', 'Machine Learning', 'REST API'],
+      category: 'AI/ML',
+      focus: 'NLP Pipeline',
       github: 'https://github.com/vutikurishanmukha9/Resume_App',
       demo: '',
       demoNote: 'Requires 8GB+ RAM (ML models)',
@@ -71,64 +86,50 @@ export const ProjectsSection = () => {
     },
     {
       title: 'AI Health ChatBot',
-      description: 'Intelligent healthcare chatbot using advanced NLP and machine learning for symptom analysis, medical consultation assistance, and real-time health monitoring.',
+      description: 'Healthcare advice needs immediacy. Created an intelligent diagnostic assistant. Trained custom NLP models for symptom analysis and real-time medical consultation support.',
       tech: ['Python', 'NLP', 'TensorFlow', 'Flask', 'React'],
       category: 'AI/ML',
+      focus: 'Healthcare AI',
       github: 'https://github.com/vutikurishanmukha9/OUR-D-at-YOUR-D',
       demo: 'https://odatyd.netlify.app/',
       featured: false,
     },
     {
-      title: 'Jarvis PDF Chatbot',
-      description: 'AI-powered PDF question answering system with multi-provider LLM support (OpenAI, OpenRouter). Upload PDFs and chat with your documents using RAG technology.',
-      tech: ['Python', 'LangChain', 'Streamlit', 'OpenAI', 'FAISS'],
-      category: 'AI/ML',
-      github: 'https://github.com/vutikurishanmukha9/Jarvis',
-      demo: '',
-      featured: false,
-    },
-    {
       title: 'Touchless Keyboard',
-      description: 'Gesture-controlled virtual keyboard using computer vision and hand tracking. Type without touching any physical surface using AI-enhanced gesture recognition.',
+      description: 'Physical interfaces can be limiting. Built a purely gesture-based text input system. Optimized MediaPipe tracking for low-latency keystroke detection on standard webcams.',
       tech: ['Python', 'OpenCV', 'MediaPipe', 'Machine Learning'],
       category: 'Computer Vision',
+      focus: 'CV Systems',
       github: 'https://github.com/vutikurishanmukha9/Touchless-Keyboard',
       demo: '',
       featured: false,
     },
     {
-      title: 'HiHR - HR Email Outreach',
-      description: 'Smart HR cold emailing platform with campaign management, Gmail integration, encrypted credentials, and automated email sending for job seekers.',
-      tech: ['Node.js', 'Express', 'React', 'SQLite', 'SMTP'],
-      category: 'Web App',
-      github: 'https://github.com/vutikurishanmukha9/HR_Cold_Email',
-      demo: '',
-      demoNote: 'SMTP requires paid hosting',
-      featured: false,
-    },
-    {
       title: 'Automated Attendance System',
-      description: 'Computer vision-based attendance tracking using facial recognition technology with cloud storage and real-time notifications.',
+      description: 'Manual attendance is inefficient. Engineered a facial recognition attendance pipeline. Integrated real-time face matching with cloud database sync for instant reporting.',
       tech: ['Python', 'OpenCV', 'AWS', 'MySQL', 'React'],
       category: 'Computer Vision',
+      focus: 'CV Pipeline',
       github: 'https://github.com/vutikurishanmukha9/Automated-Attendance-System',
       demo: '',
       featured: false,
     },
     {
       title: 'Employee Data Analysis',
-      description: 'Comprehensive EDA project analyzing employee data with data preprocessing, visualization, and actionable HR insights using Python data science stack.',
+      description: 'Raw HR data lacks insight. Built a comprehensive EDA workflow. Cleaned and visualized complex datasets to reveal retention trends using the Python data science stack.',
       tech: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
       category: 'Data Analysis',
+      focus: 'Data Insights',
       github: 'https://github.com/vutikurishanmukha9/Employee_Data_Analysis',
       demo: '',
       featured: false,
     },
     {
       title: 'Adidas US Sales Analysis',
-      description: 'Business intelligence project analyzing Adidas US sales data to uncover insights on revenue trends, regional performance, and product categories.',
+      description: 'Retail data is noisy. Developed a business intelligence dashboard. Transformed raw sales logs into actionable regional performance metrics and growth indicators.',
       tech: ['Python', 'Pandas', 'Power BI', 'Excel', 'Visualization'],
       category: 'Data Analysis',
+      focus: 'Business Intelligence',
       github: 'https://github.com/vutikurishanmukha9/Adidas_US_Sales',
       demo: '',
       featured: false,
@@ -194,6 +195,15 @@ export const ProjectsSection = () => {
     setSelectedSkill(null);
   };
 
+  // Category descriptions for contextual header
+  const categoryDescriptions: Record<string, string> = {
+    'AI/ML': 'Applied AI systems and intelligent decision engines',
+    'Computer Vision': 'Real-time perception pipelines and gesture interfaces',
+    'Web App': 'Production-ready platforms with scalable backend architecture',
+    'Data Analysis': 'Projects driven by insights, metrics, and data pipelines',
+    'Cloud': 'Cloud-native infrastructure and distributed systems',
+  };
+
   // Get category visual config
   const getCategoryVisual = (category: string) => {
     return categoryConfig[category] || categoryConfig['AI/ML'];
@@ -202,20 +212,20 @@ export const ProjectsSection = () => {
   return (
     <section ref={sectionRef} id="projects" className="py-24 lg:py-32 relative bg-background/50">
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-sm text-primary font-medium mb-4">
-            Portfolio
+            System Archive
           </span>
           <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
             Selected <span className="text-primary">Works</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Showcasing expertise in AI, Machine Learning, and Full-Stack Development
+            Engineering problems I've solved using AI, Systems, and Data
           </p>
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
           {categories.map((category) => (
             <button
               key={category}
@@ -230,12 +240,23 @@ export const ProjectsSection = () => {
           ))}
         </div>
 
+        {/* Contextual Category Description */}
+        {activeFilter !== 'All' && !selectedSkill && (
+          <div className="text-center mb-10 animate-in fade-in slide-in-from-top-2">
+            <p className="text-muted-foreground font-medium flex items-center justify-center gap-2">
+              <span className="w-8 h-[1px] bg-primary/50"></span>
+              {categoryDescriptions[activeFilter]}
+              <span className="w-8 h-[1px] bg-primary/50"></span>
+            </p>
+          </div>
+        )}
+
         {/* Active Skill Filter Badge */}
         {selectedSkill && (
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-10">
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-card rounded-full border border-primary/30 shadow-sm">
               <Filter className="h-4 w-4 text-primary" />
-              <span className="text-sm text-muted-foreground">Showing projects with</span>
+              <span className="text-sm text-muted-foreground">Projects using</span>
               <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full">
                 {selectedSkill}
               </span>
@@ -283,12 +304,13 @@ export const ProjectsSection = () => {
                         <IconComponent className="h-6 w-6" />
                       </div>
                       <div className="flex flex-col">
-                        <span className={`text-xs font-semibold uppercase tracking-wider ${visual.color}`}>
+                        <span className={`text-xs font-bold uppercase tracking-wider ${visual.color}`}>
                           {project.category}
                         </span>
-                        {project.featured && (
-                          <span className="text-[10px] text-muted-foreground">Featured Project</span>
-                        )}
+                        {/* Focus Label */}
+                        <span className="text-[10px] text-muted-foreground/80 mt-0.5 font-medium border-l-2 border-primary/20 pl-1.5">
+                          {project.focus}
+                        </span>
                       </div>
                     </div>
 
@@ -310,7 +332,7 @@ export const ProjectsSection = () => {
                     <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-muted-foreground text-base leading-relaxed line-clamp-3">
+                    <p className="text-muted-foreground text-sm leading-relaxed line-clamp-4">
                       {project.description}
                     </p>
                   </div>
@@ -322,9 +344,9 @@ export const ProjectsSection = () => {
                       return (
                         <span
                           key={i}
-                          className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${isMatched
+                          className={`px-2.5 py-1 text-[10px] uppercase tracking-wide font-medium rounded-md transition-colors ${isMatched
                             ? 'bg-primary text-primary-foreground shadow-md'
-                            : 'bg-secondary/50 text-secondary-foreground hover:bg-secondary'
+                            : 'bg-secondary/40 text-muted-foreground border border-transparent hover:border-primary/20'
                             }`}
                         >
                           {tech}
@@ -332,7 +354,7 @@ export const ProjectsSection = () => {
                       );
                     })}
                     {project.tech.length > 4 && (
-                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-secondary/30 text-muted-foreground">
+                      <span className="px-2.5 py-1 text-[10px] font-medium rounded-md bg-secondary/30 text-muted-foreground">
                         +{project.tech.length - 4}
                       </span>
                     )}
@@ -341,24 +363,24 @@ export const ProjectsSection = () => {
                   {/* Footer / Actions */}
                   <div className="flex items-center gap-3 mt-auto pt-6 border-t border-border/50">
                     {project.github !== '#' && (
-                      <Button variant="outline" size="sm" className="flex-1 gap-2" asChild>
+                      <Button variant="outline" size="sm" className="flex-1 gap-2 h-9 text-xs" asChild>
                         <a href={project.github} target="_blank" rel="noopener noreferrer">
-                          <Github className="h-4 w-4" />
-                          Source
+                          <Github className="h-3.5 w-3.5" />
+                          Code
                         </a>
                       </Button>
                     )}
                     {project.demo && (
-                      <Button size="sm" className="flex-1 gap-2" asChild>
+                      <Button size="sm" className="flex-1 gap-2 h-9 text-xs" asChild>
                         <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                          <Globe className="h-4 w-4" />
-                          Live
+                          <Globe className="h-3.5 w-3.5" />
+                          Live Demo
                         </a>
                       </Button>
                     )}
                     {!project.demo && project.github !== '#' && (
-                      <span className="flex-1 text-center text-xs text-muted-foreground px-2 py-2 bg-secondary/30 rounded-md">
-                        {project.demoNote || "In Development"}
+                      <span className="flex-1 text-center text-[10px] uppercase tracking-wide text-muted-foreground px-2 py-2 bg-secondary/20 rounded-md">
+                        {project.demoNote || "Research Prototype"}
                       </span>
                     )}
                   </div>
@@ -370,25 +392,32 @@ export const ProjectsSection = () => {
 
         {/* View All Button */}
         {activeFilter === 'All' && remainingCount > 0 && (
-          <div className="text-center mt-12">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => setShowAll(!showAll)}
-              className="gap-2 min-w-[200px]"
-            >
-              {showAll ? (
-                <>
-                  <ChevronUp className="h-4 w-4" />
-                  Show Less
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="h-4 w-4" />
-                  View All Projects
-                </>
+          <div className="text-center mt-16">
+            <div className="inline-flex flex-col items-center gap-4">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => setShowAll(!showAll)}
+                className="gap-2 min-w-[240px] border-primary/20 hover:border-primary/50 hover:bg-primary/5"
+              >
+                {showAll ? (
+                  <>
+                    <ChevronUp className="h-4 w-4" />
+                    Collapse Archive
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4" />
+                    Explore Full Project Archive
+                  </>
+                )}
+              </Button>
+              {!showAll && (
+                <span className="text-xs text-muted-foreground">
+                  +{remainingCount} more systems
+                </span>
               )}
-            </Button>
+            </div>
           </div>
         )}
       </div>

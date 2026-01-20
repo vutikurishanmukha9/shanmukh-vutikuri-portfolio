@@ -9,7 +9,7 @@ export const HeroSection = () => {
   const [currentTitle, setCurrentTitle] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isResumeLoading, setIsResumeLoading] = useState(false);
-  const titles = ['Software Engineer', 'Data Analyst', 'Cloud Engineer', 'AI/ML Engineer', 'IoT Engineer', 'Research Engineer'];
+  const titles = ['Software Engineer', 'Data Analyst', 'Cloud Engineer', 'AI/ML Engineer', 'IoT Engineer', 'Applied AI Engineer'];
 
   useEffect(() => {
     setIsLoaded(true);
@@ -76,7 +76,7 @@ export const HeroSection = () => {
           <div className={`text-center lg:text-left space-y-8 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
             <div className="space-y-6">
               {/* Status badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/20">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/30 glow-border-animate">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -85,8 +85,8 @@ export const HeroSection = () => {
               </div>
 
               <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold font-display leading-tight">
-                <span className="block text-foreground">Vutikuri</span>
-                <span className="block text-gradient-animate">Shanmukha</span>
+                <span className={`block text-foreground ${isLoaded ? 'blur-in' : 'opacity-0'}`}>Vutikuri</span>
+                <span className={`block text-gradient-animate ${isLoaded ? 'blur-in stagger-2' : 'opacity-0'}`}>Shanmukha</span>
               </h1>
 
               <div className="h-12 flex items-center justify-center lg:justify-start">
