@@ -65,9 +65,10 @@ export const HeroSection = () => {
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 grid-pattern opacity-30" />
 
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      {/* Gradient orbs - More vibrant */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/25 rounded-full blur-[100px] animate-pulse delay-1000" />
+      <div className="absolute top-1/2 right-1/3 w-[300px] h-[300px] bg-accent/15 rounded-full blur-[80px] animate-pulse delay-500" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">

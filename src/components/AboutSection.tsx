@@ -4,13 +4,6 @@ export const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  const highlights = [
-    { number: '92', suffix: '%', label: 'AI Model Accuracy' },
-    { number: '99.9', suffix: '%', label: 'AWS Uptime' },
-    { number: '85', suffix: '%', label: 'Efficiency Improvement' },
-    { number: '10', suffix: '+', label: 'Successful Projects' },
-  ];
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -47,71 +40,25 @@ export const AboutSection = () => {
 
         <div className="max-w-4xl mx-auto">
           {/* Content */}
-          <div className={`space-y-6 mb-12 ${isVisible ? 'fade-in' : 'opacity-0'}`}>
+          <div className={`space-y-6 ${isVisible ? 'fade-in' : 'opacity-0'}`}>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I am a <span className="text-primary font-semibold">B.Tech graduate in Electronics & Communication Engineering</span> with
-              a passionate focus on artificial intelligence, cloud technologies, and data analytics.
+              I'm an <span className="text-primary font-semibold">Applied AI and Cloud Engineer</span> with a strong foundation in Electronics & Communication Engineering, focused on building real-world, production-ready systems.
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              As a <span className="text-primary font-semibold">published researcher</span> in IoT-driven smart systems,
-              I bring deep expertise in AWS deployments and the Python data ecosystem. My experience spans
-              machine learning model development, cloud infrastructure optimization, and data-driven solution architecture.
+              I design and deploy <span className="text-primary font-semibold">AI-powered backend platforms</span>, cloud-native applications, and data-driven systems using Python, FastAPI, AWS, and modern AI frameworks. My work spans applied machine learning, computer vision, NLP, and scalable cloud infrastructure, with hands-on experience taking ideas from concept to deployment.
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I am actively seeking opportunities to contribute to innovative teams where I can leverage my technical
-              skills to build intelligent solutions that drive meaningful impact.
+              I'm also an <span className="text-primary font-semibold">IEEE peer-reviewed published researcher</span>, where my work in IoT-driven smart systems reflects my ability to combine engineering rigor with practical problem-solving.
             </p>
-          </div>
 
-          {/* Highlights */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {highlights.map((highlight, index) => (
-              <div
-                key={index}
-                className={`group text-center p-6 glass rounded-2xl hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 ${isVisible ? 'slide-up' : 'opacity-0'
-                  }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="text-4xl font-bold text-gradient font-display mb-2">
-                  <AnimatedNumber value={parseFloat(highlight.number)} visible={isVisible} />
-                  {highlight.suffix}
-                </div>
-                <div className="text-sm text-muted-foreground font-medium">
-                  {highlight.label}
-                </div>
-              </div>
-            ))}
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              I'm actively seeking opportunities where I can build, scale, and ship intelligent systems that solve real problems — not just prototypes.
+            </p>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-// Animated number component
-const AnimatedNumber = ({ value, visible }: { value: number; visible: boolean }) => {
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    if (!visible) return;
-
-    const duration = 1500;
-    const steps = 60;
-    const increment = value / steps;
-    let step = 0;
-
-    const timer = setInterval(() => {
-      step++;
-      setCurrent(Math.min(increment * step, value));
-      if (step >= steps) {
-        clearInterval(timer);
-      }
-    }, duration / steps);
-
-    return () => clearInterval(timer);
-  }, [visible, value]);
-
-  return <>{current.toFixed(value % 1 !== 0 ? 1 : 0)}</>;
 };

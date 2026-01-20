@@ -37,7 +37,7 @@ export const SpotlightCard = ({
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className={`relative overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm ${className}`}
+            className={`relative overflow-hidden rounded-xl border border-border/50 bg-card/40 backdrop-blur-xl text-card-foreground shadow-lg hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 ${className}`}
             {...props}
         >
             <div

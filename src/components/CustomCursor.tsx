@@ -80,7 +80,7 @@ export const CustomCursor = () => {
         };
     }, [handleMouseMove, handleMouseDown, handleMouseUp, handleMouseEnter, handleMouseLeave]);
 
-    // Smooth ring follow effect
+    // Smooth ring follow - FASTER response
     useEffect(() => {
         let animationFrame: number;
         let currentX = position.x;
@@ -90,8 +90,9 @@ export const CustomCursor = () => {
             const dx = position.x - currentX;
             const dy = position.y - currentY;
 
-            currentX += dx * 0.15;
-            currentY += dy * 0.15;
+            // Much faster lerp for instant feel
+            currentX += dx * 0.35;
+            currentY += dy * 0.35;
 
             const ring = document.querySelector('.cursor-ring') as HTMLElement;
             if (ring) {
