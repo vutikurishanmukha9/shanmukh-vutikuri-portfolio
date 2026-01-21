@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { SkillFilterProvider } from "@/context/SkillFilterContext";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -16,6 +17,7 @@ const App = () => (
     <ThemeProvider>
       <SkillFilterProvider>
         <TooltipProvider>
+          <LoadingScreen />
           <CustomCursor />
           <Toaster />
           <Sonner />
