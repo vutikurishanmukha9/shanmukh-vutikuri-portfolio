@@ -97,19 +97,31 @@ export const Footer = () => {
               <span className="hidden sm:inline text-border">•</span>
               <p className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                Last updated: December 2025
+                Updated: {new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
               </p>
             </div>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={scrollToTop}
-              className="glass hover:border-primary/30 group"
-            >
-              <ArrowUp className="h-4 w-4 mr-2 group-hover:-translate-y-0.5 transition-transform" />
-              Back to top
-            </Button>
+            {/* Tech Stack Badge */}
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 glass rounded-lg text-xs text-muted-foreground">
+                <span>Built with</span>
+                <span className="text-primary font-medium">React</span>
+                <span>+</span>
+                <span className="text-primary font-medium">Tailwind</span>
+                <span>+</span>
+                <span className="text-primary font-medium">Vite</span>
+              </div>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={scrollToTop}
+                className="glass hover:border-primary/30 group"
+              >
+                <ArrowUp className="h-4 w-4 mr-2 group-hover:-translate-y-0.5 transition-transform" />
+                Back to top
+              </Button>
+            </div>
           </div>
         </div>
       </div>
