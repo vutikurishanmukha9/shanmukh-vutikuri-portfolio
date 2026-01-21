@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, Suspense } from 'react';
 import { GitHubCalendar } from 'react-github-calendar';
-import { Flame, Github } from 'lucide-react';
+import { Flame, Github, Sparkles } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
@@ -86,26 +86,35 @@ export const GrindingActivitySection = () => {
 
             <div className="container mx-auto px-4 lg:px-8 relative z-10">
                 <div className={`text-center mb-10 md:mb-16 ${isVisible ? 'fade-in' : 'opacity-0'}`}>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full glass text-xs md:text-sm text-violet-500 font-medium mb-4">
-                        <Flame className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                        Daily Hustle
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full glass text-xs md:text-sm text-violet-400 font-medium mb-4">
+                        <Sparkles className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                        Contribution Galaxy
                     </div>
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display mb-3 md:mb-4">
-                        Building <span className="bg-gradient-to-r from-violet-500 to-purple-500 bg-clip-text text-transparent">Activity</span>
+                        Star <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Map</span>
                     </h2>
                     <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-                        Every line of code is a step towards mastery. Here's my coding journey.
+                        Every commit is a star. Watch my coding universe expand.
                     </p>
-                    <div className="w-16 md:w-24 h-1 bg-gradient-to-r from-violet-500 to-purple-500 mx-auto rounded-full mt-4 md:mt-6" />
+                    <div className="w-16 md:w-24 h-1 bg-gradient-to-r from-violet-500 via-purple-500 to-cyan-500 mx-auto rounded-full mt-4 md:mt-6" />
                 </div>
 
-                {/* GitHub Contribution Calendar */}
+                {/* Constellation Map */}
                 <div className={`max-w-5xl mx-auto ${isVisible ? 'slide-up' : 'opacity-0'}`}>
-                    <div className="glass rounded-xl md:rounded-2xl p-4 md:p-8 hover:border-violet-500/30 transition-all duration-500">
+                    <div className={`relative rounded-xl md:rounded-2xl p-4 md:p-8 overflow-hidden border transition-colors duration-300 ${theme === 'dark'
+                        ? 'border-primary/20 bg-gradient-to-br from-slate-900 via-slate-900/95 to-slate-950'
+                        : 'border-primary/15 bg-gradient-to-br from-slate-100 via-slate-50 to-white'
+                        }`}>
+                        {/* Subtle Ambient Glow */}
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                            <div className={`absolute top-1/3 left-1/4 w-64 h-64 rounded-full blur-[100px] ${theme === 'dark' ? 'bg-primary/10' : 'bg-primary/5'}`} />
+                            <div className={`absolute bottom-1/4 right-1/4 w-48 h-48 rounded-full blur-[80px] ${theme === 'dark' ? 'bg-secondary/10' : 'bg-secondary/5'}`} />
+                        </div>
+
                         {/* Header */}
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-3 md:gap-4">
+                        <div className="relative flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 md:mb-6 gap-3 md:gap-4">
                             <div className="flex items-center gap-2 md:gap-3">
-                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-500/20">
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/30">
                                     <Github className="h-5 w-5 md:h-6 md:w-6 text-white" />
                                 </div>
                                 <div>
@@ -118,14 +127,14 @@ export const GrindingActivitySection = () => {
                                 href={`https://github.com/${GITHUB_USERNAME}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-violet-500 to-purple-600 text-white text-xs md:text-sm font-semibold rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-violet-500/20"
+                                className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-primary to-secondary text-white text-xs md:text-sm font-semibold rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/30"
                             >
                                 <Github className="h-3.5 w-3.5 md:h-4 md:w-4" />
                                 View Profile
                             </a>
                         </div>
 
-                        {/* GitHub Calendar with Loading State */}
+                        {/* GitHub Calendar as Constellation */}
                         <div className="overflow-x-auto overflow-y-visible pb-6 -mx-2 px-2 hide-scrollbar">
                             <div className="min-w-[800px]">
                                 {!calendarLoaded && <CalendarSkeleton />}
@@ -134,92 +143,142 @@ export const GrindingActivitySection = () => {
                                         username={GITHUB_USERNAME}
                                         year="last"
                                         transformData={(contributions) => {
-                                            // Filter to last 12 months from today
                                             const today = new Date();
                                             const oneYearAgo = new Date(today);
                                             oneYearAgo.setFullYear(today.getFullYear() - 1);
-
                                             return contributions.filter(activity => {
                                                 const date = new Date(activity.date);
                                                 return date >= oneYearAgo && date <= today;
                                             });
                                         }}
                                         theme={{
-                                            dark: ['#1e1b4b', '#4c1d95', '#7c3aed', '#a78bfa', '#c4b5fd'],
-                                            light: ['#ede9fe', '#c4b5fd', '#a78bfa', '#8b5cf6', '#7c3aed'],
+                                            dark: ['#0f0a1e', '#1e1b4b', '#4c1d95', '#7c3aed', '#a78bfa'],
+                                            light: ['#0f0a1e', '#1e1b4b', '#4c1d95', '#7c3aed', '#a78bfa'],
                                         }}
-                                        colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                                        blockSize={15}
-                                        blockMargin={5}
-                                        fontSize={13}
+                                        colorScheme="dark"
+                                        blockSize={14}
+                                        blockMargin={4}
+                                        fontSize={12}
                                         renderColorLegend={() => null}
                                         labels={{
-                                            totalCount: '{{count}} contributions in the last year',
+                                            totalCount: '{{count}} stars in the last year',
                                         }}
                                         renderBlock={(block, activity) => {
                                             const level = activity.level;
-
-                                            if (level === 0) {
-                                                return React.cloneElement(block, {
-                                                    'data-tooltip-id': 'contribution-tooltip',
-                                                    'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${new Date(activity.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`,
-                                                });
-                                            }
-
-                                            // Emoji mapping: Baby → Boy → Man → Samurai
-                                            const emojis = ['', '👶🏻', '👦🏻', '🧔🏻‍♂️', '🥷🏻'];
                                             // @ts-ignore
                                             const { x, y, width, height } = block.props;
+                                            const cx = x + width / 2;
+                                            const cy = y + height / 2;
+
+                                            // Star configurations - Theme adaptive
+                                            const darkStars = [
+                                                { r: 1.5, fill: '#334155', glow: false, twinkle: false }, // Level 0: slate
+                                                { r: 2.5, fill: 'hsl(174, 100%, 50%)', glow: true, glowR: 5, twinkle: true }, // Level 1: primary
+                                                { r: 3, fill: 'hsl(174, 90%, 60%)', glow: true, glowR: 7, twinkle: true }, // Level 2
+                                                { r: 3.5, fill: 'hsl(174, 80%, 75%)', glow: true, glowR: 9, twinkle: true }, // Level 3
+                                                { r: 4.5, fill: '#ffffff', glow: true, glowR: 12, twinkle: true, nebula: true }, // Level 4
+                                            ];
+                                            const lightStars = [
+                                                { r: 1.5, fill: '#e2e8f0', glow: false, twinkle: false }, // Level 0: light slate
+                                                { r: 2.5, fill: 'hsl(270, 80%, 60%)', glow: true, glowR: 5, twinkle: true }, // Level 1: purple
+                                                { r: 3, fill: 'hsl(270, 70%, 50%)', glow: true, glowR: 7, twinkle: true }, // Level 2
+                                                { r: 3.5, fill: 'hsl(270, 90%, 45%)', glow: true, glowR: 9, twinkle: true }, // Level 3
+                                                { r: 4.5, fill: 'hsl(270, 100%, 40%)', glow: true, glowR: 12, twinkle: true, nebula: true }, // Level 4
+                                            ];
+                                            const starConfigs = theme === 'dark' ? darkStars : lightStars;
+
+                                            const config = starConfigs[level];
+                                            const twinkleDelay = Math.random() * 5;
 
                                             return (
-                                                <text
-                                                    x={x + width / 2}
-                                                    y={y + height / 2 + 1}
-                                                    dominantBaseline="central"
-                                                    textAnchor="middle"
-                                                    fontSize="12"
-                                                    style={{ cursor: 'pointer', userSelect: 'none' }}
+                                                <g
+                                                    key={`star-${x}-${y}`}
                                                     data-tooltip-id="contribution-tooltip"
-                                                    data-tooltip-content={`${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${new Date(activity.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`}
+                                                    data-tooltip-content={`${activity.count} commit${activity.count !== 1 ? 's' : ''} on ${new Date(activity.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`}
+                                                    style={{ cursor: 'pointer' }}
                                                 >
-                                                    {emojis[level]}
-                                                </text>
+                                                    {/* Nebula glow for level 4 */}
+                                                    {config.nebula && (
+                                                        <circle
+                                                            cx={cx}
+                                                            cy={cy}
+                                                            r={config.glowR + 4}
+                                                            fill="url(#nebulaGradient)"
+                                                            opacity={0.4}
+                                                        />
+                                                    )}
+                                                    {/* Outer glow */}
+                                                    {config.glow && (
+                                                        <circle
+                                                            cx={cx}
+                                                            cy={cy}
+                                                            r={config.glowR}
+                                                            fill={config.fill}
+                                                            opacity={0.2}
+                                                            style={{
+                                                                animation: config.twinkle ? `twinkle 3s ease-in-out infinite` : 'none',
+                                                                animationDelay: `${twinkleDelay}s`,
+                                                            }}
+                                                        />
+                                                    )}
+                                                    {/* Core star */}
+                                                    <circle
+                                                        cx={cx}
+                                                        cy={cy}
+                                                        r={config.r}
+                                                        fill={config.fill}
+                                                        style={{
+                                                            animation: config.twinkle ? `twinkle 3s ease-in-out infinite` : 'none',
+                                                            animationDelay: `${twinkleDelay}s`,
+                                                        }}
+                                                    />
+                                                </g>
                                             );
                                         }}
                                     />
+                                    {/* SVG Defs for gradients */}
+                                    <svg width="0" height="0" style={{ position: 'absolute' }}>
+                                        <defs>
+                                            <radialGradient id="nebulaGradient" cx="50%" cy="50%" r="50%">
+                                                <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.6" />
+                                                <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.3" />
+                                                <stop offset="100%" stopColor="#0891b2" stopOpacity="0" />
+                                            </radialGradient>
+                                        </defs>
+                                    </svg>
                                 </div>
                                 <Tooltip
                                     id="contribution-tooltip"
                                     style={{
-                                        backgroundColor: theme === 'dark' ? '#1f2937' : '#ffffff',
-                                        color: theme === 'dark' ? '#f3f4f6' : '#1f2937',
+                                        backgroundColor: theme === 'dark' ? '#1e293b' : '#ffffff',
+                                        color: theme === 'dark' ? '#f1f5f9' : '#1e293b',
                                         borderRadius: '8px',
                                         padding: '8px 12px',
                                         fontSize: '13px',
                                         fontWeight: '500',
-                                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                                        border: theme === 'dark' ? '1px solid #374151' : '1px solid #e5e7eb',
+                                        boxShadow: theme === 'dark' ? '0 4px 20px rgba(0, 255, 242, 0.15)' : '0 4px 20px rgba(0, 0, 0, 0.1)',
+                                        border: theme === 'dark' ? '1px solid rgba(0, 255, 242, 0.2)' : '1px solid rgba(0, 0, 0, 0.1)',
                                         zIndex: 9999
                                     }}
                                 />
                             </div>
                         </div>
 
-                        {/* Custom Emoji Legend */}
-                        <div className="flex flex-col sm:flex-row items-center justify-between mt-4 gap-3">
+                        {/* Legend */}
+                        <div className="relative flex flex-col sm:flex-row items-center justify-between mt-4 gap-3">
                             <p className="text-sm text-muted-foreground">
-                                Hover over cells to see contribution details
+                                Hover over nodes to see details
                             </p>
-                            <div className="flex items-center gap-2 text-sm">
-                                <span className="text-muted-foreground">Less</span>
-                                <div className="flex items-center gap-1">
-                                    <span className="w-5 h-5 rounded bg-muted/30 flex items-center justify-center text-[10px]">⬜</span>
-                                    <span className="text-base">👶🏻</span>
-                                    <span className="text-base">👦🏻</span>
-                                    <span className="text-base">🧔🏻‍♂️</span>
-                                    <span className="text-base">🥷🏻</span>
+                            <div className="flex items-center gap-3 text-sm">
+                                <span className="text-muted-foreground/70">Less</span>
+                                <div className="flex items-center gap-2">
+                                    <span className={`w-2 h-2 rounded-full ${theme === 'dark' ? 'bg-slate-700' : 'bg-slate-200'}`} />
+                                    <span className={`w-2.5 h-2.5 rounded-full ${theme === 'dark' ? 'bg-primary/70' : 'bg-secondary/60'}`} />
+                                    <span className={`w-3 h-3 rounded-full ${theme === 'dark' ? 'bg-primary' : 'bg-secondary/80'}`} />
+                                    <span className={`w-3.5 h-3.5 rounded-full ${theme === 'dark' ? 'bg-primary shadow-md shadow-primary/50' : 'bg-secondary shadow-md shadow-secondary/50'}`} />
+                                    <span className={`w-4 h-4 rounded-full ${theme === 'dark' ? 'bg-white shadow-lg shadow-white/40' : 'bg-secondary shadow-lg shadow-secondary/50'}`} />
                                 </div>
-                                <span className="text-muted-foreground">More</span>
+                                <span className="text-muted-foreground/70">More</span>
                             </div>
                         </div>
                     </div>
