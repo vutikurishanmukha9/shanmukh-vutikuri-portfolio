@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, ChevronUp, Home, User, Wrench, Briefcase, FolderKanban, Award, FileText, Mail } from 'lucide-react';
+import { ChevronUp, Home, User, Wrench, Briefcase, FolderKanban, Award, FileText, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { MobileNavDrawer } from '@/components/MobileNavDrawer';
@@ -17,8 +17,8 @@ export const Navigation = () => {
     { href: '#skills', label: 'Skills', icon: Wrench },
     { href: '#career', label: 'Career', icon: Briefcase },
     { href: '#projects', label: 'Projects', icon: FolderKanban },
-    { href: '#certifications', label: 'Certifications', icon: Award },
-    { href: '#publications', label: 'Publications', icon: FileText },
+    { href: '#certifications', label: 'Certs', icon: Award },
+    { href: '#publications', label: 'Papers', icon: FileText },
     { href: '#contact', label: 'Contact', icon: Mail },
   ];
 
@@ -61,43 +61,41 @@ export const Navigation = () => {
 
   return (
     <>
-      {/* Desktop Navigation Bar - hidden on mobile */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden md:block ${scrolled ? 'glass-strong shadow-lg shadow-background/50' : 'bg-transparent'
-        }`}>
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <button
-              type="button"
-              onClick={() => scrollToSection('#home')}
-              className="text-xl font-bold font-display text-gradient-animate hover:scale-105 active:scale-95 transition-transform"
-            >
-              Shanmukha
-            </button>
+      {/* Desktop Navigation - Document flow, centered */}
+      <div className="hidden md:flex justify-center py-2.5 w-full">
+        {/* Gradient border wrapper */}
+        <div className="relative">
+          {/* Outer glow effect */}
+          <div className="absolute -inset-[1px] bg-gradient-to-r from-primary/50 via-secondary/50 to-primary/50 rounded-full blur-sm opacity-60" />
 
-            {/* Desktop Navigation Links */}
-            <div className="flex items-center gap-1">
+          {/* Gradient border */}
+          <div className="relative p-[1px] rounded-full bg-gradient-to-r from-primary/30 via-secondary/20 to-primary/30">
+            {/* Inner pill container */}
+            <nav className="relative flex items-center gap-1 px-3 py-2 rounded-full bg-background/95 backdrop-blur-xl border border-border/30">
+              {/* Navigation Links */}
               {navItems.map((item) => (
                 <button
                   key={item.href}
                   type="button"
                   onClick={() => scrollToSection(item.href)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg active:scale-95 ${activeSection === item.href.substring(1)
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
+                  className={`relative px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-full ${activeSection === item.href.substring(1)
+                    ? 'text-primary-foreground bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/30'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                     }`}
                 >
                   {item.label}
-                  {activeSection === item.href.substring(1) && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full" />
-                  )}
                 </button>
               ))}
+
+              {/* Divider */}
+              <div className="w-px h-6 bg-border/50 mx-1" />
+
+              {/* Theme Toggle */}
               <ThemeToggle />
-            </div>
+            </nav>
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* Mobile Header - shown only on mobile */}
       <MobileHeader
@@ -114,7 +112,7 @@ export const Navigation = () => {
         onNavigate={scrollToSection}
       />
 
-      {/* Back to Top Button */}
+      {/* Back to Top Button - This can stay fixed */}
       <Button
         onClick={scrollToTop}
         className={`fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full btn-glow active:scale-90 transition-all duration-300 ${showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'

@@ -24,7 +24,7 @@ export const NewsTicker = ({ items, speed = 30 }: NewsTickerProps) => {
 
     return (
         <div
-            className="news-ticker-container fixed top-16 left-0 right-0 z-40 overflow-hidden transition-all duration-300"
+            className="news-ticker-container w-full overflow-hidden transition-all duration-300"
             style={{
                 background: isHovered
                     ? 'linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--card) / 0.98) 100%)'

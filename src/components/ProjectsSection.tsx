@@ -210,7 +210,7 @@ export const ProjectsSection = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="py-24 lg:py-32 relative bg-background/50">
+    <section ref={sectionRef} id="projects" className="py-16 lg:py-20 relative bg-background/50">
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="text-center mb-12">
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-sm text-primary font-medium mb-4">
