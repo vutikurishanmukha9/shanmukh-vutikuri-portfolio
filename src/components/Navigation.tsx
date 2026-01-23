@@ -73,19 +73,33 @@ export const Navigation = () => {
             {/* Inner pill container */}
             <nav className="relative flex items-center gap-1 px-3 py-2 rounded-full bg-background/95 backdrop-blur-xl border border-border/30">
               {/* Navigation Links */}
-              {navItems.map((item) => (
-                <button
-                  key={item.href}
-                  type="button"
-                  onClick={() => scrollToSection(item.href)}
-                  className={`relative px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-full ${activeSection === item.href.substring(1)
-                    ? 'text-primary-foreground bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/30'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                    }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navItems.map((item) => {
+                const isActive = activeSection === item.href.substring(1);
+                return (
+                  <button
+                    key={item.href}
+                    type="button"
+                    onClick={() => scrollToSection(item.href)}
+                    className={`relative px-3 py-1.5 text-sm font-medium rounded-full
+                      transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                      ${isActive
+                        ? 'text-primary-foreground bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/30 scale-105'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 hover:scale-102'
+                      }`}
+                    style={{
+                      transitionProperty: 'transform, background, box-shadow, color, opacity',
+                    }}
+                  >
+                    {item.label}
+                    {/* Active indicator dot */}
+                    <span
+                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary-foreground
+                        transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                        ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'}`}
+                    />
+                  </button>
+                );
+              })}
 
               {/* Divider */}
               <div className="w-px h-6 bg-border/50 mx-1" />

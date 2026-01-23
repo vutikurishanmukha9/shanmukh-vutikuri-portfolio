@@ -70,13 +70,14 @@
     --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.5);
     --shadow-elegant: 0 20px 50px -10px hsl(174 100% 50% / 0.3);
 
-    /* Typography */
-    --font-primary: 'Inter', sans-serif;
-    --font-display: 'Space Grotesk', sans-serif;
+    /* Typography - SwiftUI Inspired (SF Pro) */
+    --font-primary: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Segoe UI', sans-serif;
+    --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk', 'Segoe UI', sans-serif;
 
-    /* Animations */
+    /* SwiftUI-style Spring Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
   /* Light Theme */
@@ -371,25 +372,36 @@ select,
     pointer-events: none;
   }
 
-  /* Glassmorphism - Enhanced Premium */
+  /* Glassmorphism - SwiftUI Inspired Material */
   .glass {
-    background: hsl(var(--card) / 0.4);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid hsl(var(--border) / 0.3);
+    background: hsl(var(--card) / 0.5);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid hsl(var(--border) / 0.2);
     box-shadow:
-      0 8px 32px hsl(0 0% 0% / 0.2),
-      inset 0 1px 0 hsl(255 255 255% / 0.05);
+      0 8px 32px hsl(0 0% 0% / 0.15),
+      inset 0 1px 0 hsl(0 0% 100% / 0.05),
+      inset 0 -1px 0 hsl(0 0% 0% / 0.05);
+    transition: var(--transition-spring);
+  }
+
+  .glass:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow:
+      0 12px 40px hsl(0 0% 0% / 0.2),
+      inset 0 1px 0 hsl(0 0% 100% / 0.08);
   }
 
   .glass-strong {
-    background: hsl(var(--card) / 0.7);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid hsl(var(--border) / 0.6);
+    background: hsl(var(--card) / 0.8);
+    backdrop-filter: blur(60px) saturate(200%);
+    -webkit-backdrop-filter: blur(60px) saturate(200%);
+    border: 1px solid hsl(var(--border) / 0.4);
     box-shadow:
-      0 16px 48px hsl(0 0% 0% / 0.3),
-      inset 0 1px 0 hsl(255 255 255% / 0.08);
+      0 16px 48px hsl(0 0% 0% / 0.25),
+      inset 0 1px 0 hsl(0 0% 100% / 0.1),
+      inset 0 -1px 0 hsl(0 0% 0% / 0.05);
+    transition: var(--transition-spring);
   }
 
   /* Premium Neon Cards */
@@ -1678,4 +1690,112 @@ body {
       hsl(var(--primary) / 0.3) 8px,
       transparent 8px,
       transparent 16px);
+}
+
+/* ========================================
+   SwiftUI-Inspired Utility Classes
+   ======================================== */
+
+/* Spring Animation on Hover */
+.swiftui-spring {
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.swiftui-spring:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.swiftui-spring:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Press Effect (like iOS buttons) */
+.swiftui-press {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swiftui-press:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+/* Material Card (iOS-style elevated card) */
+.swiftui-card {
+  background: hsl(var(--card) / 0.6);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 16px;
+  border: 1px solid hsl(var(--border) / 0.15);
+  box-shadow:
+    0 4px 24px hsl(0 0% 0% / 0.1),
+    0 1px 2px hsl(0 0% 0% / 0.05);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.swiftui-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow:
+    0 20px 40px hsl(0 0% 0% / 0.15),
+    0 8px 16px hsl(0 0% 0% / 0.1);
+}
+
+/* Glow Effect on Focus */
+.swiftui-focus {
+  transition: box-shadow 0.3s ease;
+}
+
+.swiftui-focus:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.3);
+}
+
+/* Smooth Bounce Animation */
+@keyframes swiftui-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.swiftui-bounce {
+  animation: swiftui-bounce 2s ease-in-out infinite;
+}
+
+/* Fade In Animation */
+@keyframes swiftui-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.swiftui-fade-in {
+  animation: swiftui-fade-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Scale In Animation */
+@keyframes swiftui-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.swiftui-scale-in {
+  animation: swiftui-scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
