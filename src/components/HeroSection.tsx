@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { MotionButton } from '@/components/ui/motion-button';
 import { Github, Linkedin, Mail, ExternalLink, Download, ArrowRight, ChevronDown, Loader2 } from 'lucide-react';
 import { ParticlesBackground } from '@/components/ParticlesBackground';
 
@@ -71,7 +72,7 @@ export const HeroSection = () => {
       <div className="absolute top-1/2 right-1/3 w-[300px] h-[300px] bg-accent/15 rounded-full blur-[80px] animate-pulse delay-500" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* Content */}
           <div className={`text-center lg:text-left space-y-8 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
             <div className="space-y-6">
@@ -119,9 +120,8 @@ export const HeroSection = () => {
               ))}
             </div>
 
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button
+              <MotionButton
                 className="btn-glow group px-8 py-6 text-base"
                 onClick={handleResumeClick}
                 disabled={isResumeLoading}
@@ -137,16 +137,16 @@ export const HeroSection = () => {
                     View Resume
                   </>
                 )}
-              </Button>
+              </MotionButton>
 
-              <Button
+              <MotionButton
                 variant="outline"
                 className="px-8 py-6 text-base border-muted hover:border-primary/50 hover:bg-primary/5 group"
                 onClick={() => scrollToSection('#projects')}
               >
                 View Projects
                 <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </Button>
+              </MotionButton>
             </div>
           </div>
 

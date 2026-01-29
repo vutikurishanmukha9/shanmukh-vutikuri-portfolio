@@ -44,7 +44,7 @@ export const AboutSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="about" className="py-16 lg:py-20 relative">
+    <section ref={sectionRef} id="about" className="py-10 lg:py-14 relative">
       {/* Background elements */}
       <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />

@@ -55,7 +55,7 @@ export const ContactSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="contact" className="py-16 lg:py-20 relative overflow-hidden">
+    <section ref={sectionRef} id="contact" className="py-10 lg:py-14 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 grid-pattern opacity-10" />
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />

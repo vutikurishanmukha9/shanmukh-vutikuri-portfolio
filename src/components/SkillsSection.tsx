@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Code, Database, Cloud, Brain, BarChart3, Cpu, Zap, Palette, Hammer, Shield, Rocket, TrendingUp, ChevronRight } from 'lucide-react';
 import { useSkillFilter } from '@/context/SkillFilterContext';
+import { motion } from 'framer-motion';
 
 // Pipeline stages with associated skills
 const pipelineStages = [
@@ -158,7 +159,7 @@ export const SkillsSection = () => {
   const filteredCategories = getFilteredCategories();
 
   return (
-    <section ref={sectionRef} id="skills" className="py-16 lg:py-20 relative overflow-hidden">
+    <section ref={sectionRef} id="skills" className="py-10 lg:py-14 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 grid-pattern opacity-20" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
@@ -355,21 +356,24 @@ export const SkillsSection = () => {
                   const isHovered = hoveredSkill === `${categoryIndex}-${skillIndex}`;
 
                   return (
-                    <button
+                    <motion.button
                       key={skillIndex}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       onClick={() => handleSkillClick(skill)}
-                      className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer
+                      className={`relative px-4 py-2 rounded-xl text-sm font-medium cursor-pointer
                         ${isSelected
-                          ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105 ring-2 ring-white/30`
+                          ? `bg-gradient-to-r ${category.color} text-white shadow-lg ring-2 ring-white/30`
                           : isHovered
-                            ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105`
-                            : 'glass text-foreground hover:text-primary border border-transparent hover:border-primary/20'
+                            ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
+                            : 'glass text-foreground border border-transparent hover:border-primary/20'
                         }`}
                       onMouseEnter={() => setHoveredSkill(`${categoryIndex}-${skillIndex}`)}
                       onMouseLeave={() => setHoveredSkill(null)}
                     >
                       {skill}
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>

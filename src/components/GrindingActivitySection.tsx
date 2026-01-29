@@ -78,7 +78,7 @@ export const GrindingActivitySection = () => {
     }, [isVisible]);
 
     return (
-        <section ref={sectionRef} id="grinding" className="py-12 md:py-16 lg:py-20 relative overflow-hidden">
+        <section ref={sectionRef} id="grinding" className="py-10 lg:py-14 relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute inset-0 grid-pattern opacity-10" />
             <div className="absolute top-0 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-violet-500/5 rounded-full blur-3xl" />

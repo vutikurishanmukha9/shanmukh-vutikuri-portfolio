@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronUp, Home, User, Wrench, Briefcase, FolderKanban, Award, FileText, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -80,23 +81,22 @@ export const Navigation = () => {
                     key={item.href}
                     type="button"
                     onClick={() => scrollToSection(item.href)}
-                    className={`relative px-3 py-1.5 text-sm font-medium rounded-full
-                      transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+                    className={`relative px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-300
                       ${isActive
-                        ? 'text-primary-foreground bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/30 scale-105'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/50 hover:scale-102'
+                        ? 'text-primary-foreground'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                       }`}
-                    style={{
-                      transitionProperty: 'transform, background, box-shadow, color, opacity',
-                    }}
                   >
-                    {item.label}
-                    {/* Active indicator dot */}
-                    <span
-                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary-foreground
-                        transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-                        ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'}`}
-                    />
+                    <span className="relative z-10">{item.label}</span>
+
+                    {/* Active indicator with layout animation */}
+                    {isActive && (
+                      <motion.span
+                        layoutId="active-nav-pill"
+                        className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg shadow-primary/30"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
                   </button>
                 );
               })}
