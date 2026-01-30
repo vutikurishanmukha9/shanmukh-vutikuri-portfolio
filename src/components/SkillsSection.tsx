@@ -94,7 +94,7 @@ export const SkillsSection = () => {
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="text-[4rem] lg:text-[6rem] font-black text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/20 uppercase tracking-tighter"
+            className="text-[2.5rem] md:text-[4rem] lg:text-[6rem] font-black text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/20 uppercase tracking-tighter"
           >
             Capabilities
           </motion.h2>
@@ -102,7 +102,7 @@ export const SkillsSection = () => {
 
         {/* Interactive Pipeline Strip */}
         <motion.div
-          className="flex overflow-x-auto pb-4 gap-2 md:gap-4 justify-start md:justify-center mb-20 hide-scrollbar"
+          className="flex overflow-x-auto pb-6 gap-3 md:gap-4 justify-start md:justify-center mb-16 w-full px-4 -mx-4 md:mx-0 md:px-0 md:w-auto hide-scrollbar snap-x"
         >
           {pipelineStages.map((stage) => {
             const Icon = stage.icon;
@@ -113,12 +113,12 @@ export const SkillsSection = () => {
                 key={stage.id}
                 onClick={() => setSelectedStage(isSelected ? null : stage.id)}
                 className={`
-                  relative group flex items-center gap-2 px-6 py-3 rounded-full border transition-all duration-300
+                  relative group flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full border transition-all duration-300 snap-center shrink-0
                   ${isSelected ? `${stage.bg} ${stage.border} ring-2 ring-primary/50` : 'glass border-white/5 hover:bg-white/5'}
                 `}
               >
-                <Icon className={`w-5 h-5 ${isSelected ? stage.color : 'text-muted-foreground group-hover:text-foreground'}`} />
-                <span className={`text-sm font-medium whitespace-nowrap ${isSelected ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
+                <Icon className={`w-4 h-4 md:w-5 md:h-5 ${isSelected ? stage.color : 'text-muted-foreground group-hover:text-foreground'}`} />
+                <span className={`text-xs md:text-sm font-medium whitespace-nowrap ${isSelected ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
                   {stage.label}
                 </span>
                 {isSelected && (

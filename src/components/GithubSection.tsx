@@ -135,7 +135,7 @@ export const GithubSection = () => {
                     <motion.div
                         animate={{ rotate: 360 }}
                         transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-                        className="relative w-[600px] h-[600px] md:w-[800px] md:h-[800px] preserve-3d"
+                        className="relative w-[300px] h-[300px] md:w-[600px] md:h-[600px] lg:w-[800px] lg:h-[800px] preserve-3d"
                         style={{ rotateX: 60 }} // Tilted 3D Plane
                     >
                         {/* Core Glow */}

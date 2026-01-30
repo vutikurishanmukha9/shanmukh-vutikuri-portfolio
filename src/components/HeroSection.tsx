@@ -91,7 +91,7 @@ export const HeroSection = () => {
 
               {/* Radical Name Layout */}
               <div className="relative z-20">
-                <h1 className="text-[4rem] sm:text-[5rem] md:text-[7rem] lg:text-[8rem] font-black leading-[0.85] tracking-tighter mix-blend-difference">
+                <h1 className="text-[2.5rem] sm:text-[5rem] md:text-[7rem] lg:text-[8rem] font-black leading-[0.85] tracking-tighter mix-blend-difference">
                   VUTIKURI
                   <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-primary animate-gradient-x">
@@ -105,9 +105,13 @@ export const HeroSection = () => {
               I craft <span className="text-primary font-bold">digital experiences</span> that merge technical precision with artistic fluidity.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-4">
-              <MagneticButton>
-                <Button size="lg" className="rounded-full px-8 h-14 text-base bg-primary hover:bg-primary/80 text-background font-bold shadow-[0_0_30px_rgba(var(--primary-rgb),0.4)]">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+              <MagneticButton className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="w-full sm:w-auto rounded-full px-6 sm:px-8 h-14 text-base bg-primary hover:bg-primary/80 text-background font-bold shadow-[0_0_30px_rgba(var(--primary-rgb),0.4)]"
+                >
                   View Projects <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </MagneticButton>
@@ -143,9 +147,9 @@ export const HeroSection = () => {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ rotateX, rotateY, rotate }}
-            className="relative hidden lg:block perspective-1000"
+            className="relative block perspective-1000 mt-12 lg:mt-0"
           >
-            <div className="relative w-[500px] h-[600px] mx-auto group">
+            <div className="relative w-full max-w-[320px] h-[400px] lg:max-w-[500px] lg:h-[600px] mx-auto group">
               {/* Holographic Border */}
               <div className="absolute inset-0 rounded-3xl border-2 border-primary/30 z-20 group-hover:border-primary/60 transition-colors duration-500" />
               <div className="absolute inset-4 rounded-3xl border border-primary/10 z-20" />
@@ -169,7 +173,7 @@ export const HeroSection = () => {
               {/* Floating UI Elements */}
               <motion.div
                 style={{ x: useTransform(x, [-0.5, 0.5], [-20, 20]), y: useTransform(y, [-0.5, 0.5], [-20, 20]) }}
-                className="absolute -right-8 top-20 glass p-4 rounded-xl z-30 flex items-center gap-3 shadow-2xl shadow-primary/20 border border-primary/20"
+                className="absolute -right-8 top-20 glass p-4 rounded-xl z-30 hidden md:flex items-center gap-3 shadow-2xl shadow-primary/20 border border-primary/20"
               >
                 <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_#22c55e]" />
                 <span className="font-mono text-xs font-bold tracking-widest text-primary">SYSTEM ONLINE</span>
@@ -177,7 +181,7 @@ export const HeroSection = () => {
 
               <motion.div
                 style={{ x: useTransform(x, [-0.5, 0.5], [20, -20]), y: useTransform(y, [-0.5, 0.5], [20, -20]) }}
-                className="absolute -left-8 bottom-32 glass p-4 rounded-xl z-30 shadow-2xl shadow-primary/20 border border-primary/20"
+                className="absolute -left-8 bottom-32 glass p-4 rounded-xl z-30 hidden md:flex shadow-2xl shadow-primary/20 border border-primary/20"
               >
                 <div className="space-y-2">
                   <div className="h-1.5 w-24 bg-primary/50 rounded-full" />

@@ -113,7 +113,7 @@ export const AboutSection = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.7 }}
-            className="space-y-6 text-center md:text-left"
+            className="space-y-6 text-left"
           >
             <p className="text-lg text-muted-foreground leading-relaxed">
               I'm an <span className="text-primary font-semibold relative inline-block">
@@ -123,7 +123,7 @@ export const AboutSection = () => {
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              My hands-on experience spans <span className="text-white font-medium">Python, FastAPI, AWS, and modern AI frameworks</span> including computer vision, NLP, and RAG systems. I don't just build demos — projects like <span className="text-primary font-semibold">Candle-Light</span> (AI pattern recognition) and <span className="text-primary font-semibold">HeartOut</span> (secure backend architecture) are deployed and running.
+              My hands-on experience spans <span className="text-foreground font-medium">Python, FastAPI, AWS, and modern AI frameworks</span> including computer vision, NLP, and RAG systems. I don't just build demos — projects like <span className="text-primary font-semibold">Candle-Light</span> (AI pattern recognition) and <span className="text-primary font-semibold">HeartOut</span> (secure backend architecture) are deployed and running.
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
