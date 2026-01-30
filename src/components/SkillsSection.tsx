@@ -1,389 +1,247 @@
-import { useEffect, useState, useRef } from 'react';
+
+import { useState, useRef } from 'react';
 import { Code, Database, Cloud, Brain, BarChart3, Cpu, Zap, Palette, Hammer, Shield, Rocket, TrendingUp, ChevronRight } from 'lucide-react';
 import { useSkillFilter } from '@/context/SkillFilterContext';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { SectionWrapper } from '@/components/ui/section-wrapper';
 
-// Pipeline stages with associated skills
 const pipelineStages = [
+  { id: 'ingest', label: 'Ingest', icon: Database, color: 'text-blue-400', bg: 'bg-blue-400/10', border: 'border-blue-400/20' },
+  { id: 'process', label: 'Process', icon: Cpu, color: 'text-purple-400', bg: 'bg-purple-400/10', border: 'border-purple-400/20' },
+  { id: 'store', label: 'Store', icon: Cloud, color: 'text-cyan-400', bg: 'bg-cyan-400/10', border: 'border-cyan-400/20' },
+  { id: 'analyze', label: 'Analyze', icon: BarChart3, color: 'text-green-400', bg: 'bg-green-400/10', border: 'border-green-400/20' },
+  { id: 'visualize', label: 'Visualize', icon: Palette, color: 'text-pink-400', bg: 'bg-pink-400/10', border: 'border-pink-400/20' },
+];
+
+const skillCategories = [
   {
-    id: 'design',
-    label: 'Design',
-    subtitle: 'Architecture & API contracts',
+    title: 'Languages',
+    skills: ['Python', 'SQL', 'C', 'C++', 'Java'],
+    icon: Code,
+    stage: 'process',
+    position: { top: '10%', left: '10%' }
+  },
+  {
+    title: 'Cloud & DevOps',
+    skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD'],
+    icon: Cloud,
+    stage: 'store',
+    position: { top: '20%', right: '15%' }
+  },
+  {
+    title: 'Data & AI',
+    skills: ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow', 'PyTorch'],
+    icon: Brain,
+    stage: 'analyze',
+    position: { bottom: '20%', left: '20%' }
+  },
+  {
+    title: 'Web Technologies',
+    skills: ['React', 'Node.js', 'FastAPI', 'HTML/CSS', 'JavaScript'],
     icon: Palette,
-    color: 'from-pink-500 to-rose-500',
-    prominent: false,
-    skills: ['System Architecture', 'System Design', 'REST API Design', 'Database', 'MongoDB', 'PostgreSQL', 'MySQL'],
+    stage: 'visualize',
+    position: { bottom: '15%', right: '10%' }
   },
   {
-    id: 'build',
-    label: 'Build',
-    subtitle: 'Core services & async logic',
+    title: 'Core Engineering',
+    skills: ['Data Structures', 'Algorithms', 'System Design', 'IoT', 'Embedded Systems'],
     icon: Hammer,
-    color: 'from-cyan-500 to-blue-500',
-    prominent: true, // Execution stage
-    skills: ['FastAPI', 'Python', 'TypeScript', 'JavaScript', 'Async Programming', 'TensorFlow', 'PyTorch'],
+    stage: 'ingest',
+    position: { top: '50%', left: '50%' } // Center
   },
   {
-    id: 'secure',
-    label: 'Secure',
-    subtitle: 'Auth & trust boundaries',
+    title: 'Tools & Others',
+    skills: ['Git', 'Linux', 'Jira', 'Postman', 'VS Code'],
     icon: Shield,
-    color: 'from-amber-500 to-orange-500',
-    prominent: false,
-    skills: ['JWT Authentication', 'AWS', 'Git', 'Linux'],
-  },
-  {
-    id: 'deploy',
-    label: 'Deploy',
-    subtitle: 'Containers, CI/CD, cloud infra',
-    icon: Rocket,
-    color: 'from-violet-500 to-purple-500',
-    prominent: true, // Execution stage
-    skills: ['AWS', 'Docker', 'CI/CD', 'Linux', 'Git'],
-  },
-  {
-    id: 'optimize',
-    label: 'Optimize',
-    subtitle: 'Performance, cost, reliability',
-    icon: TrendingUp,
-    color: 'from-emerald-500 to-green-500',
-    prominent: false,
-    skills: ['Pandas', 'NumPy', 'Tableau', 'Power BI', 'Scikit-learn'],
+    stage: 'process',
+    position: { top: '15%', left: '45%' }
   },
 ];
 
 export const SkillsSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [selectedStage, setSelectedStage] = useState<string | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const pipelineRef = useRef<HTMLDivElement>(null);
   const { selectedSkill, setSelectedSkill } = useSkillFilter();
 
-  const skillCategories = [
-    {
-      title: 'Backend & Systems',
-      icon: Zap,
-      color: 'from-violet-500 to-fuchsia-500',
-      bgPattern: 'radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)',
-      skills: ['FastAPI', 'REST API Design', 'JWT Authentication', 'Async Programming', 'System Architecture', 'System Design'],
-    },
-    {
-      title: 'Programming',
-      icon: Code,
-      color: 'from-cyan-500 to-blue-500',
-      bgPattern: 'radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%)',
-      skills: ['Python', 'SQL', 'JavaScript', 'TypeScript'],
-    },
-    {
-      title: 'AI & Machine Learning',
-      icon: Brain,
-      color: 'from-purple-500 to-pink-500',
-      bgPattern: 'radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%)',
-      skills: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'OpenCV', 'NLP'],
-    },
-    {
-      title: 'Cloud & DevOps',
-      icon: Cloud,
-      color: 'from-blue-500 to-indigo-500',
-      bgPattern: 'radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%)',
-      skills: ['AWS', 'Docker', 'Git', 'Linux', 'CI/CD'],
-    },
-    {
-      title: 'Database',
-      icon: Database,
-      color: 'from-amber-500 to-orange-500',
-      bgPattern: 'radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 50%)',
-      skills: ['MySQL', 'PostgreSQL', 'Oracle', 'MongoDB'],
-    },
-    {
-      title: 'Data & Analytics',
-      icon: BarChart3,
-      color: 'from-green-500 to-emerald-500',
-      bgPattern: 'radial-gradient(circle at 80% 50%, rgba(34, 197, 94, 0.15) 0%, transparent 50%)',
-      skills: ['Pandas', 'NumPy', 'Tableau', 'Power BI', 'Excel'],
-    },
-    {
-      title: 'IoT & Hardware',
-      icon: Cpu,
-      color: 'from-rose-500 to-red-500',
-      bgPattern: 'radial-gradient(circle at 50% 80%, rgba(244, 63, 94, 0.15) 0%, transparent 50%)',
-      skills: ['Arduino', 'Raspberry Pi', 'Sensors', 'MQTT'],
-    },
-  ];
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   const handleSkillClick = (skill: string) => {
-    // Set the selected skill and scroll to projects
-    setSelectedSkill(skill);
-
-    // Scroll to projects section
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    setSelectedSkill(selectedSkill === skill ? null : skill);
+    // Scroll to projects if a skill is selected
+    if (selectedSkill !== skill) {
+      setTimeout(() => {
+        document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     }
   };
 
-  // Filter skill categories based on selected pipeline stage
-  const getFilteredCategories = () => {
-    if (!selectedStage) return skillCategories;
-
-    const stageSkills = pipelineStages.find(s => s.id === selectedStage)?.skills || [];
-
-    return skillCategories.filter(category =>
-      category.skills.some(skill =>
-        stageSkills.some(stageSkill =>
-          skill.toLowerCase().includes(stageSkill.toLowerCase()) ||
-          stageSkill.toLowerCase().includes(skill.toLowerCase())
-        )
-      )
-    );
-  };
-
-  const filteredCategories = getFilteredCategories();
+  const filteredCategories = selectedStage
+    ? skillCategories.filter(cat => cat.stage === selectedStage)
+    : skillCategories;
 
   return (
-    <section ref={sectionRef} id="skills" className="py-10 lg:py-14 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 grid-pattern opacity-20" />
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+    <SectionWrapper id="skills" className="py-20 lg:py-40 relative overflow-hidden min-h-screen flex flex-col justify-center">
+      {/* Background Constellation Lines (Static for performance) */}
+      <div className="absolute inset-0 pointer-events-none">
+        <svg className="w-full h-full opacity-20">
+          <line x1="20%" y1="20%" x2="50%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-primary" />
+          <line x1="80%" y1="30%" x2="50%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-secondary" />
+          <line x1="30%" y1="70%" x2="50%" y2="50%" stroke="currentColor" strokeWidth="1" className="text-accent" />
+        </svg>
+      </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className={`text-center mb-16 ${isVisible ? 'fade-in' : 'opacity-0'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-4">
-            <Zap className="h-4 w-4" />
-            What I do best
-          </div>
-          <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
-            Technical <span className="text-gradient">Skills</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Click on any skill to see related projects
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
-        </div>
-
-        {/* How I Build Systems - Pipeline Strip */}
-        <div className={`mb-12 ${isVisible ? 'blur-in stagger-2' : 'opacity-0'}`}>
-          {/* Mindset tagline */}
-          <p className="text-center text-xs text-muted-foreground/60 uppercase tracking-widest mb-3">
-            End-to-end ownership mindset
-          </p>
-          <h3 className="text-center text-lg font-semibold text-foreground mb-2">
-            How I Build Systems
-          </h3>
-          {/* Philosophy microcopy */}
-          <p className="text-center text-sm text-muted-foreground mb-8 max-w-xl mx-auto">
-            From architecture decisions to production optimization — every step is intentional.
-          </p>
-
-          {/* Desktop: Horizontal strip with arrows + feedback loop */}
-          <div className="hidden md:flex flex-col items-center">
-            <div
-              ref={pipelineRef}
-              className="flex items-center justify-center gap-1 relative"
-            >
-              {pipelineStages.map((stage, index) => {
-                const Icon = stage.icon;
-                const isActive = selectedStage === stage.id;
-
-                return (
-                  <div key={stage.id} className="flex items-center">
-                    <button
-                      onClick={() => setSelectedStage(isActive ? null : stage.id)}
-                      className={`
-                        flex flex-col items-center gap-1 px-4 py-3 rounded-xl
-                        transition-all duration-200 group relative
-                        ${stage.prominent ? 'scale-[1.03]' : ''}
-                        ${isActive
-                          ? `bg-gradient-to-r ${stage.color} text-white shadow-lg shadow-primary/20`
-                          : `glass hover:border-primary/40 text-muted-foreground hover:text-foreground
-                             ${stage.prominent ? 'border-primary/20' : ''}`
-                        }
-                      `}
-                    >
-                      <div className="flex items-center gap-2">
-                        {/* Icon with accent dot */}
-                        <span className="relative">
-                          <Icon className={`h-4 w-4 ${isActive ? 'text-white' : 'group-hover:text-primary'} ${stage.prominent && !isActive ? 'text-primary/70' : ''}`} />
-                          <span className={`absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full ${isActive ? 'bg-white/80' : 'bg-primary/60'}`} />
-                        </span>
-                        <span className={`font-medium text-sm ${stage.prominent && !isActive ? 'font-semibold' : ''}`}>{stage.label}</span>
-                      </div>
-                      {/* Subtitle - shows when active */}
-                      {isActive && (
-                        <span className="text-xs text-white/80 mt-0.5">{stage.subtitle}</span>
-                      )}
-                    </button>
-
-                    {index < pipelineStages.length - 1 && (
-                      <ChevronRight className="h-4 w-4 text-muted-foreground/40 mx-0.5 flex-shrink-0" />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Feedback loop arrow - subtle curved arrow from Optimize back to Design */}
-            <div className="relative w-full max-w-[600px] h-6 mt-2">
-              <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 600 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M550 6 Q575 6 575 18 Q575 24 300 24 Q25 24 25 18 Q25 6 50 6"
-                  stroke="url(#feedbackGradient)"
-                  strokeWidth="1"
-                  strokeDasharray="4 4"
-                  fill="none"
-                  opacity="0.3"
-                />
-                <defs>
-                  <linearGradient id="feedbackGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="hsl(var(--primary))" />
-                    <stop offset="100%" stopColor="hsl(var(--secondary))" />
-                  </linearGradient>
-                </defs>
-                {/* Arrow head pointing to Design */}
-                <polygon points="45,3 50,6 45,9" fill="hsl(var(--primary))" opacity="0.4" />
-              </svg>
-              <span className="absolute left-1/2 -translate-x-1/2 top-2 text-[10px] text-muted-foreground/40 italic">iterate</span>
-            </div>
-          </div>
-
-          {/* Mobile: Swipeable pills */}
-          <div
-            className="md:hidden overflow-x-auto scrollbar-hide pb-2 -mx-4 px-4"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        <div className="text-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="text-[4rem] lg:text-[6rem] font-black text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/20 uppercase tracking-tighter"
           >
-            <div className="flex items-center gap-3 w-max">
-              {pipelineStages.map((stage) => {
-                const Icon = stage.icon;
-                const isActive = selectedStage === stage.id;
-
-                return (
-                  <button
-                    key={stage.id}
-                    onClick={() => setSelectedStage(isActive ? null : stage.id)}
-                    className={`
-                      flex flex-col items-center gap-1 px-4 py-2.5 rounded-full whitespace-nowrap
-                      transition-all duration-300
-                      ${stage.prominent ? 'ring-1 ring-primary/30' : ''}
-                      ${isActive
-                        ? `bg-gradient-to-r ${stage.color} text-white shadow-lg`
-                        : 'glass text-muted-foreground'
-                      }
-                    `}
-                  >
-                    <div className="flex items-center gap-2">
-                      <Icon className="h-4 w-4" />
-                      <span className="font-medium text-sm">{stage.label}</span>
-                    </div>
-                    {isActive && (
-                      <span className="text-[10px] text-white/80">{stage.subtitle}</span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Active filter indicator with subtitle */}
-          {selectedStage && (
-            <div className="text-center mt-4">
-              <span className="text-sm text-muted-foreground">
-                Filtering by: <span className="text-primary font-semibold">{pipelineStages.find(s => s.id === selectedStage)?.label}</span>
-              </span>
-              <button
-                onClick={() => setSelectedStage(null)}
-                className="ml-3 text-sm text-muted-foreground hover:text-destructive transition-colors"
-              >
-                ✕ Clear
-              </button>
-            </div>
-          )}
+            Capabilities
+          </motion.h2>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {filteredCategories.map((category, categoryIndex) => (
-            <div
-              key={categoryIndex}
-              className={`group relative glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 overflow-hidden ${isVisible ? 'slide-up' : 'opacity-0'
-                }`}
-              style={{ animationDelay: `${categoryIndex * 0.1}s` }}
-            >
-              {/* Animated background pattern */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: category.bgPattern }}
-              />
 
-              {/* Gradient border glow on hover */}
-              <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-gradient-to-br ${category.color} blur-xl`} />
+        {/* Interactive Pipeline Strip */}
+        <motion.div
+          className="flex overflow-x-auto pb-4 gap-2 md:gap-4 justify-start md:justify-center mb-20 hide-scrollbar"
+        >
+          {pipelineStages.map((stage) => {
+            const Icon = stage.icon;
+            const isSelected = selectedStage === stage.id;
 
-              {/* Category Header */}
-              <div className="relative flex items-center gap-4 mb-6">
-                <div className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
-                  <category.icon className="h-7 w-7 text-white" />
-                  {/* Icon glow */}
-                  <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${category.color} blur-md opacity-50 group-hover:opacity-70 transition-opacity`} />
+            return (
+              <button
+                key={stage.id}
+                onClick={() => setSelectedStage(isSelected ? null : stage.id)}
+                className={`
+                  relative group flex items-center gap-2 px-6 py-3 rounded-full border transition-all duration-300
+                  ${isSelected ? `${stage.bg} ${stage.border} ring-2 ring-primary/50` : 'glass border-white/5 hover:bg-white/5'}
+                `}
+              >
+                <Icon className={`w-5 h-5 ${isSelected ? stage.color : 'text-muted-foreground group-hover:text-foreground'}`} />
+                <span className={`text-sm font-medium whitespace-nowrap ${isSelected ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
+                  {stage.label}
+                </span>
+                {isSelected && (
+                  <motion.div layoutId="pipeline-active" className="absolute inset-0 rounded-full bg-primary/5 -z-10" />
+                )}
+              </button>
+            );
+          })}
+        </motion.div>
+
+        {/* Floating Orbs Layout - Desktop */}
+        <div className="hidden lg:block relative w-full h-[600px]">
+          {filteredCategories.map((category, index) => {
+            const isCenter = category.title === 'Core Engineering';
+            return (
+              <motion.div
+                key={category.title}
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, type: "spring", stiffness: 50 }}
+                className="absolute"
+                style={category.position as any}
+              >
+                <div
+                  className={`relative group cursor-pointer ${isCenter ? 'z-20' : 'z-10'}`}
+                  onMouseEnter={() => setHoveredCategory(category.title)}
+                  onMouseLeave={() => setHoveredCategory(null)}
+                >
+                  {/* Orb */}
+                  <div className={`
+                                rounded-full flex items-center justify-center backdrop-blur-md border border-white/10 shadow-2xl transition-all duration-500
+                                ${isCenter ? 'w-48 h-48 bg-primary/10 border-primary/30' : 'w-32 h-32 glass hover:scale-125'}
+                                ${selectedStage && category.stage !== selectedStage ? 'opacity-20 grayscale' : 'opacity-100'}
+                            `}>
+                    <div className="text-center p-2">
+                      <category.icon className={`
+                                        w-8 h-8 mx-auto mb-2 transition-colors duration-300
+                                        ${isCenter ? 'text-primary' : 'text-muted-foreground group-hover:text-primary'}
+                                    `} />
+                      <div className={`
+                                        font-bold leading-tight transition-colors duration-300
+                                        ${isCenter ? 'text-lg text-white' : 'text-xs text-muted-foreground group-hover:text-white'}
+                                    `}>
+                        {category.title}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Orbiting Skills (Visible on Hover or Center) */}
+                  <AnimatePresence>
+                    {(hoveredCategory === category.title || isCenter) && (
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        {category.skills.map((skill, i) => {
+                          const angle = (i / category.skills.length) * 2 * Math.PI;
+                          const radius = isCenter ? 140 : 100;
+                          const x = Math.cos(angle) * radius;
+                          const y = Math.sin(angle) * radius;
+
+                          return (
+                            <motion.button
+                              key={skill}
+                              initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
+                              animate={{ opacity: 1, x, y, scale: 1 }}
+                              exit={{ opacity: 0, x: 0, y: 0, scale: 0 }}
+                              transition={{ delay: i * 0.05, type: "spring" }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleSkillClick(skill);
+                              }}
+                              className={`
+                                                        absolute w-auto px-3 py-1.5 rounded-full pointer-events-auto
+                                                        flex items-center justify-center text-xs font-bold
+                                                        border backdrop-blur-xl shadow-lg
+                                                        ${selectedSkill === skill
+                                  ? 'bg-primary text-black border-primary box-shadow-glow'
+                                  : 'bg-black/80 text-white border-white/20 hover:border-primary hover:text-primary'}
+                                                    `}
+                            >
+                              {skill}
+                            </motion.button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold text-foreground font-display group-hover:text-gradient transition-colors duration-300">
-                    {category.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground">{category.skills.length} skills</p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Fallback Grid Layout - Mobile/Tablet */}
+        <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+          {filteredCategories.map((category) => (
+            <div key={category.title} className="glass rounded-3xl p-6 border border-white/10">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <category.icon className="w-6 h-6 text-primary" />
                 </div>
+                <h3 className="text-xl font-bold">{category.title}</h3>
               </div>
-
-              {/* Skills as clickable interactive tags */}
-              <div className="relative flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => {
-                  const isSelected = selectedSkill === skill;
-                  const isHovered = hoveredSkill === `${categoryIndex}-${skillIndex}`;
-
-                  return (
-                    <motion.button
-                      key={skillIndex}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                      onClick={() => handleSkillClick(skill)}
-                      className={`relative px-4 py-2 rounded-xl text-sm font-medium cursor-pointer
-                        ${isSelected
-                          ? `bg-gradient-to-r ${category.color} text-white shadow-lg ring-2 ring-white/30`
-                          : isHovered
-                            ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
-                            : 'glass text-foreground border border-transparent hover:border-primary/20'
-                        }`}
-                      onMouseEnter={() => setHoveredSkill(`${categoryIndex}-${skillIndex}`)}
-                      onMouseLeave={() => setHoveredSkill(null)}
-                    >
-                      {skill}
-                    </motion.button>
-                  );
-                })}
+              <div className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <button
+                    key={skill}
+                    onClick={() => handleSkillClick(skill)}
+                    className={`
+                                  px-3 py-1.5 rounded-full text-xs font-medium border transition-colors
+                                  ${selectedSkill === skill
+                        ? 'bg-primary text-black border-primary'
+                        : 'bg-white/5 text-muted-foreground border-white/10 hover:border-primary/50'}
+                                `}
+                  >
+                    {skill}
+                  </button>
+                ))}
               </div>
-
-              {/* Decorative corner accent */}
-              <div className={`absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl ${category.color} opacity-5 rounded-tl-full pointer-events-none group-hover:opacity-10 transition-opacity duration-500`} />
             </div>
           ))}
         </div>
+
       </div>
-    </section>
+    </SectionWrapper>
   );
 };

@@ -1,140 +1,203 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronUp, Home, User, Wrench, Briefcase, FolderKanban, Award, FileText, Mail } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/ThemeToggle';
-import { MobileNavDrawer } from '@/components/MobileNavDrawer';
-import { MobileHeader } from '@/components/MobileHeader';
+
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ThemeToggle } from "@/components/ThemeToggle"; // Integration
+
+const navItems = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Work", href: "#projects" },
+  { label: "Code", href: "#github-vortex" },
+  { label: "Career", href: "#career" },
+  { label: "Certifications", href: "#certifications" },
+  { label: "Contact", href: "#contact" },
+];
 
 export const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  const navItems = [
-    { href: '#home', label: 'Home', icon: Home },
-    { href: '#about', label: 'About', icon: User },
-    { href: '#skills', label: 'Skills', icon: Wrench },
-    { href: '#career', label: 'Career', icon: Briefcase },
-    { href: '#projects', label: 'Projects', icon: FolderKanban },
-    { href: '#certifications', label: 'Certs', icon: Award },
-    { href: '#publications', label: 'Papers', icon: FileText },
-    { href: '#contact', label: 'Contact', icon: Mail },
-  ];
+  const [activeHash, setActiveHash] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setShowBackToTop(scrollTop > 400);
-      setScrolled(scrollTop > 50);
+      setIsScrolled(window.scrollY > 30);
 
+      // Determine active section
+      // We look for the section that is currently most visible in viewport
       const sections = navItems.map(item => item.href.substring(1));
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          // If top of section is within the top half of viewport, or if we scrolled past it but not too far
+          if (rect.top <= 300 && rect.bottom >= 300) {
+            setActiveHash(`#${sectionId}`);
+            break;
+          }
         }
-        return false;
-      });
-
-      if (current) {
-        setActiveSection(current);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems]);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Init
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const scrollToSection = (href: string) => {
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
-    }
-  };
+      // Offset for the floating header
+      const offset = 120;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+      setActiveHash(href);
+      setIsMobileMenuOpen(false);
+    }
   };
 
   return (
     <>
-      {/* Desktop Navigation - Document flow, centered */}
-      <div className="hidden md:flex justify-center py-2.5 w-full">
-        {/* Gradient border wrapper */}
-        <div className="relative">
-          {/* Outer glow effect */}
-          <div className="absolute -inset-[1px] bg-gradient-to-r from-primary/50 via-secondary/50 to-primary/50 rounded-full blur-sm opacity-60" />
-
-          {/* Gradient border */}
-          <div className="relative p-[1px] rounded-full bg-gradient-to-r from-primary/30 via-secondary/20 to-primary/30">
-            {/* Inner pill container */}
-            <nav className="relative flex items-center gap-1 px-3 py-2 rounded-full bg-background/95 backdrop-blur-xl border border-border/30">
-              {/* Navigation Links */}
-              {navItems.map((item) => {
-                const isActive = activeSection === item.href.substring(1);
-                return (
-                  <button
-                    key={item.href}
-                    type="button"
-                    onClick={() => scrollToSection(item.href)}
-                    className={`relative px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-300
-                      ${isActive
-                        ? 'text-primary-foreground'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                      }`}
-                  >
-                    <span className="relative z-10">{item.label}</span>
-
-                    {/* Active indicator with layout animation */}
-                    {isActive && (
-                      <motion.span
-                        layoutId="active-nav-pill"
-                        className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full shadow-lg shadow-primary/30"
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      />
-                    )}
-                  </button>
-                );
-              })}
-
-              {/* Divider */}
-              <div className="w-px h-6 bg-border/50 mx-1" />
-
-              {/* Theme Toggle */}
-              <ThemeToggle />
-            </nav>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Header - shown only on mobile */}
-      <MobileHeader
-        onMenuOpen={() => setIsOpen(true)}
-        onLogoClick={() => scrollToSection('#home')}
-        scrolled={scrolled}
-      />
-
-      {/* Mobile Navigation Drawer */}
-      <MobileNavDrawer
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        activeSection={activeSection}
-        onNavigate={scrollToSection}
-      />
-
-      {/* Back to Top Button - This can stay fixed */}
-      <Button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full btn-glow active:scale-90 transition-all duration-300 ${showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-          }`}
-        size="icon"
+      <motion.header
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "circOut" }}
+        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
       >
-        <ChevronUp className="h-5 w-5" />
-      </Button>
+        {/* The Cyber Capsule */}
+        <div
+          className={cn(
+            "pointer-events-auto flex items-center p-2 rounded-full border transition-all duration-500 overflow-hidden relative",
+            isScrolled
+              ? "border-white/10 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)] scale-95"
+              : "border-white/5 scale-100"
+          )}
+          style={{
+            background: isScrolled
+              ? 'linear-gradient(180deg, rgba(30, 30, 35, 0.8) 0%, rgba(10, 10, 12, 0.9) 100%)'
+              : 'linear-gradient(180deg, rgba(30, 30, 35, 0.5) 0%, rgba(10, 10, 12, 0.6) 100%)',
+            backdropFilter: 'blur(20px)'
+          }}
+        >
+          {/* Top Sheen */}
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
+
+          {/* Bottom Shadow */}
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/40 to-transparent" />
+
+          {/* Brand - Visible mainly on mobile or distinct styling */}
+          <a
+            href="#home"
+            onClick={(e) => handleScrollTo(e, '#home')}
+            className="px-4 py-2 font-black text-lg tracking-tighter text-white hover:text-primary transition-colors md:hidden relative z-10"
+          >
+            VS<span className="text-primary">.</span>
+          </a>
+
+          {/* Mobile Toggle */}
+          <div className="md:hidden pr-2 relative z-10">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:bg-white/10 text-white"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </Button>
+          </div>
+
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-1 relative z-10">
+            {navItems.map((item) => {
+              const isActive = activeHash === item.href;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleScrollTo(e, item.href)}
+                  className={cn(
+                    "relative px-5 py-2.5 text-sm font-bold tracking-wide rounded-full transition-colors duration-300",
+                    isActive ? "text-white" : "text-gray-400 hover:text-white"
+                  )}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-full"
+                      style={{
+                        background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                      }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{item.label}</span>
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Vertical Divider */}
+          <div className="hidden md:block w-px h-6 bg-white/10 mx-3 relative z-10" />
+
+          {/* Theme Toggle - Integrated */}
+          <div className="hidden md:block relative z-10">
+            <ThemeToggle />
+          </div>
+
+        </div>
+      </motion.header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="fixed inset-0 z-40 bg-black/80 md:hidden flex flex-col items-center justify-center p-4"
+          >
+            <motion.nav
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="flex flex-col items-center gap-6 w-full max-w-sm"
+            >
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleScrollTo(e, item.href)}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 + (i * 0.05) }}
+                  className={cn(
+                    "text-3xl font-black tracking-tight w-full text-center py-2 border-b border-white/5",
+                    activeHash === item.href ? "text-primary border-primary/50" : "text-gray-400"
+                  )}
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+
+              <div className="mt-8">
+                <ThemeToggle />
+              </div>
+            </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

@@ -11,6 +11,7 @@ import { CertificationsSection } from '@/components/CertificationsSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
+import { GithubSection } from '@/components/GithubSection';
 import { PageLoader } from '@/components/PageLoader';
 
 const Index = () => {
@@ -49,6 +50,7 @@ const Index = () => {
         <SkillsSection />
         <CareerJourneySection />
         <ProjectsSection />
+        <GithubSection />
         <CertificationsSection />
         <PublicationsSection />
         <ContactSection />
