@@ -20,26 +20,17 @@ const Index = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <PageLoader />
 
-      {/* Sticky Header: Nav + Ticker */}
-      <header className="sticky top-0 z-50 flex flex-col items-center w-full">
-        {/* Glass background with gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background/80 backdrop-blur-xl" />
+      {/* Sticky Header Container */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center w-full">
+        {/* News Ticker at Top */}
+        <div className="w-full relative z-50">
+          <NewsTicker items={defaultStatusItems} speed={20} />
+        </div>
 
-        {/* Navigation - Centered */}
-        <div className="relative z-10 w-full">
+        {/* Navigation Wrapper - Pushed down slightly */}
+        <div className="w-full mt-4 flex justify-center relative z-40">
           <Navigation />
         </div>
-
-        {/* News Ticker - Full Width */}
-        <div className="relative z-10 w-full">
-          <NewsTicker items={defaultStatusItems} speed={10} />
-        </div>
-
-        {/* Bottom gradient border */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-
-        {/* Soft shadow below header */}
-        <div className="absolute -bottom-4 left-0 right-0 h-4 bg-gradient-to-b from-background/20 to-transparent pointer-events-none" />
       </header>
 
       {/* Main Content */}

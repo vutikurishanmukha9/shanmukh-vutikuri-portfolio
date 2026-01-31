@@ -72,7 +72,7 @@ export const Navigation = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "circOut" }}
-        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none"
+        className="w-full flex justify-center px-4 pointer-events-none"
       >
         {/* The Cyber Capsule */}
         <div
