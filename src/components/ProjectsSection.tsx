@@ -156,7 +156,7 @@ const Card = ({
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
       <motion.div
         style={{ scale, top: `calc(-5vh + ${i * 25}px)` }}
-        className="relative flex flex-col w-[90vw] md:w-[70vw] lg:w-[1000px] h-[60vh] md:h-[500px] origin-top cyber-card rounded-3xl p-8 border border-white/10"
+        className="relative flex flex-col w-[90vw] md:w-[70vw] lg:w-[1000px] h-[60vh] md:h-[500px] origin-top cyber-card rounded-3xl p-8 border border-white/10 overflow-y-auto custom-scrollbar"
       >
         {/* Header */}
         <div className="flex justify-between items-start mb-8">

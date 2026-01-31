@@ -92,7 +92,7 @@ export const CareerJourneySection = () => {
                                     <div className="w-4 h-4 rounded-full bg-primary" />
                                 </div>
                             </div>
-                            <div className="ml-20 md:ml-[55%] md:pl-12 pt-1">
+                            <div className="ml-14 md:ml-[55%] md:pl-12 pt-1">
                                 <div className="inline-block rounded-xl bg-primary/10 border border-primary/20 p-4 backdrop-blur-sm">
                                     <h3 className="text-lg font-bold text-foreground">Next Value Stop</h3>
                                     <p className="text-sm text-muted-foreground">Open to opportunities where I can make an impact.</p>
@@ -121,7 +121,7 @@ export const CareerJourneySection = () => {
                                     </div>
 
                                     {/* Experience Card */}
-                                    <div className={`ml-20 md:ml-0 ${index % 2 === 0 ? 'md:mr-[55%] md:pr-12 md:text-right' : 'md:ml-[55%] md:pl-12'}`}>
+                                    <div className={`ml-14 md:ml-0 ${index % 2 === 0 ? 'md:mr-[55%] md:pr-12 md:text-right' : 'md:ml-[55%] md:pl-12'}`}>
                                         <div className={`
                        group glass rounded-2xl p-6 lg:p-8 border-l-4 
                        ${index % 2 === 0 ? 'md:border-l-0 md:border-r-4 border-l-primary/50 md:border-r-primary/50' : 'border-l-primary/50'}

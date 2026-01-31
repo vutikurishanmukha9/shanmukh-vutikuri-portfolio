@@ -106,7 +106,7 @@ export const PublicationsSection = () => {
 
               {/* Key Metrics */}
               {publication.metrics && (
-                <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-3 gap-2 md:gap-4 mb-6">
                   <div className="text-center p-4 glass rounded-xl">
                     <div className="text-2xl font-bold text-gradient font-display">{publication.metrics.accuracy}</div>
                     <div className="text-xs text-muted-foreground">Accuracy</div>

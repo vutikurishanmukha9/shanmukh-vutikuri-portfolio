@@ -101,7 +101,7 @@ export const ContactSection = () => {
                     {contact.href !== '#' ? (
                       <a
                         href={contact.href}
-                        className="text-foreground font-medium hover:text-primary transition-colors"
+                        className="text-foreground font-medium hover:text-primary transition-colors break-all"
                       >
                         {contact.value}
                       </a>
