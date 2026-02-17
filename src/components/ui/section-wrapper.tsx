@@ -28,7 +28,7 @@ export const SectionWrapper = ({ children, className, id, delay = 0, ...props }:
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay, ease: "easeOut" }}
-            className={cn("py-20 lg:py-28 relative", className)}
+            className={cn("py-10 lg:py-16 relative", className)}
             {...props}
         >
             {children}

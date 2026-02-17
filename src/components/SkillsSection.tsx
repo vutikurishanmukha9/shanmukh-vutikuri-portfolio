@@ -78,7 +78,7 @@ export const SkillsSection = () => {
     : skillCategories;
 
   return (
-    <SectionWrapper id="skills" className="py-20 lg:py-40 relative overflow-hidden min-h-screen flex flex-col justify-center">
+    <SectionWrapper id="skills" className="py-10 lg:py-20 relative overflow-hidden min-h-screen flex flex-col justify-center">
       {/* Background Constellation Lines (Static for performance) */}
       <div className="absolute inset-0 pointer-events-none">
         <svg className="w-full h-full opacity-20">
@@ -89,7 +89,7 @@ export const SkillsSection = () => {
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <motion.h2
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -102,7 +102,7 @@ export const SkillsSection = () => {
 
         {/* Interactive Pipeline Strip */}
         <motion.div
-          className="flex overflow-x-auto pb-6 gap-3 md:gap-4 justify-start md:justify-center mb-16 w-full px-4 -mx-4 md:mx-0 md:px-0 md:w-auto hide-scrollbar snap-x"
+          className="flex overflow-x-auto pb-6 gap-3 md:gap-4 justify-start md:justify-center mb-8 w-full px-4 -mx-4 md:mx-0 md:px-0 md:w-auto hide-scrollbar snap-x"
         >
           {pipelineStages.map((stage) => {
             const Icon = stage.icon;

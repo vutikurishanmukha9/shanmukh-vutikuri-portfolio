@@ -16,6 +16,16 @@ const categoryConfig: { [key: string]: { icon: any; color: string; label: string
 
 const projects = [
   {
+    title: 'GetReport',
+    description: 'Data analysis is often fragmented. Architected a full-stack platform transforming raw data into PDF reports. Implemented high-performance Polars processing and AI-driven RAG for semantic data querying.',
+    tech: ['FastAPI', 'React', 'Polars', 'Redis', 'OpenAI', 'Docker'],
+    category: 'Web App',
+    focus: 'Data Platform',
+    github: 'https://github.com/vutikurishanmukha9/GetReport',
+    demo: 'https://get-report.vercel.app',
+    featured: true,
+  },
+  {
     title: 'Candle-Light',
     description: 'Trading platforms lack automated pattern recognition. Built an AI-powered computer vision pipeline with multi-model fallback. Implemented low-latency pattern recognition for real-time market data analysis.',
     tech: ['React', 'TailwindCSS', 'Machine Learning', 'OAuth', 'TypeScript'],
@@ -142,11 +152,6 @@ const Card = ({
   targetScale: number
 }) => {
   const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'start start']
-  });
-
   const scale = useTransform(progress, range, [1, targetScale]);
 
   const visual = categoryConfig[project.category] || categoryConfig['Other'];
@@ -156,7 +161,7 @@ const Card = ({
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
       <motion.div
         style={{ scale, top: `calc(-5vh + ${i * 25}px)` }}
-        className="relative flex flex-col w-[90vw] md:w-[70vw] lg:w-[1000px] h-[60vh] md:h-[500px] origin-top cyber-card rounded-3xl p-8 border border-white/10 overflow-y-auto custom-scrollbar"
+        className="will-change-transform relative flex flex-col w-[90vw] md:w-[70vw] lg:w-[1000px] h-[60vh] md:h-[500px] origin-top cyber-card rounded-3xl p-8 border border-white/10 overflow-y-auto custom-scrollbar"
       >
         {/* Header */}
         <div className="flex justify-between items-start mb-8">
@@ -231,9 +236,9 @@ export const ProjectsSection = () => {
   })
 
   return (
-    <SectionWrapper id="projects" className="relative">
-      <div ref={container} className="relative z-10 w-full mb-[20vh]">
-        <div className="sticky top-0 h-screen flex flex-col items-center justify-center pointer-events-none z-0">
+    <SectionWrapper id="projects" className="relative py-10">
+      <div ref={container} className="relative z-10 w-full mb-10">
+        <div className="sticky top-0 h-[30vh] flex flex-col items-center justify-center pointer-events-none z-0">
           <motion.h2
             style={{ opacity: useTransform(scrollYProgress, [0, 0.2], [1, 0]) }}
             className="text-[12vw] font-black text-center leading-none text-white/5 select-none absolute"
@@ -258,7 +263,7 @@ export const ProjectsSection = () => {
       </div>
 
       {/* End of section buffer */}
-      <div className="h-[20vh] w-full flex items-center justify-center">
+      <div className="h-20 w-full flex items-center justify-center">
         <p className="text-muted-foreground animate-pulse text-sm font-mono tracking-widest">
                     /// END OF ARCHIVE ///
         </p>

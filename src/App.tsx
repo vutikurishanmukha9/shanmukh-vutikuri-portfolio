@@ -11,9 +11,6 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { BackgroundCanvas } from "@/components/ui/background-canvas";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { GithubSection } from './components/GithubSection';
-import { CareerJourneySection } from './components/CareerJourneySection';
-import { ProjectsSection } from './components/ProjectsSection';
 
 const queryClient = new QueryClient();
 
@@ -29,14 +26,7 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={
-                <>
-                  <Index />
-                  <ProjectsSection />
-                  <GithubSection />
-                  <CareerJourneySection />
-                </>
-              } />
+              <Route path="/" element={<Index />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

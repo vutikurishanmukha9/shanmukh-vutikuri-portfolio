@@ -42,14 +42,14 @@ export const PublicationsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="publications" className="py-10 lg:py-14 relative overflow-hidden">
+    <section ref={sectionRef} id="publications" className="py-0 lg:py-4 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 grid-pattern opacity-10" />
       <div className="absolute top-1/3 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <span className="inline-block px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-4">
             Academic Work
           </span>

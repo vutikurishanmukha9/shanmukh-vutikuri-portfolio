@@ -772,8 +772,9 @@ select,
   /* --- CYBER TERMINAL UTILITIES (Projects) --- */
   .cyber-card {
     /* Obsidian Matte Finish */
-    background: rgba(8, 8, 8, 0.85);
-    backdrop-filter: blur(40px);
+    background: rgba(5, 5, 5, 0.96);
+    /* backdrop-filter: blur(40px); -- Disabled for performance */
+    backdrop-filter: none;
 
     /* Machined Border */
     border: 1px solid rgba(255, 255, 255, 0.08);

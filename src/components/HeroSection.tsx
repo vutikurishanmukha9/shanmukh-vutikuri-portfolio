@@ -47,7 +47,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section id="home" ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section id="home" ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-0">
       {/* Massive Hollow Background Text */}
       <motion.div
         style={{ y: y1, opacity: 0.2 }}

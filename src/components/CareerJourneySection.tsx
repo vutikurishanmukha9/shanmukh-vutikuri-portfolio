@@ -32,12 +32,12 @@ export const CareerJourneySection = () => {
         },
     ];
     return (
-        <SectionWrapper id="career" className="py-20 lg:py-28 overflow-hidden">
+        <SectionWrapper id="career" className="py-10 lg:py-14 overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -z-10" />
 
             <div className="container mx-auto px-4 lg:px-8 relative z-10" ref={containerRef}>
-                <div className="text-center mb-20">
+                <div className="text-center mb-8">
                     <motion.span
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

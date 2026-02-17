@@ -78,14 +78,14 @@ export const GrindingActivitySection = () => {
     }, [isVisible]);
 
     return (
-        <section ref={sectionRef} id="grinding" className="py-10 lg:py-14 relative overflow-hidden">
+        <section ref={sectionRef} id="grinding" className="py-0 lg:py-4 relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute inset-0 grid-pattern opacity-10" />
             <div className="absolute top-0 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-violet-500/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-1/4 w-48 md:w-80 h-48 md:h-80 bg-purple-500/5 rounded-full blur-3xl" />
 
             <div className="container mx-auto px-4 lg:px-8 relative z-10">
-                <div className={`text-center mb-10 md:mb-16 ${isVisible ? 'fade-in' : 'opacity-0'}`}>
+                <div className={`text-center mb-6 md:mb-8 ${isVisible ? 'fade-in' : 'opacity-0'}`}>
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full glass text-xs md:text-sm text-violet-400 font-medium mb-4">
                         <Sparkles className="h-3.5 w-3.5 md:h-4 md:w-4" />
                         Contribution Galaxy
@@ -167,8 +167,8 @@ export const GrindingActivitySection = () => {
                                             const level = activity.level;
                                             // @ts-ignore
                                             const { x, y, width, height } = block.props;
-                                            const cx = x + width / 2;
-                                            const cy = y + height / 2;
+                                            const cx = Number(x) + Number(width) / 2;
+                                            const cy = Number(y) + Number(height) / 2;
 
                                             // Star configurations - Theme adaptive
                                             const darkStars = [
