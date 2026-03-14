@@ -28,7 +28,7 @@ const Index = () => {
         </div>
 
         {/* Navigation Wrapper - Pushed down slightly */}
-        <div className="w-full mt-4 flex justify-center relative z-40">
+        <div className="w-full mt-1 flex justify-center relative z-40">
           <Navigation />
         </div>
       </header>

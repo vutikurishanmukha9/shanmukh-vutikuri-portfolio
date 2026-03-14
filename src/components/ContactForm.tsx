@@ -64,7 +64,7 @@ export const ContactForm = () => {
       data-netlify="true"
       netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
-      className="glass rounded-2xl p-8 space-y-6"
+      className="space-y-6"
     >
       {/* Hidden fields for Netlify */}
       <input type="hidden" name="form-name" value="contact" />
@@ -85,7 +85,7 @@ export const ContactForm = () => {
           onChange={handleChange}
           placeholder="Your name"
           required
-          className="bg-background/50 border-border/50 focus:border-primary/50 transition-colors"
+          className="bg-transparent border-border/60 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all rounded-xl px-4 py-6"
         />
       </div>
 
@@ -101,7 +101,7 @@ export const ContactForm = () => {
           onChange={handleChange}
           placeholder="your.email@example.com"
           required
-          className="bg-background/50 border-border/50 focus:border-primary/50 transition-colors"
+          className="bg-transparent border-border/60 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all rounded-xl px-4 py-6"
         />
       </div>
 
@@ -116,7 +116,7 @@ export const ContactForm = () => {
           onChange={handleChange}
           placeholder="What is this about?"
           required
-          className="bg-background/50 border-border/50 focus:border-primary/50 transition-colors"
+          className="bg-transparent border-border/60 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all rounded-xl px-4 py-6"
         />
       </div>
 
@@ -132,23 +132,23 @@ export const ContactForm = () => {
           placeholder="Tell me about your project..."
           required
           rows={5}
-          className="bg-background/50 border-border/50 focus:border-primary/50 transition-colors resize-none"
+          className="bg-transparent border-border/60 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all rounded-xl px-4 py-4 resize-none"
         />
       </div>
 
       <Button
         type="submit"
-        className="w-full btn-glow group"
+        className="w-full h-14 rounded-xl bg-foreground text-background hover:bg-foreground/90 transition-all font-medium text-base shadow-sm group"
         disabled={isSubmitting}
       >
         {isSubmitting ? (
           <>
-            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-            Sending...
+            <Loader2 className="h-5 w-5 mr-3 animate-spin" />
+            Sending Message...
           </>
         ) : (
           <>
-            <Send className="h-4 w-4 mr-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <Send className="h-5 w-5 mr-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             Send Message
           </>
         )}

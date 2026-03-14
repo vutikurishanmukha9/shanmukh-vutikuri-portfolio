@@ -1,17 +1,15 @@
-
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeToggle } from "@/components/ThemeToggle"; // Integration
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Work", href: "#projects" },
-  { label: "Code", href: "#github-vortex" },
   { label: "Career", href: "#career" },
   { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
@@ -25,16 +23,12 @@ export const Navigation = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
-
-      // Determine active section
-      // We look for the section that is currently most visible in viewport
       const sections = navItems.map(item => item.href.substring(1));
 
       for (const sectionId of sections) {
         const element = document.getElementById(sectionId);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // If top of section is within the top half of viewport, or if we scrolled past it but not too far
           if (rect.top <= 300 && rect.bottom >= 300) {
             setActiveHash(`#${sectionId}`);
             break;
@@ -44,7 +38,7 @@ export const Navigation = () => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Init
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -52,15 +46,11 @@ export const Navigation = () => {
     e.preventDefault();
     const element = document.querySelector(href);
     if (element) {
-      // Offset for the floating header
       const offset = 120;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       setActiveHash(href);
       setIsMobileMenuOpen(false);
     }
@@ -72,34 +62,19 @@ export const Navigation = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "circOut" }}
-        className="w-full flex justify-center px-4 pointer-events-none"
+        className="w-full flex justify-center px-4 pointer-events-none z-50 py-2"
       >
-        {/* The Cyber Capsule */}
         <div
           className={cn(
-            "pointer-events-auto flex items-center p-2 rounded-full border transition-all duration-500 overflow-hidden relative",
-            isScrolled
-              ? "border-white/10 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)] scale-95"
-              : "border-white/5 scale-100"
+            "pointer-events-auto flex items-center p-1.5 rounded-full transition-all duration-500 overflow-hidden relative glass-elevated",
+            isScrolled ? "scale-95" : "scale-100"
           )}
-          style={{
-            background: isScrolled
-              ? 'linear-gradient(180deg, rgba(30, 30, 35, 0.8) 0%, rgba(10, 10, 12, 0.9) 100%)'
-              : 'linear-gradient(180deg, rgba(30, 30, 35, 0.5) 0%, rgba(10, 10, 12, 0.6) 100%)',
-            backdropFilter: 'blur(20px)'
-          }}
         >
-          {/* Top Sheen */}
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
-
-          {/* Bottom Shadow */}
-          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-black/40 to-transparent" />
-
-          {/* Brand - Visible mainly on mobile or distinct styling */}
+          {/* Brand - Mobile only */}
           <a
             href="#home"
             onClick={(e) => handleScrollTo(e, '#home')}
-            className="px-4 py-2 font-black text-lg tracking-tighter text-white hover:text-primary transition-colors md:hidden relative z-10"
+            className="px-4 py-2 font-black text-lg tracking-tighter text-foreground hover:text-primary transition-colors md:hidden relative z-10"
           >
             VS<span className="text-primary">.</span>
           </a>
@@ -109,7 +84,7 @@ export const Navigation = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full hover:bg-white/10 text-white"
+              className="rounded-full hover:bg-muted text-foreground"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -117,7 +92,7 @@ export const Navigation = () => {
           </div>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-1 relative z-10">
+          <nav className="hidden md:flex items-center relative z-10">
             {navItems.map((item) => {
               const isActive = activeHash === item.href;
               return (
@@ -126,19 +101,14 @@ export const Navigation = () => {
                   href={item.href}
                   onClick={(e) => handleScrollTo(e, item.href)}
                   className={cn(
-                    "relative px-5 py-2.5 text-sm font-bold tracking-wide rounded-full transition-colors duration-300",
-                    isActive ? "text-white" : "text-gray-400 hover:text-white"
+                    "relative px-5 py-2 text-sm font-medium tracking-wide rounded-full transition-colors duration-300",
+                    isActive ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="nav-pill"
-                      className="absolute inset-0 rounded-full"
-                      style={{
-                        background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
-                        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-                      }}
+                      className="absolute inset-0 rounded-full bg-primary/10"
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
                   )}
@@ -149,10 +119,10 @@ export const Navigation = () => {
           </nav>
 
           {/* Vertical Divider */}
-          <div className="hidden md:block w-px h-6 bg-white/10 mx-3 relative z-10" />
+          <div className="hidden md:block w-px h-5 bg-border mx-2 relative z-10" />
 
           {/* Theme Toggle - Integrated */}
-          <div className="hidden md:block relative z-10">
+          <div className="hidden md:block relative z-10 pr-2">
             <ThemeToggle />
           </div>
 
@@ -166,7 +136,7 @@ export const Navigation = () => {
             initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
             animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            className="fixed inset-0 z-40 bg-black/80 md:hidden flex flex-col items-center justify-center p-4"
+            className="fixed inset-0 z-40 bg-background/80 md:hidden flex flex-col items-center justify-center p-4 supports-[backdrop-filter]:bg-background/60"
           >
             <motion.nav
               initial={{ y: 20, opacity: 0 }}
@@ -183,8 +153,8 @@ export const Navigation = () => {
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.1 + (i * 0.05) }}
                   className={cn(
-                    "text-3xl font-black tracking-tight w-full text-center py-2 border-b border-white/5",
-                    activeHash === item.href ? "text-primary border-primary/50" : "text-gray-400"
+                    "text-3xl font-display font-semibold tracking-tight w-full text-center py-2 border-b border-border/50 transition-colors",
+                    activeHash === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {item.label}

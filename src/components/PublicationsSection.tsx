@@ -1,18 +1,17 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, BookOpen, Award, FileText, Calendar, Users } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { SectionWrapper } from '@/components/ui/section-wrapper';
 
 export const PublicationsSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
   const publications = [
     {
       title: 'Optimizing Energy Efficiency in Smart Buildings Through IOT-Driven Occupancy Sensing',
       authors: 'Vutikuri Shanmukha, et al.',
       journal: 'IEEE Xplore',
       year: '2025',
-      description: 'Published a research paper on an IoT-driven occupancy detection system for smart buildings, integrating Arduino, IR, and DHT sensors with cloud connectivity. The framework achieved 96% accuracy, 60ms response time, and significant energy savings through real-time automation and intelligent control, enhancing scalability and efficiency in energy management.',
+      description: 'Published a research paper on an IoT-driven occupancy detection system for smart buildings, integrating Arduino, IR, and DHT sensors with cloud connectivity. The framework achieved 96% accuracy, 60ms response time, and significant energy savings through real-time automation and intelligent control.',
       link: 'https://ieeexplore.ieee.org/document/11101373',
       type: 'Conference Paper',
       featured: true,
@@ -24,138 +23,120 @@ export const PublicationsSection = () => {
     },
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section ref={sectionRef} id="publications" className="py-0 lg:py-4 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 grid-pattern opacity-10" />
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
-
+    <SectionWrapper id="publications" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="text-center mb-8">
-          <span className="inline-block px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-4">
-            Academic Work
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
-            Research <span className="text-gradient">Publications</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Contributing to the academic community through published research in IoT and smart systems
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
+        
+        {/* Header */}
+        <div className="text-center mb-16 max-w-2xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background border border-border shadow-sm mb-6"
+          >
+            <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">Research</span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold font-display tracking-tight text-foreground"
+          >
+            Publications
+          </motion.h2>
         </div>
 
         <div className="max-w-4xl mx-auto">
           {publications.map((publication, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`group glass rounded-2xl p-8 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 relative ${isVisible ? 'slide-up' : 'opacity-0'
-                }`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="glass-panel rounded-3xl p-8 md:p-12 hover-lift-minimal border border-border/60 relative overflow-hidden"
             >
               {/* Publication badges */}
               <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-primary to-secondary text-background text-xs font-semibold rounded-full">
-                  <FileText className="h-3 w-3" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-muted text-muted-foreground text-xs font-semibold rounded-md border border-border">
+                  <FileText className="h-3.5 w-3.5" />
                   {publication.type}
                 </span>
                 {publication.featured && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 glass text-primary text-xs font-semibold rounded-full border border-primary/30">
-                    <Award className="h-3 w-3" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md border border-primary/20">
+                    <Award className="h-3.5 w-3.5" />
                     Featured
                   </span>
                 )}
               </div>
 
               {/* Publication Title */}
-              <h3 className="text-2xl lg:text-3xl font-bold text-foreground font-display mb-4 group-hover:text-gradient transition-colors duration-300 leading-tight">
+              <h3 className="text-2xl lg:text-3xl font-bold text-foreground font-display mb-4 leading-tight">
                 {publication.title}
               </h3>
 
               {/* Authors and Journal Info */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
-                <span className="flex items-center gap-1.5">
-                  <Users className="h-4 w-4 text-primary" />
+              <div className="flex flex-wrap items-center gap-5 text-sm text-muted-foreground mb-8">
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
                   {publication.authors}
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <BookOpen className="h-4 w-4 text-primary" />
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
                   {publication.journal}
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="h-4 w-4 text-primary" />
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
                   {publication.year}
                 </span>
               </div>
 
               {/* Key Metrics */}
               {publication.metrics && (
-                <div className="grid grid-cols-3 gap-2 md:gap-4 mb-6">
-                  <div className="text-center p-4 glass rounded-xl">
-                    <div className="text-2xl font-bold text-gradient font-display">{publication.metrics.accuracy}</div>
-                    <div className="text-xs text-muted-foreground">Accuracy</div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                  <div className="flex flex-col p-5 bg-background border border-border rounded-2xl shadow-sm text-center">
+                    <div className="text-3xl font-bold text-primary mb-1">{publication.metrics.accuracy}</div>
+                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Accuracy</div>
                   </div>
-                  <div className="text-center p-4 glass rounded-xl">
-                    <div className="text-2xl font-bold text-gradient font-display">{publication.metrics.responseTime}</div>
-                    <div className="text-xs text-muted-foreground">Response Time</div>
+                  <div className="flex flex-col p-5 bg-background border border-border rounded-2xl shadow-sm text-center">
+                    <div className="text-3xl font-bold text-primary mb-1">{publication.metrics.responseTime}</div>
+                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Response</div>
                   </div>
-                  <div className="text-center p-4 glass rounded-xl">
-                    <div className="text-2xl font-bold text-gradient font-display">{publication.metrics.energySavings}</div>
-                    <div className="text-xs text-muted-foreground">Energy Savings</div>
+                  <div className="flex flex-col p-5 bg-background border border-border rounded-2xl shadow-sm text-center">
+                    <div className="text-3xl font-bold text-primary mb-1">{publication.metrics.energySavings}</div>
+                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Savings</div>
                   </div>
                 </div>
               )}
 
               {/* Description */}
-              <p className="text-muted-foreground leading-relaxed mb-8">
+              <p className="text-muted-foreground leading-relaxed mb-8 md:text-lg font-light">
                 {publication.description}
               </p>
 
               {/* Action Button */}
               <div className="flex gap-4">
                 <Button
-                  className="btn-glow group/btn"
+                  className="rounded-full shadow-sm bg-foreground text-background hover:bg-foreground/90 transition-all font-medium"
                   asChild
                 >
                   <a href={publication.link} target="_blank" rel="noopener noreferrer">
-                    <BookOpen className="h-4 w-4 mr-2 group-hover/btn:scale-110 transition-transform" />
+                    <BookOpen className="h-4 w-4 mr-2" />
                     Read Publication
-                    <ExternalLink className="h-3 w-3 ml-2 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    <ExternalLink className="h-3.5 w-3.5 ml-2" />
                   </a>
                 </Button>
               </div>
 
               {/* Decorative Icon */}
-              <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
-                <BookOpen className="h-16 w-16 text-primary" />
+              <div className="absolute top-10 right-10 opacity-5 pointer-events-none">
+                <BookOpen className="h-32 w-32 text-foreground" />
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground flex items-center justify-center gap-2">
-            <span className="inline-block w-2 h-2 bg-secondary rounded-full animate-pulse" />
-            More publications in progress - Exploring opportunities for collaborative research
-          </p>
-        </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 };

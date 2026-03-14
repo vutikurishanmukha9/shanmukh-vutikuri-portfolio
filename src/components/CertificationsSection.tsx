@@ -1,16 +1,13 @@
-import { useEffect, useState, useRef } from 'react';
 import { Award, Cloud, Database, Code, BarChart3, FileSpreadsheet, Brain } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { SectionWrapper } from '@/components/ui/section-wrapper';
 
 export const CertificationsSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
   const certifications = [
     {
       title: 'AWS Certified Cloud Practitioner',
       issuer: 'Amazon Web Services',
       icon: Cloud,
-      color: 'from-orange-500 to-amber-500',
       description: 'Foundational understanding of AWS Cloud concepts, services, and terminology.',
       category: 'Cloud Computing',
     },
@@ -18,7 +15,6 @@ export const CertificationsSection = () => {
       title: 'Oracle Certified AI Foundations Associate',
       issuer: 'Oracle',
       icon: Brain,
-      color: 'from-red-500 to-rose-500',
       description: 'Foundational knowledge of AI and machine learning concepts.',
       category: 'Artificial Intelligence',
     },
@@ -26,7 +22,6 @@ export const CertificationsSection = () => {
       title: 'Oracle Certified Foundations Associate',
       issuer: 'Oracle',
       icon: Database,
-      color: 'from-red-500 to-orange-500',
       description: 'Comprehensive knowledge of Oracle Cloud Infrastructure fundamentals.',
       category: 'Cloud & Database',
     },
@@ -34,7 +29,6 @@ export const CertificationsSection = () => {
       title: 'IBM Data Analysis with Python',
       issuer: 'IBM',
       icon: BarChart3,
-      color: 'from-blue-500 to-cyan-500',
       description: 'Data analysis techniques using Python, pandas, and NumPy.',
       category: 'Data Analysis',
     },
@@ -42,7 +36,6 @@ export const CertificationsSection = () => {
       title: 'IBM SQL for Data Science',
       issuer: 'IBM',
       icon: FileSpreadsheet,
-      color: 'from-blue-600 to-blue-400',
       description: 'SQL fundamentals for data science and database querying.',
       category: 'Data Science',
     },
@@ -50,101 +43,92 @@ export const CertificationsSection = () => {
       title: 'IBM Python for Data Science',
       issuer: 'IBM',
       icon: Code,
-      color: 'from-indigo-500 to-blue-500',
       description: 'Python programming fundamentals for data science.',
       category: 'Programming',
     },
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section ref={sectionRef} id="certifications" className="py-0 lg:py-4 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 grid-pattern opacity-10" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute top-1/4 right-0 w-80 h-80 bg-secondary/5 rounded-full blur-3xl" />
-
+    <SectionWrapper id="certifications" className="py-24 bg-background">
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="text-center mb-8">
-          <span className="inline-block px-4 py-2 rounded-full glass text-sm text-primary font-medium mb-4">
-            Credentials
-          </span>
-          <h2 className="text-4xl lg:text-5xl font-bold font-display mb-4">
-            Professional <span className="text-gradient">Certifications</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Continuously advancing my expertise through industry-recognized certifications
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mt-6" />
+        
+        {/* Header */}
+        <div className="text-center mb-16 max-w-2xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background border border-border shadow-sm mb-6"
+          >
+            <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">Credentials</span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-bold font-display tracking-tight text-foreground"
+          >
+            Certifications
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-4 text-muted-foreground text-lg max-w-xl mx-auto"
+          >
+            Continuously advancing my expertise through industry-recognized certifications.
+          </motion.p>
         </div>
 
+        {/* Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {certifications.map((cert, index) => (
-            <div
-              key={index}
-              className={`group glass rounded-2xl p-6 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 relative ${isVisible ? 'slide-up' : 'opacity-0'
-                }`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Category Badge */}
-              <div className="flex items-center gap-2 mb-4">
-                <Award className="h-4 w-4 text-primary" />
-                <span className="px-2.5 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20">
-                  {cert.category}
-                </span>
-              </div>
+          {certifications.map((cert, index) => {
+              const Icon = cert.icon;
+              return (
+                <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="glass-panel rounded-3xl p-8 hover-lift-minimal border border-border/60 relative group flex flex-col h-full"
+                >
+                {/* Category Badge */}
+                <div className="flex items-center gap-2 mb-6">
+                    <span className="px-3 py-1 bg-muted text-muted-foreground text-xs font-semibold rounded-md border border-border">
+                    {cert.category}
+                    </span>
+                </div>
 
-              {/* Icon */}
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${cert.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <cert.icon className="h-7 w-7 text-white" />
-              </div>
+                {/* Icon */}
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                    <Icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                </div>
 
-              {/* Content */}
-              <div className="space-y-3">
-                <h3 className="text-lg font-bold text-foreground font-display group-hover:text-gradient transition-colors duration-300 leading-tight">
-                  {cert.title}
-                </h3>
+                {/* Content */}
+                <div className="space-y-3 flex-1">
+                    <h3 className="text-xl font-semibold text-foreground font-display leading-tight">
+                    {cert.title}
+                    </h3>
+                    
+                    <div className="flex items-center gap-2">
+                        <Award className="h-4 w-4 text-primary" />
+                        <p className="text-foreground font-medium text-sm">
+                        {cert.issuer}
+                        </p>
+                    </div>
 
-                <p className="text-primary font-medium text-sm flex items-center gap-1">
-                  {cert.issuer}
-                </p>
-
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {cert.description}
-                </p>
-              </div>
-
-              {/* Decorative Element */}
-              <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
-                <Award className="h-8 w-8 text-primary" />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground flex items-center justify-center gap-2">
-            <span className="inline-block w-2 h-2 bg-primary rounded-full animate-pulse" />
-            Committed to continuous learning and professional development
-          </p>
+                    <p className="text-muted-foreground text-sm leading-relaxed font-light mt-4">
+                    {cert.description}
+                    </p>
+                </div>
+                </motion.div>
+              );
+          })}
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 };
