@@ -130,13 +130,10 @@ const Card = ({
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
       <motion.div
         style={{ scale, top: `calc(-5vh + ${i * 30}px)` }}
-        className="will-change-transform relative flex flex-col w-[90vw] md:w-[75vw] lg:w-[1000px] h-auto min-h-[50vh] max-h-[70vh] origin-top glass-elevated border border-border/60 rounded-3xl p-8 md:p-12 overflow-hidden shadow-2xl"
+        className="will-change-transform relative flex flex-col w-[90vw] md:w-[75vw] lg:w-[1000px] h-auto min-h-[50vh] max-h-[85vh] origin-top glass-elevated border border-border/60 rounded-3xl p-8 md:p-12 overflow-y-auto overflow-x-hidden shadow-2xl thin-scrollbar"
       >
-        {/* Subtle Background Glow */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none" />
-
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-6 relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-6 relative z-10 shrink-0">
           <div className="flex items-start gap-4">
             <div className={cn("w-14 h-14 rounded-2xl bg-background border border-border flex items-center justify-center shadow-sm shrink-0", visual.color)}>
               <IconComponent className="w-7 h-7" />

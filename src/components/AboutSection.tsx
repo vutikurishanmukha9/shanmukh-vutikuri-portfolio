@@ -81,15 +81,15 @@ export const AboutSection = () => {
             className="space-y-6 text-lg text-muted-foreground leading-relaxed font-light"
           >
             <p>
-              I'm an <strong className="text-foreground font-medium">Applied AI and Cloud Engineer</strong> with a foundation in Electronics & Communication Engineering. While I'm early in my career, I've already built and shipped <strong className="text-foreground font-medium">10+ production-ready projects</strong> — from AI-powered trading analysis to scalable backend platforms.
+              I am an <strong className="text-foreground font-medium">Applied AI and Cloud Engineer</strong> with a background in Electronics & Communication Engineering. Although I am relatively early in my career, I have already developed and deployed <strong className="text-foreground font-medium">5+ production-grade projects</strong> ranging from AI-driven trading analysis to scalable backend infrastructure.
             </p>
 
             <p>
-              My hands-on experience spans Python, FastAPI, AWS, and modern AI frameworks including computer vision, NLP, and RAG systems. I don't just build demos — projects like <span className="text-foreground font-medium">Candle-Light</span> (AI pattern recognition) and <span className="text-foreground font-medium">HeartOut</span> (secure backend architecture) are deployed and running.
+              I have hands-on experience with Python, FastAPI, AWS, and state-of-the-art AI technologies such as computer vision, NLP, and RAG systems. I don't just develop proof-of-concepts – projects such as <span className="text-foreground font-medium">Candle-Light</span> (AI pattern recognition) and <span className="text-foreground font-medium">HeartOut</span> (secure backend design) are actually deployed and up and running.
             </p>
 
             <p>
-              As an <span className="text-foreground font-medium">IEEE peer-reviewed published researcher</span> in IoT-driven smart systems, I bring both engineering rigor and practical problem-solving to every project. I'm currently exploring the intersections of AI Trading Systems and advanced RAG Pipelines.
+              As an <span className="text-foreground font-medium">IEEE peer-reviewed published researcher</span> in IoT-enabled smart systems, I possess both the engineering discipline and the problem-solving skills to bring to each project. I am currently investigating the convergence of AI Trading Systems and RAG Pipelines.
             </p>
           </motion.div>
         </div>
