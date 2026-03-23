@@ -104,22 +104,21 @@ export const GrindingActivitySection = () => {
                         
                         <div className="overflow-x-auto pb-4 hide-scrollbar">
                             <div className="min-w-[800px] text-foreground">
-                                <GitHubCalendar
-                                    username={GITHUB_USERNAME}
-                                    year="last"
-                                    colorScheme={theme === 'dark' ? 'dark' : 'light'}
-                                    blockSize={12}
-                                    blockMargin={4}
-                                    fontSize={12}
-                                    renderBlock={(block, activity) => (
-                                        <Tooltip
-                                            id="react-tooltip"
-                                            content={`${activity.count} commits on ${new Date(activity.date).toLocaleDateString()}`}
-                                        >
-                                            {block}
-                                        </Tooltip>
-                                    )}
-                                />
+                                <div className="flex flex-col items-center">
+                                    <GitHubCalendar
+                                        username={GITHUB_USERNAME}
+                                        year="last"
+                                        colorScheme={theme === 'dark' ? 'dark' : 'light'}
+                                        blockSize={12}
+                                        blockMargin={4}
+                                        fontSize={12}
+                                        renderBlock={(block, activity) => React.cloneElement(block, {
+                                            'data-tooltip-id': 'react-tooltip',
+                                            'data-tooltip-content': `${activity.count} contributions on ${new Date(activity.date).toLocaleDateString()}`,
+                                        })}
+                                    />
+                                    <Tooltip id="react-tooltip" />
+                                </div>
                             </div>
                         </div>
                     </div>
