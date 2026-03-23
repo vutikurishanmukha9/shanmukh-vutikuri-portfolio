@@ -1,7 +1,6 @@
-import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Github, Sparkles, Brain, Cloud, Eye, Globe, BarChart3, ArrowUpRight, Terminal } from 'lucide-react';
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { SectionWrapper } from '@/components/ui/section-wrapper';
 import { cn } from '@/lib/utils';
 
@@ -17,7 +16,7 @@ const categoryConfig: { [key: string]: { icon: any; color: string; label: string
 const projects = [
   {
     title: 'GetReport',
-    description: 'Data analysis is often fragmented. Architected a full-stack platform transforming raw data into PDF reports. Implemented high-performance Polars processing and AI-driven RAG for semantic data querying.',
+    description: 'Architected a full-stack platform transforming raw data into PDF reports with high-performance Polars processing and AI-driven RAG for semantic data querying.',
     tech: ['FastAPI', 'React', 'Polars', 'Redis', 'OpenAI', 'Docker'],
     category: 'Web App',
     focus: 'Data Platform',
@@ -26,7 +25,7 @@ const projects = [
   },
   {
     title: 'Candle-Light',
-    description: 'Trading platforms lack automated pattern recognition. Built an AI-powered computer vision pipeline with multi-model fallback. Implemented low-latency pattern recognition for real-time market data analysis.',
+    description: 'Built an AI-powered computer vision pipeline with multi-model fallback for low-latency pattern recognition in real-time market data analysis.',
     tech: ['React', 'TailwindCSS', 'Machine Learning', 'OAuth'],
     category: 'AI/ML',
     focus: 'AI Pipelines',
@@ -35,7 +34,7 @@ const projects = [
   },
   {
     title: 'HeartOut',
-    description: 'Social platforms lack true anonymity. Architected a secure anonymous storytelling platform. Engineered role-based access control and scalable database schema for high-volume content.',
+    description: 'Architected a secure anonymous storytelling platform with role-based access control and scalable database schema for high-volume content.',
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
     category: 'Web App',
     focus: 'Backend Systems',
@@ -44,7 +43,7 @@ const projects = [
   },
   {
     title: 'Ele-Visualize',
-    description: 'Abstract atomic concepts are hard to visualize. Developed an interactive 3D visualization engine. Integrated MediaPipe hand-tracking for touchless, gesture-controlled molecule exploration.',
+    description: 'Developed an interactive 3D visualization engine with MediaPipe hand-tracking for touchless, gesture-controlled molecule exploration.',
     tech: ['React', 'Three.js', 'MediaPipe', 'WebGL'],
     category: 'Computer Vision',
     focus: '3D Interaction',
@@ -53,7 +52,7 @@ const projects = [
   },
   {
     title: 'PromptBuddy',
-    description: 'Prompt engineering is repetitive. Created a template-based prompt optimization tool. Built a regex-free string matching engine for intelligent template filling without API dependencies.',
+    description: 'Created a template-based prompt optimization tool with a regex-free string matching engine for intelligent template filling.',
     tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS'],
     category: 'Web App',
     focus: 'SaaS Product',
@@ -62,7 +61,7 @@ const projects = [
   },
   {
     title: 'Jarvis PDF Chatbot',
-    description: 'Static PDFs trap knowledge. Built a RAG-based document intelligence system. Implemented vector retrieval pipelines and provider fallback (OpenAI/OpenRouter) for reliable Q&A.',
+    description: 'Built a RAG-based document intelligence system with vector retrieval pipelines and provider fallback for reliable Q&A.',
     tech: ['Python', 'LangChain', 'Streamlit', 'OpenAI', 'FAISS'],
     category: 'AI/ML',
     focus: 'RAG Systems',
@@ -71,7 +70,7 @@ const projects = [
   },
   {
     title: 'AI Health ChatBot',
-    description: 'Healthcare advice needs immediacy. Created an intelligent diagnostic assistant. Trained custom NLP models for symptom analysis and real-time medical consultation support.',
+    description: 'Created an intelligent diagnostic assistant with custom NLP models for symptom analysis and real-time medical consultation.',
     tech: ['Python', 'NLP', 'TensorFlow', 'Flask', 'React'],
     category: 'AI/ML',
     focus: 'Healthcare AI',
@@ -80,7 +79,7 @@ const projects = [
   },
   {
     title: 'Touchless Keyboard',
-    description: 'Physical interfaces can be limiting. Built a purely gesture-based text input system. Optimized MediaPipe tracking for low-latency keystroke detection on standard webcams.',
+    description: 'Built a gesture-based text input system with optimized MediaPipe tracking for low-latency keystroke detection.',
     tech: ['Python', 'OpenCV', 'MediaPipe', 'Machine Learning'],
     category: 'Computer Vision',
     focus: 'CV Systems',
@@ -88,8 +87,8 @@ const projects = [
     demo: '',
   },
   {
-    title: 'Automated Attendance System',
-    description: 'Manual attendance is inefficient. Engineered a facial recognition attendance pipeline. Integrated real-time face matching with cloud database sync for instant reporting.',
+    title: 'Automated Attendance',
+    description: 'Engineered a facial recognition attendance pipeline with real-time face matching and cloud database sync.',
     tech: ['Python', 'OpenCV', 'AWS', 'MySQL', 'React'],
     category: 'Computer Vision',
     focus: 'CV Pipeline',
@@ -98,7 +97,7 @@ const projects = [
   },
   {
     title: 'Employee Data Analysis',
-    description: 'Raw HR data lacks insight. Built a comprehensive EDA workflow. Cleaned and visualized complex datasets to reveal retention trends using the Python data science stack.',
+    description: 'Built a comprehensive EDA workflow to clean and visualize complex HR datasets revealing retention trends.',
     tech: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
     category: 'Data Analysis',
     focus: 'Data Insights',
@@ -107,102 +106,81 @@ const projects = [
   },
 ];
 
-const Card = ({
-  project,
-  i,
-  progress,
-  range,
-  targetScale
-}: {
-  project: any,
-  i: number,
-  progress: MotionValue<number>,
-  range: [number, number],
-  targetScale: number
-}) => {
-  const container = useRef(null);
-  const scale = useTransform(progress, range, [1, targetScale]);
-
+const ProjectCard = ({ project, index }: { project: any; index: number }) => {
   const visual = categoryConfig[project.category] || categoryConfig['Other'];
   const IconComponent = visual.icon;
 
   return (
-    <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
-      <motion.div
-        style={{ scale, top: `calc(-5vh + ${i * 30}px)` }}
-        className="will-change-transform relative flex flex-col w-[90vw] md:w-[75vw] lg:w-[1000px] h-auto min-h-[50vh] max-h-[85vh] origin-top glass-elevated border border-border/60 rounded-3xl p-8 md:p-12 overflow-y-auto overflow-x-hidden shadow-2xl thin-scrollbar"
-      >
-        {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-6 relative z-10 shrink-0">
-          <div className="flex items-start gap-4">
-            <div className={cn("w-14 h-14 rounded-2xl bg-background border border-border flex items-center justify-center shadow-sm shrink-0", visual.color)}>
-              <IconComponent className="w-7 h-7" />
-            </div>
-            <div>
-              <h3 className="text-3xl md:text-4xl font-bold font-display tracking-tight text-foreground mb-2">{project.title}</h3>
-              <div className="flex flex-wrap items-center gap-2 mt-1">
-                <span className={cn("text-xs font-semibold tracking-wide uppercase px-2 py-1 bg-background rounded-md border border-border", visual.color)}>
-                  {project.category}
-                </span>
-                <span className="text-muted-foreground">•</span>
-                <span className="text-xs font-medium text-muted-foreground tracking-wide">{project.focus}</span>
-              </div>
-            </div>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index % 2 === 0 ? 0 : 0.1 }}
+      className="glass-elevated border border-border/60 rounded-2xl p-6 md:p-8 flex flex-col h-full hover:border-primary/30 transition-colors duration-300"
+    >
+      {/* Header */}
+      <div className="flex items-start justify-between gap-4 mb-5 shrink-0">
+        <div className="flex items-start gap-3">
+          <div className={cn("w-11 h-11 rounded-xl bg-background border border-border flex items-center justify-center shadow-sm shrink-0", visual.color)}>
+            <IconComponent className="w-5 h-5" />
           </div>
-
-          <div className="flex gap-3 mt-4 md:mt-0">
-            {project.github && (
-              <Button variant="outline" size="icon" className="rounded-full w-12 h-12 bg-background hover:bg-muted text-foreground transition-colors" asChild>
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="w-5 h-5" />
-                </a>
-              </Button>
-            )}
-            {project.demo && (
-              <Button variant="default" size="icon" className="rounded-full w-12 h-12 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm" asChild>
-                <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                  <ArrowUpRight className="w-5 h-5" />
-                </a>
-              </Button>
-            )}
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 flex flex-col justify-between relative z-10">
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light max-w-3xl mb-10">
-            {project.description}
-          </p>
-
-          <div className="mt-auto pt-6 border-t border-border/50">
-            <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-4">
-              <Terminal className="w-4 h-4" />
-              Technology Stack
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {project.tech.map((tech: string) => (
-                <span key={tech} className="px-3 py-1.5 rounded-lg bg-background border border-border shadow-sm text-xs font-medium text-foreground transition-colors hover:border-primary/40 cursor-default">
-                  {tech}
-                </span>
-              ))}
+          <div>
+            <h3 className="text-xl md:text-2xl font-bold font-display tracking-tight text-foreground">{project.title}</h3>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              <span className={cn("text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 bg-background rounded-md border border-border", visual.color)}>
+                {project.category}
+              </span>
+              <span className="text-muted-foreground text-xs">•</span>
+              <span className="text-[10px] font-medium text-muted-foreground tracking-wide">{project.focus}</span>
             </div>
           </div>
         </div>
-      </motion.div>
-    </div>
-  )
-}
+
+        <div className="flex gap-2 shrink-0">
+          {project.github && (
+            <Button variant="outline" size="icon" className="rounded-full w-9 h-9 bg-background hover:bg-muted text-foreground transition-colors" asChild>
+              <a href={project.github} target="_blank" rel="noopener noreferrer">
+                <Github className="w-4 h-4" />
+              </a>
+            </Button>
+          )}
+          {project.demo && (
+            <Button variant="default" size="icon" className="rounded-full w-9 h-9 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm" asChild>
+              <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Description */}
+      <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light flex-1 mb-5">
+        {project.description}
+      </p>
+
+      {/* Tech Stack */}
+      <div className="pt-4 border-t border-border/50 shrink-0">
+        <h4 className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+          <Terminal className="w-3 h-3" />
+          Stack
+        </h4>
+        <div className="flex flex-wrap gap-1.5">
+          {project.tech.map((tech: string) => (
+            <span key={tech} className="px-2.5 py-1 rounded-md bg-background border border-border text-[11px] font-medium text-foreground">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 export const ProjectsSection = () => {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start start', 'end end']
-  })
-
   return (
     <SectionWrapper id="projects" className="relative py-24 bg-background">
-      <div className="container mx-auto px-4 lg:px-8 relative z-10 mb-10">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="text-center mb-16 max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -222,29 +200,12 @@ export const ProjectsSection = () => {
             Selected Projects
           </motion.h2>
         </div>
-      </div>
 
-      <div ref={container} className="relative z-10 w-full mb-10">
-        {projects.map((project, i) => {
-          const targetScale = 1 - ((projects.length - i) * 0.04);
-          return (
-            <Card
-              key={i}
-              i={i}
-              project={project}
-              progress={scrollYProgress}
-              range={[i * 0.08, 1]}
-              targetScale={targetScale}
-            />
-          )
-        })}
-      </div>
-
-      <div className="h-32 w-full flex items-center justify-center">
-        <div className="flex items-center gap-2 text-muted-foreground opacity-50">
-          <span className="w-1.5 h-1.5 rounded-full bg-border" />
-          <span className="w-1.5 h-1.5 rounded-full bg-border" />
-          <span className="w-1.5 h-1.5 rounded-full bg-border" />
+        {/* Simple 2-column grid — no sticky, no scroll transforms */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {projects.map((project, i) => (
+            <ProjectCard key={i} project={project} index={i} />
+          ))}
         </div>
       </div>
     </SectionWrapper>

@@ -33,10 +33,8 @@ export const NewsTicker = ({ items, speed = 30 }: NewsTickerProps) => {
                     ? '1px solid hsl(var(--primary) / 0.5)'
                     : '1px solid hsl(var(--primary) / 0.3)',
                 boxShadow: isHovered
-                    ? '0 6px 30px hsl(var(--primary) / 0.2)'
-                    : '0 4px 20px hsl(var(--primary) / 0.1)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
+                    ? '0 4px 20px hsl(var(--primary) / 0.15)'
+                    : '0 2px 12px hsl(var(--primary) / 0.08)',
             }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

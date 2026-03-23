@@ -1,129 +1,96 @@
-import { useEffect, useState, useCallback } from 'react';
-
-interface CursorPosition {
-    x: number;
-    y: number;
-}
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 export const CustomCursor = () => {
-    const [position, setPosition] = useState<CursorPosition>({ x: 0, y: 0 });
-    const [dotPosition, setDotPosition] = useState<CursorPosition>({ x: 0, y: 0 });
+    const ringRef = useRef<HTMLDivElement>(null);
+    const dotRef = useRef<HTMLDivElement>(null);
+    const mousePos = useRef({ x: 0, y: 0 });
+    const ringPos = useRef({ x: 0, y: 0 });
+    const rafId = useRef<number>(0);
     const [isHovering, setIsHovering] = useState(false);
-    const [isClicking, setIsClicking] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-    // Check if it's a touch device on mount
     useEffect(() => {
-        const checkTouchDevice = () => {
+        const checkTouch = () => {
             setIsTouchDevice(
                 'ontouchstart' in window ||
                 navigator.maxTouchPoints > 0 ||
                 window.matchMedia('(pointer: coarse)').matches
             );
         };
-        checkTouchDevice();
-        window.addEventListener('resize', checkTouchDevice);
-        return () => window.removeEventListener('resize', checkTouchDevice);
-    }, []);
-
-    const handleMouseMove = useCallback((e: MouseEvent) => {
-        setPosition({ x: e.clientX, y: e.clientY });
-        setDotPosition({ x: e.clientX, y: e.clientY });
-        if (!isVisible) setIsVisible(true);
-    }, [isVisible]);
-
-    const handleMouseDown = useCallback(() => {
-        setIsClicking(true);
-    }, []);
-
-    const handleMouseUp = useCallback(() => {
-        setIsClicking(false);
-    }, []);
-
-    const handleMouseEnter = useCallback(() => {
-        setIsVisible(true);
-    }, []);
-
-    const handleMouseLeave = useCallback(() => {
-        setIsVisible(false);
+        checkTouch();
     }, []);
 
     useEffect(() => {
-        const handleElementHover = (e: MouseEvent) => {
+        if (isTouchDevice) return;
+
+        const onMove = (e: MouseEvent) => {
+            mousePos.current = { x: e.clientX, y: e.clientY };
+            if (!isVisible) setIsVisible(true);
+
+            // Dot follows instantly via direct DOM manipulation (no React re-render)
+            if (dotRef.current) {
+                dotRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+            }
+
+            // Check hover state
             const target = e.target as HTMLElement;
-            const isInteractive =
+            const interactive =
                 target.tagName === 'A' ||
                 target.tagName === 'BUTTON' ||
                 target.closest('a') ||
                 target.closest('button') ||
                 target.closest('[role="button"]') ||
                 target.classList.contains('cursor-interactive');
-
-            setIsHovering(!!isInteractive);
+            setIsHovering(!!interactive);
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mousemove', handleElementHover);
-        window.addEventListener('mousedown', handleMouseDown);
-        window.addEventListener('mouseup', handleMouseUp);
-        document.body.addEventListener('mouseenter', handleMouseEnter);
-        document.body.addEventListener('mouseleave', handleMouseLeave);
+        const onEnter = () => setIsVisible(true);
+        const onLeave = () => setIsVisible(false);
+
+        window.addEventListener('mousemove', onMove, { passive: true });
+        document.body.addEventListener('mouseenter', onEnter);
+        document.body.addEventListener('mouseleave', onLeave);
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mousemove', handleElementHover);
-            window.removeEventListener('mousedown', handleMouseDown);
-            window.removeEventListener('mouseup', handleMouseUp);
-            document.body.removeEventListener('mouseenter', handleMouseEnter);
-            document.body.removeEventListener('mouseleave', handleMouseLeave);
+            window.removeEventListener('mousemove', onMove);
+            document.body.removeEventListener('mouseenter', onEnter);
+            document.body.removeEventListener('mouseleave', onLeave);
         };
-    }, [handleMouseMove, handleMouseDown, handleMouseUp, handleMouseEnter, handleMouseLeave]);
+    }, [isTouchDevice, isVisible]);
 
-    // Smooth ring follow - FASTER response
+    // Single persistent rAF loop for ring follow — never restarts
     useEffect(() => {
-        let animationFrame: number;
-        let currentX = position.x;
-        let currentY = position.y;
+        if (isTouchDevice) return;
 
         const animate = () => {
-            const dx = position.x - currentX;
-            const dy = position.y - currentY;
+            ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.15;
+            ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.15;
 
-            // Much faster lerp for instant feel
-            currentX += dx * 0.35;
-            currentY += dy * 0.35;
-
-            const ring = document.querySelector('.cursor-ring') as HTMLElement;
-            if (ring) {
-                ring.style.left = `${currentX}px`;
-                ring.style.top = `${currentY}px`;
+            if (ringRef.current) {
+                ringRef.current.style.transform = `translate(${ringPos.current.x}px, ${ringPos.current.y}px) translate(-50%, -50%)`;
             }
 
-            animationFrame = requestAnimationFrame(animate);
+            rafId.current = requestAnimationFrame(animate);
         };
 
-        animate();
+        rafId.current = requestAnimationFrame(animate);
+        return () => cancelAnimationFrame(rafId.current);
+    }, [isTouchDevice]);
 
-        return () => {
-            cancelAnimationFrame(animationFrame);
-        };
-    }, [position]);
-
-    // Don't render on touch devices or when not visible
     if (isTouchDevice || !isVisible) return null;
 
     return (
         <>
             <div
-                className={`cursor-dot ${isHovering ? 'hovering' : ''} ${isClicking ? 'clicking' : ''}`}
-                style={{
-                    left: `${dotPosition.x}px`,
-                    top: `${dotPosition.y}px`,
-                }}
+                ref={dotRef}
+                className={`cursor-dot ${isHovering ? 'hovering' : ''}`}
+                style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9999 }}
             />
             <div
-                className={`cursor-ring ${isHovering ? 'hovering' : ''} ${isClicking ? 'clicking' : ''}`}
+                ref={ringRef}
+                className={`cursor-ring ${isHovering ? 'hovering' : ''}`}
+                style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none', zIndex: 9998 }}
             />
         </>
     );

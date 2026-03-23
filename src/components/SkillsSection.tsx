@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Code, Database, Cloud, Brain, BarChart3, Cpu, Palette, Hammer, Shield, ChevronRight } from 'lucide-react';
+import { Code, Database, Cloud, Brain, BarChart3, Cpu, Palette, Hammer, Shield, ChevronRight, Layers, LineChart, PieChart } from 'lucide-react';
 import { useSkillFilter } from '@/context/SkillFilterContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionWrapper } from '@/components/ui/section-wrapper';
@@ -15,27 +15,45 @@ const pipelineStages = [
 
 const skillCategories = [
   {
-    title: 'Languages',
-    skills: ['Python', 'SQL', 'C', 'C++', 'Java', 'TypeScript'],
+    title: 'Programming',
+    skills: ['Python', 'SQL', 'C', 'C++', 'Java', 'TypeScript', 'OOP'],
     icon: Code,
     stage: 'process',
   },
   {
     title: 'Cloud & DevOps',
-    skills: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD'],
+    skills: ['AWS S3', 'AWS EC2', 'AWS RDS', 'AWS Lambda', 'Docker', 'Kubernetes', 'GitHub Actions', 'CI/CD'],
     icon: Cloud,
     stage: 'store',
   },
   {
     title: 'Data & AI',
-    skills: ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow', 'PyTorch'],
+    skills: ['Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Scikit-learn', 'TensorFlow', 'PyTorch', 'PySpark', 'NLP', 'Computer Vision', 'RAG Systems'],
     icon: Brain,
     stage: 'analyze',
   },
   {
-    title: 'Web Technologies',
-    skills: ['React', 'Node.js', 'FastAPI', 'Next.js', 'HTML/CSS'],
-    icon: Palette,
+    title: 'Data Engineering',
+    skills: ['ETL/ELT Pipelines', 'Data Modeling', 'Data Validation', 'Batch Processing', 'Schema Design', 'Data Cleaning', 'Query Optimization'],
+    icon: Layers,
+    stage: 'ingest',
+  },
+  {
+    title: 'Databases & Warehousing',
+    skills: ['PostgreSQL', 'MySQL', 'Snowflake', 'Databricks', 'Star Schema', 'Snowflake Schema', 'Fact & Dimension Tables'],
+    icon: Database,
+    stage: 'store',
+  },
+  {
+    title: 'Analytics',
+    skills: ['EDA', 'Descriptive Statistics', 'Hypothesis Testing', 'Regression Analysis', 'Forecasting', 'Trend Analysis', 'Root Cause Analysis', 'KPI Reporting'],
+    icon: LineChart,
+    stage: 'analyze',
+  },
+  {
+    title: 'Business Intelligence',
+    skills: ['Power BI', 'DAX', 'KPI Dashboards', 'Amazon QuickSight', 'Excel', 'Pivot Tables', 'Power Query', 'VLOOKUP', 'XLOOKUP'],
+    icon: PieChart,
     stage: 'visualize',
   },
   {
@@ -46,7 +64,7 @@ const skillCategories = [
   },
   {
     title: 'Tools & Ecosystem',
-    skills: ['Git', 'Linux', 'Vite', 'Postman', 'Figma'],
+    skills: ['Git', 'GitHub', 'Jupyter Notebook', 'Linux', 'Vite', 'Postman', 'Figma'],
     icon: Shield,
     stage: 'process',
   },
@@ -72,7 +90,7 @@ export const SkillsSection = () => {
   return (
     <SectionWrapper id="skills" className="py-24 bg-background">
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        
+
         {/* Header */}
         <div className="text-center mb-16 max-w-2xl mx-auto">
           <motion.div
@@ -105,11 +123,11 @@ export const SkillsSection = () => {
 
         {/* Pipeline Filters */}
         <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-3 mb-16 max-w-3xl mx-auto"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-3 mb-16 max-w-3xl mx-auto"
         >
           {pipelineStages.map((stage) => {
             const Icon = stage.icon;
@@ -120,8 +138,8 @@ export const SkillsSection = () => {
                 onClick={() => setSelectedStage(isSelected ? null : stage.id)}
                 className={cn(
                   "flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all duration-300 text-sm font-medium",
-                  isSelected 
-                    ? "bg-primary text-primary-foreground border-primary shadow-md" 
+                  isSelected
+                    ? "bg-primary text-primary-foreground border-primary shadow-md"
                     : "glass-panel hover:bg-muted text-muted-foreground hover:text-foreground hover:border-border"
                 )}
               >
@@ -144,7 +162,7 @@ export const SkillsSection = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
-                  key={category.title} 
+                  key={category.title}
                   className="glass-panel p-8 hover-lift-minimal flex flex-col h-full"
                 >
                   <div className="flex items-center gap-4 mb-6">
@@ -153,8 +171,8 @@ export const SkillsSection = () => {
                     </div>
                     <h3 className="text-xl font-semibold text-foreground font-display">{category.title}</h3>
                   </div>
-                  
-                  <div className="flex flex-wrap gap-2 mt-auto">
+
+                  <div className="flex flex-wrap gap-2">
                     {category.skills.map((skill) => {
                       const isSkillSelected = selectedSkill === skill;
                       return (
