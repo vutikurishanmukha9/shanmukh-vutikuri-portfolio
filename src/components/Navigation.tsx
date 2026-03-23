@@ -96,10 +96,13 @@ export const Navigation = () => {
             {navItems.map((item) => {
               const isActive = activeHash === item.href;
               return (
-                <a
+                <motion.a
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleScrollTo(e, item.href)}
+                  whileHover={{ y: -2, scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   className={cn(
                     "relative px-5 py-2 text-sm font-medium tracking-wide rounded-full transition-colors duration-300",
                     isActive ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground"
@@ -113,7 +116,7 @@ export const Navigation = () => {
                     />
                   )}
                   <span className="relative z-10">{item.label}</span>
-                </a>
+                </motion.a>
               );
             })}
           </nav>
@@ -151,7 +154,9 @@ export const Navigation = () => {
                   onClick={(e) => handleScrollTo(e, item.href)}
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 + (i * 0.05) }}
+                  whileHover={{ scale: 1.05, x: 10 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ delay: 0.1 + (i * 0.05), type: "spring", stiffness: 400, damping: 17 }}
                   className={cn(
                     "text-3xl font-display font-semibold tracking-tight w-full text-center py-2 border-b border-border/50 transition-colors",
                     activeHash === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
