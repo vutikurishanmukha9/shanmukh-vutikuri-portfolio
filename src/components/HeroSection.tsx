@@ -4,7 +4,7 @@ import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
 
 export const HeroSection = () => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-10">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-10">
       <div className="container mx-auto px-4 relative z-10 w-full">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto space-y-8">
           
