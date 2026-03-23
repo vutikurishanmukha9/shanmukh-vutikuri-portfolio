@@ -18,15 +18,17 @@ export const HeroSection = () => {
             <span className="text-sm font-medium tracking-wide text-foreground">Available for new opportunities</span>
           </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-            className="text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] font-black font-display tracking-tighter text-foreground leading-[1.1]"
-          >
-            Vutikuri <br className="md:hidden" />
-            <span className="text-muted-foreground">Shanmukha</span>
-          </motion.h1>
+          <div className="overflow-hidden">
+            <motion.h1 
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] font-black font-display tracking-tighter text-foreground leading-[1.1]"
+            >
+              Vutikuri <br className="md:hidden" />
+              <span className="text-muted-foreground">Shanmukha</span>
+            </motion.h1>
+          </div>
 
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -43,27 +45,51 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="flex flex-col sm:flex-row items-center gap-6 pt-8 w-full sm:w-auto"
           >
-            <Button
-              size="lg"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full sm:w-auto rounded-full px-10 h-14 text-base bg-foreground text-background hover:bg-foreground/90 font-semibold shadow-lg hover-lift-minimal transition-all"
-            >
-              View My Work
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+              <Button
+                size="lg"
+                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                className="w-full sm:w-auto rounded-full px-10 h-14 text-base bg-foreground text-background hover:bg-foreground/90 font-semibold shadow-lg hover-lift-minimal transition-all"
+              >
+                View My Work
+              </Button>
+            </motion.div>
             
             <div className="flex gap-4 items-center">
-              <a href="https://github.com/vutikurishanmukha" target="_blank" rel="noreferrer" className="p-3 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+              <motion.a 
+                whileHover={{ y: -4, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                href="https://github.com/vutikurishanmukha" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="p-3 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+              >
                 <Github className="h-6 w-6" />
                 <span className="sr-only">GitHub</span>
-              </a>
-              <a href="https://linkedin.com/in/vutikurishanmukha" target="_blank" rel="noreferrer" className="p-3 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+              </motion.a>
+              <motion.a 
+                whileHover={{ y: -4, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                href="https://linkedin.com/in/vutikurishanmukha" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="p-3 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+              >
                 <Linkedin className="h-6 w-6" />
                 <span className="sr-only">LinkedIn</span>
-              </a>
-              <a href="mailto:vutikurishanmukh17@gmail.com" className="p-3 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+              </motion.a>
+              <motion.a 
+                whileHover={{ y: -4, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                href="mailto:vutikurishanmukh17@gmail.com" 
+                className="p-3 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+              >
                 <Mail className="h-6 w-6" />
                 <span className="sr-only">Email</span>
-              </a>
+              </motion.a>
             </div>
           </motion.div>
 
