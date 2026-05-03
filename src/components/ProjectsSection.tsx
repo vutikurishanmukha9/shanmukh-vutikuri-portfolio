@@ -1,49 +1,86 @@
+import { useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Github, Sparkles, Brain, Cloud, Eye, Globe, BarChart3, ArrowUpRight, Terminal } from 'lucide-react';
+import {
+  Github,
+  Sparkles,
+  Brain,
+  Cloud,
+  Eye,
+  Globe,
+  BarChart3,
+  ArrowUpRight,
+  Terminal,
+  CheckCircle2,
+  Layers3,
+  X,
+  type LucideIcon,
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '@/components/ui/section-wrapper';
 import { cn } from '@/lib/utils';
+import { useSkillFilter } from '@/context/SkillFilterContext';
 
-const categoryConfig: { [key: string]: { icon: any; color: string; label: string } } = {
-  'AI/ML': { icon: Brain, color: 'text-purple-500', label: 'Artificial Intelligence' },
-  'Cloud': { icon: Cloud, color: 'text-blue-500', label: 'Cloud Architecture' },
-  'Web App': { icon: Globe, color: 'text-primary', label: 'Web Development' },
-  'Computer Vision': { icon: Eye, color: 'text-emerald-500', label: 'Computer Vision' },
-  'Data Analysis': { icon: BarChart3, color: 'text-orange-500', label: 'Data Science' },
-  'Other': { icon: Sparkles, color: 'text-muted-foreground', label: 'Various Engineering' }
+type ProjectCategory = 'AI/ML' | 'Cloud' | 'Web App' | 'Computer Vision' | 'Data Analysis' | 'Other';
+
+type Project = {
+  title: string;
+  description: string;
+  outcome: string;
+  tech: string[];
+  category: ProjectCategory;
+  focus: string;
+  github: string;
+  demo?: string;
+  featured?: boolean;
 };
 
-const projects = [
+const categoryConfig: Record<ProjectCategory, { icon: LucideIcon; color: string; label: string }> = {
+  'AI/ML': { icon: Brain, color: 'text-violet-500', label: 'Artificial Intelligence' },
+  Cloud: { icon: Cloud, color: 'text-sky-500', label: 'Cloud Architecture' },
+  'Web App': { icon: Globe, color: 'text-primary', label: 'Web Development' },
+  'Computer Vision': { icon: Eye, color: 'text-emerald-500', label: 'Computer Vision' },
+  'Data Analysis': { icon: BarChart3, color: 'text-amber-500', label: 'Data Science' },
+  Other: { icon: Sparkles, color: 'text-muted-foreground', label: 'Various Engineering' },
+};
+
+const projects: Project[] = [
   {
     title: 'GetReport',
-    description: 'Architected a full-stack platform transforming raw data into PDF reports with high-performance Polars processing and AI-driven RAG for semantic data querying.',
+    description: 'Full-stack reporting platform that turns raw datasets into PDF reports with fast Polars processing and AI-assisted semantic querying.',
+    outcome: 'Data upload to report workflow with RAG-style exploration',
     tech: ['FastAPI', 'React', 'Polars', 'Redis', 'OpenAI', 'Docker'],
     category: 'Web App',
     focus: 'Data Platform',
     github: 'https://github.com/vutikurishanmukha9/GetReport',
     demo: 'https://get-report.vercel.app',
+    featured: true,
   },
   {
     title: 'Candle-Light',
-    description: 'Built an AI-powered computer vision pipeline with multi-model fallback for low-latency pattern recognition in real-time market data analysis.',
+    description: 'AI-powered market pattern analysis experience with multi-model fallback and low-latency recognition flows.',
+    outcome: 'Computer vision inspired pattern detection for market signals',
     tech: ['React', 'TailwindCSS', 'Machine Learning', 'OAuth'],
     category: 'AI/ML',
     focus: 'AI Pipelines',
     github: 'https://github.com/vutikurishanmukha9/Candle-Light',
     demo: 'https://candle-light-kappa.vercel.app',
+    featured: true,
   },
   {
     title: 'HeartOut',
-    description: 'Architected a secure anonymous storytelling platform with role-based access control and scalable database schema for high-volume content.',
+    description: 'Anonymous storytelling platform with role-based access control, JWT authentication, and a scalable MongoDB content model.',
+    outcome: 'Secure community product with moderation-ready foundations',
     tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
     category: 'Web App',
     focus: 'Backend Systems',
     github: 'https://github.com/vutikurishanmukha9/HeartOut',
     demo: 'https://heart-out.vercel.app/',
+    featured: true,
   },
   {
     title: 'Ele-Visualize',
-    description: 'Developed an interactive 3D visualization engine with MediaPipe hand-tracking for touchless, gesture-controlled molecule exploration.',
+    description: 'Interactive 3D molecule visualization engine using WebGL and MediaPipe hand tracking for gesture-led exploration.',
+    outcome: 'Touchless 3D interaction prototype for STEM learning',
     tech: ['React', 'Three.js', 'MediaPipe', 'WebGL'],
     category: 'Computer Vision',
     focus: '3D Interaction',
@@ -52,7 +89,8 @@ const projects = [
   },
   {
     title: 'PromptBuddy',
-    description: 'Created a template-based prompt optimization tool with a regex-free string matching engine for intelligent template filling.',
+    description: 'Prompt optimization workspace with reusable templates and intelligent slot filling for faster AI workflows.',
+    outcome: 'Reusable prompt system for consistent AI outputs',
     tech: ['React', 'TypeScript', 'Vite', 'TailwindCSS'],
     category: 'Web App',
     focus: 'SaaS Product',
@@ -61,16 +99,17 @@ const projects = [
   },
   {
     title: 'Jarvis PDF Chatbot',
-    description: 'Built a RAG-based document intelligence system with vector retrieval pipelines and provider fallback for reliable Q&A.',
+    description: 'Document intelligence app with vector retrieval pipelines and provider fallback for reliable PDF question answering.',
+    outcome: 'RAG pipeline for searchable document knowledge',
     tech: ['Python', 'LangChain', 'Streamlit', 'OpenAI', 'FAISS'],
     category: 'AI/ML',
     focus: 'RAG Systems',
     github: 'https://github.com/vutikurishanmukha9/Jarvis',
-    demo: '',
   },
   {
     title: 'AI Health ChatBot',
-    description: 'Created an intelligent diagnostic assistant with custom NLP models for symptom analysis and real-time medical consultation.',
+    description: 'Diagnostic assistant prototype using NLP models for symptom intake and guided medical consultation flows.',
+    outcome: 'Conversational triage concept with healthcare UX patterns',
     tech: ['Python', 'NLP', 'TensorFlow', 'Flask', 'React'],
     category: 'AI/ML',
     focus: 'Healthcare AI',
@@ -79,134 +118,223 @@ const projects = [
   },
   {
     title: 'Touchless Keyboard',
-    description: 'Built a gesture-based text input system with optimized MediaPipe tracking for low-latency keystroke detection.',
+    description: 'Gesture-based text input system using OpenCV and MediaPipe for low-latency keystroke detection.',
+    outcome: 'Hands-free input prototype for accessibility-first control',
     tech: ['Python', 'OpenCV', 'MediaPipe', 'Machine Learning'],
     category: 'Computer Vision',
     focus: 'CV Systems',
     github: 'https://github.com/vutikurishanmukha9/Touchless-Keyboard',
-    demo: '',
   },
   {
     title: 'Automated Attendance',
-    description: 'Engineered a facial recognition attendance pipeline with real-time face matching and cloud database sync.',
+    description: 'Facial recognition attendance pipeline with real-time matching and cloud database synchronization.',
+    outcome: 'Identity-aware attendance system with cloud sync',
     tech: ['Python', 'OpenCV', 'AWS', 'MySQL', 'React'],
     category: 'Computer Vision',
     focus: 'CV Pipeline',
     github: 'https://github.com/vutikurishanmukha9/Automated-Attendance-System',
-    demo: '',
   },
   {
     title: 'Employee Data Analysis',
-    description: 'Built a comprehensive EDA workflow to clean and visualize complex HR datasets revealing retention trends.',
+    description: 'EDA workflow for cleaning, visualizing, and interpreting HR datasets to reveal retention and workforce trends.',
+    outcome: 'Business insight report from messy HR data',
     tech: ['Python', 'Pandas', 'Matplotlib', 'Seaborn', 'Jupyter'],
     category: 'Data Analysis',
     focus: 'Data Insights',
     github: 'https://github.com/vutikurishanmukha9/Employee_Data_Analysis',
-    demo: '',
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: any; index: number }) => {
-  const visual = categoryConfig[project.category] || categoryConfig['Other'];
+const categories: Array<ProjectCategory | 'All'> = ['All', 'Web App', 'AI/ML', 'Computer Vision', 'Data Analysis', 'Cloud'];
+
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+  const visual = categoryConfig[project.category];
   const IconComponent = visual.icon;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index % 2 === 0 ? 0 : 0.1 }}
-      className="glass-elevated border border-border/60 rounded-2xl p-6 md:p-8 flex flex-col h-full hover:border-primary/30 transition-colors duration-300"
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.45, delay: Math.min(index * 0.04, 0.18) }}
+      className={cn(
+        'group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-border/70 bg-card/80 p-6 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10',
+        project.featured && 'md:col-span-2 lg:col-span-1'
+      )}
     >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-4 mb-5 shrink-0">
-        <div className="flex items-start gap-3">
-          <div className={cn("w-11 h-11 rounded-xl bg-background border border-border flex items-center justify-center shadow-sm shrink-0", visual.color)}>
-            <IconComponent className="w-5 h-5" />
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-emerald-400 to-amber-400 opacity-80" />
+      <div className="absolute -right-14 -top-14 h-36 w-36 rounded-full bg-primary/10 blur-3xl transition-opacity group-hover:opacity-80" />
+
+      <div className="relative mb-6 flex items-start justify-between gap-4">
+        <div className="flex items-start gap-4">
+          <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-border bg-background shadow-sm', visual.color)}>
+            <IconComponent className="h-5 w-5" />
           </div>
           <div>
-            <h3 className="text-xl md:text-2xl font-bold font-display tracking-tight text-foreground">{project.title}</h3>
-            <div className="flex flex-wrap items-center gap-2 mt-1">
-              <span className={cn("text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 bg-background rounded-md border border-border", visual.color)}>
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <span className={cn('rounded-full border border-border bg-background px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide', visual.color)}>
                 {project.category}
               </span>
-              <span className="text-muted-foreground text-xs">•</span>
-              <span className="text-[10px] font-medium text-muted-foreground tracking-wide">{project.focus}</span>
+              {project.featured && (
+                <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
+                  Featured
+                </span>
+              )}
             </div>
+            <h3 className="font-display text-2xl font-bold tracking-tight text-foreground">{project.title}</h3>
+            <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{project.focus}</p>
           </div>
-        </div>
-
-        <div className="flex gap-2 shrink-0">
-          {project.github && (
-            <Button variant="outline" size="icon" className="rounded-full w-9 h-9 bg-background hover:bg-muted text-foreground transition-colors" asChild>
-              <a href={project.github} target="_blank" rel="noopener noreferrer">
-                <Github className="w-4 h-4" />
-              </a>
-            </Button>
-          )}
-          {project.demo && (
-            <Button variant="default" size="icon" className="rounded-full w-9 h-9 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-sm" asChild>
-              <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-            </Button>
-          )}
         </div>
       </div>
 
-      {/* Description */}
-      <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-light flex-1 mb-5">
+      <p className="relative mb-5 flex-1 text-sm leading-7 text-muted-foreground md:text-[15px]">
         {project.description}
       </p>
 
-      {/* Tech Stack */}
-      <div className="pt-4 border-t border-border/50 shrink-0">
-        <h4 className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">
-          <Terminal className="w-3 h-3" />
+      <div className="relative mb-5 rounded-2xl border border-border/70 bg-background/70 p-4">
+        <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-foreground">
+          <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+          Product proof
+        </div>
+        <p className="text-sm leading-6 text-muted-foreground">{project.outcome}</p>
+      </div>
+
+      <div className="relative border-t border-border/60 pt-5">
+        <h4 className="mb-3 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+          <Terminal className="h-3 w-3" />
           Stack
         </h4>
-        <div className="flex flex-wrap gap-1.5">
-          {project.tech.map((tech: string) => (
-            <span key={tech} className="px-2.5 py-1 rounded-md bg-background border border-border text-[11px] font-medium text-foreground">
+        <div className="mb-5 flex flex-wrap gap-1.5">
+          {project.tech.map((tech) => (
+            <span key={tech} className="rounded-lg border border-border bg-background px-2.5 py-1 text-[11px] font-semibold text-foreground">
               {tech}
             </span>
           ))}
         </div>
+
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" className="rounded-full bg-background" asChild>
+            <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} GitHub repository`}>
+              <Github className="h-4 w-4" />
+              Code
+            </a>
+          </Button>
+          {project.demo && (
+            <Button size="sm" className="rounded-full" asChild>
+              <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label={`Open ${project.title} live demo`}>
+                Live
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </Button>
+          )}
+        </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
 };
 
 export const ProjectsSection = () => {
+  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | 'All'>('All');
+  const { selectedSkill, setSelectedSkill } = useSkillFilter();
+
+  const filteredProjects = useMemo(() => {
+    return projects.filter((project) => {
+      const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory;
+      const matchesSkill = !selectedSkill || project.tech.some((tech) => tech.toLowerCase().includes(selectedSkill.toLowerCase()));
+      return matchesCategory && matchesSkill;
+    });
+  }, [selectedCategory, selectedSkill]);
+
   return (
-    <SectionWrapper id="projects" className="relative py-24 bg-background">
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="text-center mb-16 max-w-2xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background border border-border shadow-sm mb-6"
-          >
-            <span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">Work</span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold font-display tracking-tight text-foreground"
-          >
-            Selected Projects
-          </motion.h2>
+    <SectionWrapper id="projects" className="relative overflow-hidden bg-background py-24">
+      <div className="container relative z-10 mx-auto px-4 lg:px-8">
+        <div className="mb-12 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-1.5 shadow-sm"
+            >
+              <Layers3 className="h-3.5 w-3.5 text-primary" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Product Work</span>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="font-display text-4xl font-bold tracking-tight text-foreground md:text-6xl"
+            >
+              Products with proof, not just project cards.
+            </motion.h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
+              Each build is framed around the problem solved, the system designed, and the result a user can understand quickly.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-border bg-card/80 p-5 shadow-sm backdrop-blur-xl">
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <div className="text-2xl font-black text-foreground">{projects.length}+</div>
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Builds</div>
+              </div>
+              <div>
+                <div className="text-2xl font-black text-foreground">5</div>
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Live</div>
+              </div>
+              <div>
+                <div className="text-2xl font-black text-foreground">4</div>
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Domains</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Simple 2-column grid — no sticky, no scroll transforms */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          {projects.map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} />
-          ))}
+        <div className="mb-8 flex flex-col gap-4 rounded-3xl border border-border bg-card/70 p-3 shadow-sm backdrop-blur-xl md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => {
+              const isSelected = selectedCategory === category;
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={cn(
+                    'rounded-full px-4 py-2 text-sm font-semibold transition-all',
+                    isSelected
+                      ? 'bg-foreground text-background shadow-sm'
+                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                  )}
+                >
+                  {category}
+                </button>
+              );
+            })}
+          </div>
+
+          {selectedSkill && (
+            <button
+              onClick={() => setSelectedSkill(null)}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/15"
+            >
+              Skill: {selectedSkill}
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
+
+        {filteredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {filteredProjects.map((project, i) => (
+              <ProjectCard key={project.title} project={project} index={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-border bg-card/80 p-10 text-center">
+            <p className="text-lg font-semibold text-foreground">No projects match that filter yet.</p>
+            <p className="mt-2 text-muted-foreground">Clear the skill filter or choose another category.</p>
+          </div>
+        )}
       </div>
     </SectionWrapper>
   );

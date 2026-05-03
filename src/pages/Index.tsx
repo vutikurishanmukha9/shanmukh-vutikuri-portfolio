@@ -1,18 +1,39 @@
+import { lazy, Suspense } from 'react';
 import { Navigation } from '@/components/Navigation';
 import { NewsTicker, defaultStatusItems } from '@/components/NewsTicker';
 import { HeroSection } from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
-import { GrindingActivitySection } from '@/components/GrindingActivitySection';
-import { SkillsSection } from '@/components/SkillsSection';
-import { CareerJourneySection } from '@/components/CareerJourneySection';
-import { ProjectsSection } from '@/components/ProjectsSection';
-import { PublicationsSection } from '@/components/PublicationsSection';
-import { CertificationsSection } from '@/components/CertificationsSection';
-import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
-import { Toaster } from '@/components/ui/toaster';
 
 import { PageLoader } from '@/components/PageLoader';
+
+const GrindingActivitySection = lazy(() =>
+  import('@/components/GrindingActivitySection').then((module) => ({ default: module.GrindingActivitySection }))
+);
+const SkillsSection = lazy(() =>
+  import('@/components/SkillsSection').then((module) => ({ default: module.SkillsSection }))
+);
+const CareerJourneySection = lazy(() =>
+  import('@/components/CareerJourneySection').then((module) => ({ default: module.CareerJourneySection }))
+);
+const ProjectsSection = lazy(() =>
+  import('@/components/ProjectsSection').then((module) => ({ default: module.ProjectsSection }))
+);
+const CertificationsSection = lazy(() =>
+  import('@/components/CertificationsSection').then((module) => ({ default: module.CertificationsSection }))
+);
+const PublicationsSection = lazy(() =>
+  import('@/components/PublicationsSection').then((module) => ({ default: module.PublicationsSection }))
+);
+const ContactSection = lazy(() =>
+  import('@/components/ContactSection').then((module) => ({ default: module.ContactSection }))
+);
+
+const SectionFallback = () => (
+  <div className="container mx-auto px-4 py-16 lg:px-8">
+    <div className="h-48 animate-pulse rounded-3xl border border-border bg-card/70" />
+  </div>
+);
 
 const Index = () => {
 
@@ -37,14 +58,15 @@ const Index = () => {
       <main className="flex-1">
         <HeroSection />
         <AboutSection />
-        <GrindingActivitySection />
-        <SkillsSection />
-        <CareerJourneySection />
-        <ProjectsSection />
-
-        <CertificationsSection />
-        <PublicationsSection />
-        <ContactSection />
+        <Suspense fallback={<SectionFallback />}>
+          <GrindingActivitySection />
+          <SkillsSection />
+          <CareerJourneySection />
+          <ProjectsSection />
+          <CertificationsSection />
+          <PublicationsSection />
+          <ContactSection />
+        </Suspense>
       </main>
 
       <Footer />

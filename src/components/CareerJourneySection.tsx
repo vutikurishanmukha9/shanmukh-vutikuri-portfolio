@@ -3,6 +3,17 @@ import { Calendar, Briefcase, MapPin, GraduationCap } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { SectionWrapper } from '@/components/ui/section-wrapper';
 
+type Experience = {
+    title: string;
+    company: string;
+    location: string;
+    period: string;
+    description: string;
+    skills: string[];
+    current: boolean;
+    isEducation?: boolean;
+};
+
 export const CareerJourneySection = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
@@ -10,7 +21,7 @@ export const CareerJourneySection = () => {
         offset: ["start center", "end center"]
     });
 
-    const experiences = [
+    const experiences: Experience[] = [
         {
             title: 'Cloud Engineering Intern',
             company: 'Brain O Vision',
@@ -84,7 +95,7 @@ export const CareerJourneySection = () => {
 
                         {/* Experience Cards */}
                         {experiences.map((exp, index) => {
-                            const isEducation = (exp as any).isEducation;
+                            const isEducation = exp.isEducation;
                             const Icon = isEducation ? GraduationCap : Briefcase;
 
                             return (
