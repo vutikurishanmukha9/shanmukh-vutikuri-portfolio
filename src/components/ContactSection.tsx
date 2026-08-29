@@ -2,7 +2,6 @@ import { ContactForm } from '@/components/ContactForm';
 import { Github, Linkedin, Mail, ExternalLink, Copy, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { SectionWrapper } from '@/components/ui/section-wrapper';
-import { Magnetic } from '@/components/ui/Magnetic';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
@@ -153,18 +152,17 @@ export const ContactSection = () => {
                   {socialLinks.map((social) => {
                       const Icon = social.icon;
                       return (
-                        <Magnetic key={social.name} strength={0.35} radius={80}>
-                          <a
-                              href={social.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group p-3 rounded border-[0.5px] border-border bg-background/40 hover:bg-background/80 hover:border-primary/35 transition-colors duration-200 shadow-none block"
-                              title={social.name}
-                              aria-label={social.name}
-                          >
-                              <Icon className="h-4.5 w-4.5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
-                          </a>
-                        </Magnetic>
+                        <a
+                            key={social.name}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group p-3 rounded border-[0.5px] border-border bg-background/40 hover:bg-background/80 hover:border-primary/35 transition-colors duration-200 shadow-none block"
+                            title={social.name}
+                            aria-label={social.name}
+                        >
+                            <Icon className="h-4.5 w-4.5 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                        </a>
                       );
                   })}
                 </div>

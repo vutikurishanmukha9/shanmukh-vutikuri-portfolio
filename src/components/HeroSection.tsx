@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Magnetic } from '@/components/ui/Magnetic';
 import { NumberTicker } from '@/components/ui/NumberTicker';
 import { SpotlightCard } from '@/components/ui/SpotlightCard';
 import { WaveText } from '@/components/ui/WaveText';
@@ -340,43 +339,37 @@ export const HeroSection = () => {
               className="flex w-full flex-col sm:flex-row flex-wrap items-center gap-3 pt-2 lg:items-start justify-center lg:justify-start"
             >
               <div className="w-full sm:w-auto">
-                <Magnetic strength={0.4} strengthY={0.48} radius={140}>
-                  <Button
-                    size="lg"
-                    onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="group h-11 w-full rounded-full bg-foreground pl-6 pr-2.5 text-xs font-mono tracking-wider uppercase text-background hover:bg-foreground/90 transition-colors sm:w-auto flex items-center justify-between gap-3 shadow-sm active:scale-[0.98]"
-                  >
-                    <span>View Product Work</span>
-                    <span className="w-6 h-6 rounded-full bg-background/20 text-background flex items-center justify-center transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                      <ArrowUpRight className="h-3 w-3" />
-                    </span>
-                  </Button>
-                </Magnetic>
+                <Button
+                  size="lg"
+                  onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group h-11 w-full rounded-full bg-foreground pl-6 pr-2.5 text-xs font-mono tracking-wider uppercase text-background hover:bg-foreground/90 transition-colors sm:w-auto flex items-center justify-between gap-3 shadow-sm active:scale-[0.98]"
+                >
+                  <span>View Product Work</span>
+                  <span className="w-6 h-6 rounded-full bg-background/20 text-background flex items-center justify-center transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                    <ArrowUpRight className="h-3 w-3" />
+                  </span>
+                </Button>
               </div>
               <div className="w-full sm:w-auto">
-                <Magnetic strength={0.4} strengthY={0.48} radius={140}>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    onClick={() => setIsResumeOpen(true)}
-                    className="h-11 w-full rounded-full bg-background border-[0.5px] border-primary/30 text-primary px-6 text-xs font-mono tracking-wider uppercase sm:w-auto hover:bg-primary/10 transition-colors active:scale-[0.98]"
-                  >
-                    <FileText className="h-3.5 w-3.5 mr-1.5" />
-                    View Resume
-                  </Button>
-                </Magnetic>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => setIsResumeOpen(true)}
+                  className="h-11 w-full rounded-full bg-background border-[0.5px] border-primary/30 text-primary px-6 text-xs font-mono tracking-wider uppercase sm:w-auto hover:bg-primary/10 transition-colors active:scale-[0.98]"
+                >
+                  <FileText className="h-3.5 w-3.5 mr-1.5" />
+                  View Resume
+                </Button>
               </div>
               <div className="w-full sm:w-auto">
-                <Magnetic strength={0.4} strengthY={0.48} radius={140}>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                    className="h-11 w-full rounded-full bg-background border-[0.5px] border-border/80 px-6 text-xs font-mono tracking-wider uppercase sm:w-auto hover:bg-muted transition-colors active:scale-[0.98]"
-                  >
-                    Contact Me
-                  </Button>
-                </Magnetic>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="h-11 w-full rounded-full bg-background border-[0.5px] border-border/80 px-6 text-xs font-mono tracking-wider uppercase sm:w-auto hover:bg-muted transition-colors active:scale-[0.98]"
+                >
+                  Contact Me
+                </Button>
               </div>
               
               <div className="flex items-center gap-2 mt-2 sm:mt-0">

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
 
-export const ScrollProgress = () => {
+export const ScrollProgress: React.FC = () => {
   const [scrollPercent, setScrollPercent] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const { playClick } = useSound();
@@ -31,9 +31,9 @@ export const ScrollProgress = () => {
   return (
     <>
       {/* Top Reading Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-[2.5px] z-[100] pointer-events-none bg-border/20">
+      <div className="fixed top-0 left-0 right-0 h-[2.5px] z-[100] pointer-events-none bg-foreground/[0.06]">
         <motion.div
-          className="h-full bg-gradient-to-r from-primary/80 via-primary to-primary/90 shadow-[0_0_8px_rgba(var(--primary-rgb),0.5)]"
+          className="h-full bg-gradient-to-r from-primary/80 via-primary to-primary/90 shadow-[0_0_8px_rgba(204,120,92,0.4)]"
           style={{ width: `${scrollPercent}%` }}
           transition={{ ease: 'linear', duration: 0.1 }}
         />
@@ -53,12 +53,12 @@ export const ScrollProgress = () => {
               type="button"
               onClick={scrollToTop}
               aria-label="Scroll back to top"
-              className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-card/95 border-[0.5px] border-border/80 shadow-md backdrop-blur-md hover:border-primary/40 hover:bg-card transition-colors duration-200"
+              className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/90 border border-border/70 shadow-lg backdrop-blur-xl hover:border-primary/40 transition-[background-color,border-color,transform] duration-200 cursor-pointer active:scale-95"
             >
-              <span className="text-[10px] font-mono text-muted-foreground group-hover:text-foreground transition-colors tracking-tight">
+              <span className="text-[10px] font-mono text-foreground/75 group-hover:text-foreground transition-colors tracking-tight">
                 {Math.round(scrollPercent)}%
               </span>
-              <div className="w-5 h-5 rounded-full bg-primary/10 border-[0.5px] border-primary/20 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+              <div className="w-5 h-5 rounded-full bg-foreground/5 border border-border/50 flex items-center justify-center text-foreground group-hover:scale-110 transition-transform">
                 <ArrowUp className="w-3 h-3" />
               </div>
             </button>

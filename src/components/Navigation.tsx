@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { 
@@ -11,7 +12,8 @@ import {
   FolderGit2, 
   BarChart3, 
   Award, 
-  Mail 
+  Mail,
+  Palette
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -117,10 +119,23 @@ export const Navigation = () => {
           <a
             href="#home"
             onClick={(e) => handleScrollTo(e, '#home')}
-            className="px-3.5 py-1 font-serif-display text-lg tracking-tight text-foreground hover:text-primary transition-colors md:hidden relative z-30"
+            className="px-3 py-1 font-serif-display text-base sm:text-lg tracking-tight text-foreground hover:text-primary transition-colors md:hidden relative z-30"
           >
             VS<span className="text-primary">.</span>
           </a>
+
+          {/* Design Portfolio Mode Switcher (Always accessible on Mobile & Tablet) */}
+          <div className="md:hidden flex items-center relative z-30 mr-1.5">
+            <Link
+              to="/design"
+              onClick={() => playClick(800, 0.03, 'sine')}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground border border-primary/25 text-[10px] font-mono font-medium tracking-wide transition-[background-color,color,border-color,transform] active:scale-95 shadow-none"
+              aria-label="Switch to Product Designer Portfolio"
+            >
+              <Palette className="w-3 h-3" />
+              <span>Design Mode</span>
+            </Link>
+          </div>
 
           {/* Mobile Toggle */}
           <div className="md:hidden pr-1 relative z-30">
@@ -224,8 +239,21 @@ export const Navigation = () => {
           {/* Vertical Divider */}
           <div className="hidden md:block w-[0.5px] h-4 bg-border/80 mx-1.5 relative z-10" />
 
+          {/* Design Portfolio Mode Switcher */}
+          <div className="hidden md:flex items-center relative z-10">
+            <Link
+              to="/design"
+              onClick={() => playClick(800, 0.03, 'sine')}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground border border-primary/20 text-[10.5px] font-mono font-medium tracking-wide transition-[background-color,color,border-color,transform] duration-300 active:scale-95 shadow-none"
+              aria-label="Switch to Product Designer Portfolio"
+            >
+              <Palette className="w-3 h-3" />
+              <span>Design Mode</span>
+            </Link>
+          </div>
+
           {/* Theme & Sound Controls + Resume Button */}
-          <div className="hidden md:flex items-center gap-1.5 relative z-10 pr-1">
+          <div className="hidden md:flex items-center gap-1.5 relative z-10 pr-1 pl-1">
             <Button
               variant="outline"
               size="sm"
@@ -259,8 +287,21 @@ export const Navigation = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.1 }}
-              className="flex flex-col items-center gap-5 w-full max-w-sm"
+              className="flex flex-col items-center gap-4 w-full max-w-sm"
             >
+              {/* Prominent Top Design Mode Switcher Link */}
+              <Link
+                to="/design"
+                onClick={() => {
+                  playClick(800, 0.03, 'sine');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-primary/15 via-primary/20 to-primary/15 border border-primary/35 text-primary font-mono text-xs font-semibold text-center flex items-center justify-center gap-2 hover:bg-primary hover:text-primary-foreground transition-[background-color,color,border-color,transform] shadow-sm mb-2 active:scale-98"
+              >
+                <Palette className="w-4 h-4" />
+                <span>Switch to Product Designer Mode →</span>
+              </Link>
+
               {navItems.map((item, i) => {
                 const Icon = item.icon;
                 return (
@@ -284,7 +325,7 @@ export const Navigation = () => {
                 );
               })}
 
-              <div className="mt-6 flex items-center gap-3">
+              <div className="mt-4 flex items-center gap-3">
                 <Button
                   variant="outline"
                   size="sm"
