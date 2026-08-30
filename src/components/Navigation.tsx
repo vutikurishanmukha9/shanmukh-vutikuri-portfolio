@@ -281,13 +281,30 @@ export const Navigation = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-background/90 backdrop-blur-xl md:hidden flex flex-col items-center justify-center p-4 supports-[backdrop-filter]:bg-background/80"
+            className="fixed inset-0 z-50 bg-background/95 backdrop-blur-2xl md:hidden flex flex-col items-center justify-between p-6 pt-safe pb-safe supports-[backdrop-filter]:bg-background/90"
           >
+            {/* Top Bar with Brand & Close Button */}
+            <div className="w-full max-w-sm flex items-center justify-between pt-2 pb-4 border-b border-border/40">
+              <span className="font-serif-display text-lg tracking-tight text-foreground">
+                VS<span className="text-primary">.</span> Navigation
+              </span>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full hover:bg-muted text-foreground h-9 w-9"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <X size={18} />
+              </Button>
+            </div>
+
+            {/* Middle Nav Items */}
             <motion.nav
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              className="flex flex-col items-center gap-4 w-full max-w-sm"
+              transition={{ delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center gap-3.5 w-full max-w-sm my-auto overflow-y-auto py-2 touch-scroll"
             >
               {/* Prominent Top Design Mode Switcher Link */}
               <Link
@@ -296,7 +313,7 @@ export const Navigation = () => {
                   playClick(800, 0.03, 'sine');
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-primary/15 via-primary/20 to-primary/15 border border-primary/35 text-primary font-mono text-xs font-semibold text-center flex items-center justify-center gap-2 hover:bg-primary hover:text-primary-foreground transition-[background-color,color,border-color,transform] shadow-sm mb-2 active:scale-98"
+                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-primary/15 via-primary/20 to-primary/15 border border-primary/35 text-primary font-mono text-xs font-semibold text-center flex items-center justify-center gap-2 hover:bg-primary hover:text-primary-foreground transition-[background-color,color,border-color,transform] shadow-sm mb-1 active:scale-98 cursor-pointer"
               >
                 <Palette className="w-4 h-4" />
                 <span>Switch to Product Designer Mode →</span>
@@ -311,37 +328,39 @@ export const Navigation = () => {
                     onClick={(e) => handleScrollTo(e, item.href)}
                     initial={{ y: 8, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    transition={{ delay: 0.05 + (i * 0.02), type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.2 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ delay: 0.03 + (i * 0.02), type: "tween", ease: [0.16, 1, 0.3, 1], duration: 0.2 }}
                     className={cn(
-                      "text-xl font-serif-display font-medium tracking-tight w-full text-center py-2.5 border-b-[0.5px] border-border/40 transition-colors flex items-center justify-center gap-2",
+                      "text-lg sm:text-xl font-serif-display font-medium tracking-tight w-full text-center py-2.5 border-b-[0.5px] border-border/30 transition-colors flex items-center justify-center gap-2.5 active:text-primary",
                       activeHash === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
                     )}
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-4 w-4 opacity-70" />
                     <span>{item.label}</span>
                   </motion.a>
                 );
               })}
+            </motion.nav>
 
-              <div className="mt-4 flex items-center gap-3">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    playClick(800, 0.04, 'sine');
-                    setIsMobileMenuOpen(false);
-                    setIsResumeOpen(true);
-                  }}
-                  className="h-8 text-xs font-mono uppercase tracking-wider px-4 rounded-full border-primary/30 text-primary hover:bg-primary/10"
-                >
-                  View CV / Resume
-                </Button>
+            {/* Bottom Controls Bar */}
+            <div className="w-full max-w-sm pt-4 pb-2 border-t border-border/40 flex items-center justify-between">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  playClick(800, 0.04, 'sine');
+                  setIsMobileMenuOpen(false);
+                  setIsResumeOpen(true);
+                }}
+                className="h-9 text-xs font-mono uppercase tracking-wider px-4 rounded-full border-primary/30 text-primary hover:bg-primary/10 active:scale-95"
+              >
+                View CV / Resume
+              </Button>
+              <div className="flex items-center gap-2">
                 <ThemeToggle />
                 <SoundToggle />
               </div>
-            </motion.nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

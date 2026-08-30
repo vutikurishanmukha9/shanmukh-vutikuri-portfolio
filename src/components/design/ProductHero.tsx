@@ -54,7 +54,7 @@ export const ProductHero: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.08] sm:leading-[1.06]"
+            className="text-[28px] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight leading-[1.08] sm:leading-[1.06]"
           >
             <span className="font-sans font-bold text-white block">
               Designing digital
@@ -111,7 +111,7 @@ export const ProductHero: React.FC = () => {
               <button
                 type="button"
                 onClick={() => scrollToSection('works')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-5 py-2.5 rounded-full bg-[#111218]/90 hover:bg-[#181922] border border-amber-500/30 hover:border-amber-500/60 text-white font-mono text-xs tracking-wider uppercase transition-[background-color,border-color,transform] active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.12)] group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-5 py-3 sm:py-2.5 rounded-full bg-[#111218]/90 hover:bg-[#181922] border border-amber-500/30 hover:border-amber-500/60 text-white font-mono text-xs tracking-wider uppercase transition-[background-color,border-color,transform] active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(245,158,11,0.12)] group"
               >
                 <span>EXPLORE MY WORK</span>
                 <div className="w-6 h-6 rounded-full bg-white/10 group-hover:bg-amber-500 group-hover:text-black flex items-center justify-center transition-[background-color,color]">
@@ -125,7 +125,7 @@ export const ProductHero: React.FC = () => {
         </div>
 
         {/* Right Column: 3D Isometric Floating Glass Cards & Orbital Process (5 Columns) */}
-        <div className="lg:col-span-5 relative flex items-center justify-center min-h-[400px]">
+        <div className="lg:col-span-5 relative flex items-center justify-center min-h-[300px] sm:min-h-[360px] lg:min-h-[400px]">
           <ThreeDGlassStack onClick={() => scrollToSection('craft-lab')} />
         </div>
 

@@ -65,7 +65,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-y-auto touch-scroll">
           {/* Backdrop Blur with Accessible Key Listener */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -81,13 +81,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
             className="fixed inset-0 bg-black/85 backdrop-blur-xl cursor-pointer"
           />
 
-          {/* Modal Card */}
+          {/* Modal Card (Bottom-sheet on mobile, centered card on desktop) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 20 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0d0e12] border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 shadow-2xl z-10 select-none custom-scrollbar"
+            exit={{ opacity: 0, scale: 0.96, y: 30 }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto bg-[#0d0e12] border border-white/15 rounded-t-3xl sm:rounded-3xl p-5 sm:p-8 md:p-10 pb-safe shadow-2xl z-10 select-none touch-scroll custom-scrollbar"
           >
             {/* Top Specular Ray */}
             <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />

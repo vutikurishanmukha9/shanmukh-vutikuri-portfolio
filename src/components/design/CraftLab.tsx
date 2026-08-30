@@ -530,7 +530,7 @@ export const CraftLab: React.FC = () => {
             </div>
 
             {/* Interactive Physical Kinetic Stage */}
-            <div className="p-4 rounded-xl bg-[#07080a] border border-white/10 flex flex-col items-center justify-center min-h-[140px] space-y-2">
+            <div className="p-4 sm:p-5 rounded-xl bg-[#07080a] border border-white/10 flex flex-col items-center justify-center min-h-[140px] space-y-2.5">
               <motion.button
                 key={motionTrigger}
                 type="button"
@@ -538,24 +538,27 @@ export const CraftLab: React.FC = () => {
                 animate={{ scale: 1, y: 0 }}
                 transition={{ type: 'spring', stiffness, damping, mass }}
                 onClick={handleTriggerMotion}
-                className="px-6 py-2.5 rounded-full bg-white text-black font-mono text-xs font-semibold shadow-lg cursor-pointer select-none active:scale-95 transition-transform"
+                className="w-full sm:w-auto px-6 py-3 sm:py-2.5 rounded-full bg-white text-black font-mono text-xs font-semibold shadow-lg cursor-pointer select-none active:scale-95 transition-transform text-center"
               >
                 TEST MASS-SPRING RELEASE
               </motion.button>
 
-              <div className="flex items-center gap-3 text-[10px] font-mono text-white/50 pt-1">
+              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] font-mono text-white/50 pt-1">
                 <span>STIFFNESS: {stiffness}</span>
-                <span>•</span>
+                <span className="hidden sm:inline">•</span>
                 <span>DAMPING: {damping}</span>
-                <span>•</span>
+                <span className="hidden sm:inline">•</span>
                 <span>MASS: {mass}</span>
               </div>
             </div>
 
             {/* Physics Sliders Matrix */}
-            <div className="grid grid-cols-3 gap-2 text-xs font-mono">
-              <div className="space-y-1">
-                <label htmlFor="stiffness-slider" className="text-[9.5px] text-white/50 block">STIFFNESS: {stiffness}</label>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-2 text-xs font-mono">
+              <div className="space-y-1.5 sm:space-y-1">
+                <label htmlFor="stiffness-slider" className="text-[9.5px] text-white/50 flex items-center justify-between sm:block">
+                  <span>STIFFNESS</span>
+                  <span className="text-primary font-bold">{stiffness}</span>
+                </label>
                 <input
                   id="stiffness-slider"
                   type="range"
@@ -565,12 +568,15 @@ export const CraftLab: React.FC = () => {
                   value={stiffness}
                   aria-label="Spring Stiffness Slider"
                   onChange={(e) => setStiffness(Number(e.target.value))}
-                  className="w-full accent-primary cursor-pointer"
+                  className="w-full h-6 sm:h-5 accent-primary cursor-pointer"
                 />
               </div>
 
-              <div className="space-y-1">
-                <label htmlFor="damping-slider" className="text-[9.5px] text-white/50 block">DAMPING: {damping}</label>
+              <div className="space-y-1.5 sm:space-y-1">
+                <label htmlFor="damping-slider" className="text-[9.5px] text-white/50 flex items-center justify-between sm:block">
+                  <span>DAMPING</span>
+                  <span className="text-primary font-bold">{damping}</span>
+                </label>
                 <input
                   id="damping-slider"
                   type="range"
@@ -580,12 +586,15 @@ export const CraftLab: React.FC = () => {
                   value={damping}
                   aria-label="Spring Damping Slider"
                   onChange={(e) => setDamping(Number(e.target.value))}
-                  className="w-full accent-primary cursor-pointer"
+                  className="w-full h-6 sm:h-5 accent-primary cursor-pointer"
                 />
               </div>
 
-              <div className="space-y-1">
-                <label htmlFor="mass-slider" className="text-[9.5px] text-white/50 block">MASS: {mass}</label>
+              <div className="space-y-1.5 sm:space-y-1">
+                <label htmlFor="mass-slider" className="text-[9.5px] text-white/50 flex items-center justify-between sm:block">
+                  <span>MASS</span>
+                  <span className="text-primary font-bold">{mass}</span>
+                </label>
                 <input
                   id="mass-slider"
                   type="range"
@@ -595,7 +604,7 @@ export const CraftLab: React.FC = () => {
                   value={mass}
                   aria-label="Spring Mass Slider"
                   onChange={(e) => setMass(Number(e.target.value))}
-                  className="w-full accent-primary cursor-pointer"
+                  className="w-full h-6 sm:h-5 accent-primary cursor-pointer"
                 />
               </div>
             </div>

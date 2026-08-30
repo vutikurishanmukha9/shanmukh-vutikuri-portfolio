@@ -133,7 +133,8 @@ export const DesignNavigation: React.FC = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-x-4 top-20 z-50 p-6 rounded-2xl bg-[#0d0e14] border border-white/15 backdrop-blur-2xl shadow-2xl md:hidden space-y-4"
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-4 top-20 z-50 p-6 rounded-2xl bg-[#0d0e14]/95 border border-white/15 backdrop-blur-2xl shadow-2xl md:hidden space-y-4 pt-safe pb-safe"
           >
             <div className="flex flex-col space-y-3 font-mono text-xs tracking-wider uppercase">
               {/* Prominent Mode Switcher at Top */}
@@ -143,48 +144,45 @@ export const DesignNavigation: React.FC = () => {
                   playClick(600, 0.03, 'sine');
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full py-2.5 px-3 rounded-xl bg-white/10 border border-white/20 text-white font-mono text-xs text-center flex items-center justify-center gap-2 hover:bg-white hover:text-black transition-[background-color,color,border-color,transform] shadow-sm mb-1"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-white/10 to-white/5 border border-white/20 text-white font-mono text-xs font-medium text-center flex items-center justify-center gap-2 hover:bg-white hover:text-black transition-[background-color,color,border-color,transform] shadow-sm mb-1 active:scale-98 cursor-pointer"
               >
-                <Code className="w-3.5 h-3.5" />
+                <Code className="w-4 h-4 text-amber-400" />
                 <span>Switch to Engineering Mode →</span>
               </Link>
 
               <button
                 type="button"
                 onClick={() => scrollToSection('works', 'work')}
-                className="text-left text-white py-1.5 border-b border-white/5"
+                className="text-left text-white py-2 border-b border-white/5 active:text-amber-400 transition-colors flex items-center justify-between"
               >
-                WORK
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('philosophy', 'about')}
-                className="text-left text-white/70 hover:text-white py-1.5 border-b border-white/5"
-              >
-                ABOUT
+                <span>WORK</span>
+                <span className="text-[10px] text-white/40">7 PROJECTS</span>
               </button>
               <button
                 type="button"
                 onClick={() => scrollToSection('craft-lab', 'process')}
-                className="text-left text-white/70 hover:text-white py-1.5 border-b border-white/5"
+                className="text-left text-white/80 hover:text-white py-2 border-b border-white/5 active:text-amber-400 transition-colors flex items-center justify-between"
               >
-                PROCESS & LABS
+                <span>PROCESS & LABS</span>
+                <span className="text-[10px] text-white/40">4 WORKSTATIONS</span>
               </button>
               <button
                 type="button"
-                onClick={() => scrollToSection('philosophy', 'notes')}
-                className="text-left text-white/70 hover:text-white py-1.5 border-b border-white/5"
+                onClick={() => scrollToSection('philosophy', 'about')}
+                className="text-left text-white/80 hover:text-white py-2 border-b border-white/5 active:text-amber-400 transition-colors flex items-center justify-between"
               >
-                NOTES
+                <span>PHILOSOPHY</span>
+                <span className="text-[10px] text-white/40">4 TENETS</span>
               </button>
             </div>
 
-            <div className="pt-2 flex items-center justify-end border-t border-white/10">
+            <div className="pt-2 flex items-center justify-between border-t border-white/10">
+              <span className="text-[10px] font-mono text-white/40 uppercase">AVAILABLE FOR WORK</span>
               <a
                 href="mailto:vutikurishanmukh17@gmail.com"
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-black font-mono text-[10.5px] font-semibold"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-mono text-[10.5px] font-semibold tracking-wider uppercase active:scale-95 transition-transform"
               >
-                <Mail className="w-3 h-3" />
+                <Mail className="w-3.5 h-3.5" />
                 <span>Contact</span>
               </a>
             </div>

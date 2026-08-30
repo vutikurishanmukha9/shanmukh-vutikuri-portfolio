@@ -7,7 +7,7 @@ interface ThreeDGlassStackProps {
 
 export const ThreeDGlassStack: React.FC<ThreeDGlassStackProps> = ({ onClick }) => {
   return (
-    <div className="relative w-full h-full flex items-center justify-center min-h-[320px] sm:min-h-[380px] md:min-h-[440px] select-none overflow-visible">
+    <div className="relative w-full h-full flex items-center justify-center min-h-[280px] sm:min-h-[340px] md:min-h-[400px] select-none overflow-visible">
       
       {/* ========================================================================= */}
       {/* ORBITAL CONSTELLATION RINGS & LABELED PROCESS NODES */}
@@ -16,36 +16,36 @@ export const ThreeDGlassStack: React.FC<ThreeDGlassStackProps> = ({ onClick }) =
         
         {/* Inner Dashed Orbital Ellipse */}
         <div 
-          className="absolute w-[280px] h-[220px] sm:w-[360px] sm:h-[280px] lg:w-[440px] lg:h-[340px] rounded-[100%] border border-amber-500/20 border-dashed"
+          className="absolute w-[260px] h-[200px] sm:w-[340px] sm:h-[260px] lg:w-[440px] lg:h-[340px] rounded-[100%] border border-amber-500/20 border-dashed"
           style={{ transform: 'rotate(-20deg)' }}
         />
 
         {/* Outer Solid Orbital Ellipse */}
         <div 
-          className="absolute w-[340px] h-[270px] sm:w-[460px] sm:h-[360px] lg:w-[560px] lg:h-[430px] rounded-[100%] border border-amber-500/10"
+          className="absolute w-[310px] h-[240px] sm:w-[430px] sm:h-[340px] lg:w-[560px] lg:h-[430px] rounded-[100%] border border-amber-500/10"
           style={{ transform: 'rotate(-20deg)' }}
         />
 
         {/* Node 1: • RESEARCH (Top) */}
-        <div className="absolute top-2 left-1/3 -translate-x-1/2 flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0d0e14]/90 border border-amber-500/30 text-[8.5px] sm:text-[10px] font-mono tracking-widest text-white/80 uppercase shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+        <div className="absolute top-1 sm:top-2 left-1/3 -translate-x-1/2 flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0d0e14]/90 border border-amber-500/30 text-[8px] sm:text-[10px] font-mono tracking-widest text-white/80 uppercase shadow-[0_0_12px_rgba(245,158,11,0.2)]">
           <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,1)]" />
           <span>RESEARCH</span>
         </div>
 
         {/* Node 2: • STRATEGY (Top Right) */}
-        <div className="absolute top-8 sm:top-14 right-1 sm:right-2 flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0d0e14]/90 border border-amber-500/30 text-[8.5px] sm:text-[10px] font-mono tracking-widest text-white/80 uppercase shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+        <div className="absolute top-6 sm:top-12 right-0 sm:right-2 flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0d0e14]/90 border border-amber-500/30 text-[8px] sm:text-[10px] font-mono tracking-widest text-white/80 uppercase shadow-[0_0_12px_rgba(245,158,11,0.2)]">
           <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,1)]" />
           <span>STRATEGY</span>
         </div>
 
         {/* Node 3: • DESIGN (Center Left) */}
-        <div className="absolute top-1/2 -left-2 sm:-left-6 -translate-y-1/2 flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0d0e14]/90 border border-amber-500/30 text-[8.5px] sm:text-[10px] font-mono tracking-widest text-white/80 uppercase shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+        <div className="absolute top-1/2 -left-1 sm:-left-4 -translate-y-1/2 flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0d0e14]/90 border border-amber-500/30 text-[8px] sm:text-[10px] font-mono tracking-widest text-white/80 uppercase shadow-[0_0_12px_rgba(245,158,11,0.2)]">
           <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,1)]" />
           <span>DESIGN</span>
         </div>
 
         {/* Node 4: • IMPACT (Bottom Right) */}
-        <div className="absolute bottom-4 sm:bottom-8 right-2 sm:right-6 flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0d0e14]/90 border border-amber-500/30 text-[8.5px] sm:text-[10px] font-mono tracking-widest text-white/80 uppercase shadow-[0_0_12px_rgba(245,158,11,0.2)]">
+        <div className="absolute bottom-2 sm:bottom-6 right-1 sm:right-4 flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#0d0e14]/90 border border-amber-500/30 text-[8px] sm:text-[10px] font-mono tracking-widest text-white/80 uppercase shadow-[0_0_12px_rgba(245,158,11,0.2)]">
           <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,1)]" />
           <span>IMPACT</span>
         </div>
