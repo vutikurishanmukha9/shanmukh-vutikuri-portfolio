@@ -116,13 +116,18 @@ export const Navigation = () => {
           <BorderBeam variant="gradient" duration={3.5} borderRadius={9999} alwaysVisible={true} />
 
           {/* Brand - Mobile only */}
-          <a
-            href="#home"
-            onClick={(e) => handleScrollTo(e, '#home')}
-            className="px-3 py-1 font-serif-display text-base sm:text-lg tracking-tight text-foreground hover:text-primary transition-colors md:hidden relative z-30"
+          <button
+            type="button"
+            onClick={() => {
+              playClick(850, 0.03, 'sine');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setActiveHash('#home');
+            }}
+            className="px-3 py-1 font-serif-display text-base sm:text-lg tracking-tight text-foreground hover:text-primary transition-colors md:hidden relative z-30 cursor-pointer"
+            aria-label="Scroll to top"
           >
             VS<span className="text-primary">.</span>
-          </a>
+          </button>
 
           {/* Design Portfolio Mode Switcher (Always accessible on Mobile & Tablet) */}
           <div className="md:hidden flex items-center relative z-30 mr-1.5">
