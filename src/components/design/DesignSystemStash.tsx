@@ -371,7 +371,7 @@ export const DesignSystemStash: React.FC = () => {
                     </h3>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     {/* Preview / Code Toggle */}
                     <div className="flex items-center gap-1 bg-black/60 p-0.5 rounded-lg border border-white/10 text-xs font-mono">
                       <button

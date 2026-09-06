@@ -69,7 +69,7 @@ export const DesignFooter: React.FC = () => {
           {/* Col 1: Brand & Manifesto */}
           <div className="space-y-3 md:col-span-2">
             <h3 className="text-xl sm:text-2xl font-jakarta font-semibold tracking-[-0.03em] text-[#f7f8f8]">
-              Vutikuri Shanmukha
+              Shanmukh.V
             </h3>
             <p className="text-xs sm:text-sm text-white/55 leading-relaxed max-w-md font-sans">
               Product &amp; Interaction Designer building clean digital experiences, consistent design systems, and thoughtful user interfaces.

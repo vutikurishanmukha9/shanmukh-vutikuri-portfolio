@@ -168,7 +168,7 @@ export const FigmaVariablesBridge: React.FC = () => {
             <span className="text-[10px] font-mono uppercase tracking-wider text-white/50 block">
               VARIABLE // ACCENT-PRIMARY COLOR
             </span>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {COLOR_PRESETS.map((preset) => {
                 const isSelected = selectedColor.hex === preset.hex;
                 return (
@@ -176,7 +176,7 @@ export const FigmaVariablesBridge: React.FC = () => {
                     key={preset.hex}
                     type="button"
                     onClick={() => handlePresetSelect(preset)}
-                    className={`p-2.5 rounded-xl border transition-all cursor-pointer text-left flex flex-col justify-between gap-2 ${
+                    className={`p-2 sm:p-2.5 rounded-xl border transition-all cursor-pointer text-left flex flex-col justify-between gap-1.5 sm:gap-2 ${
                       isSelected
                         ? 'bg-white/10 border-white/40 ring-1 ring-white/30 shadow-md'
                         : 'bg-white/[0.02] hover:bg-white/5 border-white/5'
@@ -184,12 +184,12 @@ export const FigmaVariablesBridge: React.FC = () => {
                   >
                     <div className="flex items-center justify-between">
                       <span
-                        className="w-4 h-4 rounded-full border border-white/20 shadow-sm"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full border border-white/20 shadow-sm"
                         style={{ backgroundColor: preset.hex }}
                       />
                       {isSelected && <Check className="w-3 h-3 text-white" />}
                     </div>
-                    <span className="font-mono text-[10.5px] text-white/90 font-medium truncate block">
+                    <span className="font-mono text-[10px] sm:text-[10.5px] text-white/90 font-medium truncate block">
                       {preset.name}
                     </span>
                   </button>
@@ -324,12 +324,12 @@ export const FigmaVariablesBridge: React.FC = () => {
           {/* Export Code Switcher */}
           <div className="p-4 rounded-xl bg-black/60 border border-white/10 space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-white/10">
-              {/* Tabs */}
-              <div className="flex items-center gap-1 font-mono text-xs">
+              {/* Format Switcher */}
+              <div className="flex items-center gap-1 p-0.5 rounded-lg bg-black/60 border border-white/10 text-xs font-mono overflow-x-auto no-scrollbar max-w-full">
                 {[
-                  { key: 'figma', label: 'Figma Tokens Studio (JSON)' },
-                  { key: 'tailwind', label: 'Tailwind CSS v4' },
-                  { key: 'css', label: 'CSS :root Variables' }
+                  { key: 'figma', label: 'Figma JSON' },
+                  { key: 'tailwind', label: 'Tailwind v4' },
+                  { key: 'css', label: 'CSS :root' }
                 ].map((tab) => (
                   <button
                     key={tab.key}
@@ -338,7 +338,7 @@ export const FigmaVariablesBridge: React.FC = () => {
                       playClick(750, 0.02, 'sine');
                       setCodeFormat(tab.key as 'figma' | 'tailwind' | 'css');
                     }}
-                    className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-lg transition-colors cursor-pointer whitespace-nowrap shrink-0 text-[11px] sm:text-xs ${
                       codeFormat === tab.key
                         ? 'bg-white text-black font-semibold'
                         : 'text-white/60 hover:text-white'

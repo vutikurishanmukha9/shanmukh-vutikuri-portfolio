@@ -132,13 +132,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 30 }}
             transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-5xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto bg-[#0b0c10] border border-white/15 rounded-t-3xl sm:rounded-3xl p-5 sm:p-8 md:p-10 pb-safe shadow-2xl z-10 select-none touch-scroll custom-scrollbar"
+            className="relative w-full max-w-5xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto bg-[#0b0c10] border border-white/15 rounded-t-3xl sm:rounded-3xl p-4 sm:p-7 md:p-10 pb-safe shadow-2xl z-10 select-none touch-scroll custom-scrollbar"
           >
             {/* Top Specular Ray */}
             <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
 
             {/* Header Strip */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-white/10">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-4 sm:pb-5 border-b border-white/10">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-[10px] font-mono tracking-widest text-white/50 uppercase px-3 py-1 rounded-full bg-white/5 border border-white/10">
                   {project.category} // {project.year}
@@ -150,7 +150,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
               </div>
 
               {/* Mode Tabs (Workflow vs. Design Tokens) + Close */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
                 <div className="flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 text-xs font-mono">
                   <button
                     type="button"

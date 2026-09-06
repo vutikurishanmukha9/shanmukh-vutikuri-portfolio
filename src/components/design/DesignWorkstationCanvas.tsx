@@ -73,11 +73,11 @@ export const DesignWorkstationCanvas: React.FC<DesignWorkstationCanvasProps> = (
           </div>
 
           {/* Mode Switcher Tabs (Specimen | Redlines | Tokens) */}
-          <div className="flex items-center gap-1 bg-black/60 p-0.5 rounded-lg border border-white/10">
+          <div className="flex items-center gap-0.5 sm:gap-1 bg-black/60 p-0.5 rounded-lg border border-white/10">
             <button
               type="button"
               onClick={() => switchMode('specimen')}
-              className={`px-2.5 py-1 rounded-md text-[10.5px] font-mono tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+              className={`px-2 sm:px-2.5 py-1 rounded-md text-[9.5px] sm:text-[10.5px] font-mono tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1 sm:gap-1.5 ${
                 activeMode === 'specimen'
                   ? 'bg-white text-black font-semibold shadow-sm'
                   : 'text-white/60 hover:text-white'
@@ -91,7 +91,7 @@ export const DesignWorkstationCanvas: React.FC<DesignWorkstationCanvasProps> = (
             <button
               type="button"
               onClick={() => switchMode('redlines')}
-              className={`px-2.5 py-1 rounded-md text-[10.5px] font-mono tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+              className={`px-2 sm:px-2.5 py-1 rounded-md text-[9.5px] sm:text-[10.5px] font-mono tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1 sm:gap-1.5 ${
                 activeMode === 'redlines'
                   ? 'bg-amber-400 text-black font-semibold shadow-sm'
                   : 'text-white/60 hover:text-white'
@@ -105,7 +105,7 @@ export const DesignWorkstationCanvas: React.FC<DesignWorkstationCanvasProps> = (
             <button
               type="button"
               onClick={() => switchMode('tokens')}
-              className={`px-2.5 py-1 rounded-md text-[10.5px] font-mono tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+              className={`px-2 sm:px-2.5 py-1 rounded-md text-[9.5px] sm:text-[10.5px] font-mono tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1 sm:gap-1.5 ${
                 activeMode === 'tokens'
                   ? 'bg-white text-black font-semibold shadow-sm'
                   : 'text-white/60 hover:text-white'
@@ -120,7 +120,7 @@ export const DesignWorkstationCanvas: React.FC<DesignWorkstationCanvasProps> = (
         </div>
 
         {/* Interior Canvas Stage */}
-        <div className="relative p-4 sm:p-6 bg-[#07080b] rounded-b-xl overflow-hidden min-h-[340px] sm:min-h-[380px] flex flex-col justify-between">
+        <div className="relative p-3.5 sm:p-6 bg-[#07080b] rounded-b-xl overflow-hidden min-h-[320px] sm:min-h-[380px] flex flex-col justify-between">
           
           {/* Architectural Background Grid Matrix */}
           <div 
@@ -132,16 +132,16 @@ export const DesignWorkstationCanvas: React.FC<DesignWorkstationCanvasProps> = (
           />
 
           {/* Top Status Strip */}
-          <div className="relative z-10 flex items-center justify-between pb-3 border-b border-white/5 text-[10px] font-mono text-white/50">
-            <div className="flex items-center gap-2">
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 pb-2.5 sm:pb-3 border-b border-white/5 text-[9.5px] sm:text-[10px] font-mono text-white/50">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span className="text-white/80">LATENCY: 12.4ms (LOCKED 60FPS)</span>
+              <span className="text-white/80">LATENCY: 12.4ms <span className="hidden sm:inline">(LOCKED 60FPS)</span></span>
             </div>
 
-            <div className="flex items-center gap-3">
-              <span>SCALE: 100%</span>
-              <span className="text-white/20">|</span>
-              <span className="text-amber-400">WCAG 2.2 AAA (18.4:1)</span>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="hidden xs:inline">SCALE: 100%</span>
+              <span className="hidden xs:inline text-white/20">|</span>
+              <span className="text-amber-400">WCAG 2.2 AAA <span className="hidden sm:inline">(18.4:1)</span></span>
             </div>
           </div>
 

@@ -187,30 +187,30 @@ export const DecisionForkViewer: React.FC = () => {
         </div>
 
         {/* Shipped vs. Rejected Branch Toggle */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-black/60 border border-white/10 text-xs font-mono shrink-0">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-1 sm:gap-1.5 p-1 rounded-xl bg-black/60 border border-white/10 text-xs font-mono w-full sm:w-auto shrink-0">
           <button
             type="button"
             onClick={() => handleToggleBranch('shipped')}
-            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`flex-1 sm:flex-none justify-center px-2.5 sm:px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 text-[11px] sm:text-xs ${
               selectedBranch === 'shipped'
                 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-[0_0_12px_rgba(52,211,153,0.2)] font-semibold'
                 : 'text-white/60 hover:text-white'
             }`}
           >
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span>✓ Shipped Innovation</span>
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span className="whitespace-nowrap">✓ Shipped Innovation</span>
           </button>
           <button
             type="button"
             onClick={() => handleToggleBranch('rejected')}
-            className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`flex-1 sm:flex-none justify-center px-2.5 sm:px-3 py-1.5 rounded-lg transition-all cursor-pointer flex items-center gap-1.5 text-[11px] sm:text-xs ${
               selectedBranch === 'rejected'
                 ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-[0_0_12px_rgba(244,63,94,0.2)] font-semibold'
                 : 'text-white/60 hover:text-white'
             }`}
           >
-            <XCircle className="w-3.5 h-3.5 text-rose-400" />
-            <span>✕ Rejected Variant</span>
+            <XCircle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+            <span className="whitespace-nowrap">✕ Rejected Variant</span>
           </button>
         </div>
       </div>

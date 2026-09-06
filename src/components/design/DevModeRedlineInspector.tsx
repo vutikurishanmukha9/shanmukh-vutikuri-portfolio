@@ -102,7 +102,7 @@ export const DevModeRedlineInspector: React.FC = () => {
             <span className="text-sky-400">CLICK ELEMENT TO TARGET</span>
           </div>
 
-          <div className="relative p-8 rounded-2xl bg-[#050608] border border-white/15 overflow-hidden flex items-center justify-center min-h-[380px]">
+          <div className="relative p-3.5 sm:p-6 md:p-8 rounded-2xl bg-[#050608] border border-white/15 overflow-hidden flex items-center justify-center min-h-[320px] sm:min-h-[380px]">
             {/* Background Measurement Grid */}
             <div 
               className="absolute inset-0 pointer-events-none opacity-[0.04]"
@@ -118,7 +118,7 @@ export const DevModeRedlineInspector: React.FC = () => {
                 playClick(800, 0.02, 'sine');
                 setSelectedElement('card');
               }}
-              className={`relative w-full max-w-sm rounded-2xl p-6 transition-all cursor-pointer ${
+              className={`relative w-full max-w-[320px] sm:max-w-sm rounded-2xl p-4 sm:p-6 transition-all cursor-pointer ${
                 isDevModeActive
                   ? selectedElement === 'card'
                     ? 'bg-[#0f1015] ring-2 ring-sky-400 shadow-[0_0_30px_rgba(56,189,248,0.2)]'
@@ -133,7 +133,7 @@ export const DevModeRedlineInspector: React.FC = () => {
                   <div className="absolute -top-3 left-4 px-2 py-0.5 rounded bg-sky-500 text-black font-mono text-[9px] font-bold tracking-wider z-20">
                     WIDTH: 384px
                   </div>
-                  <div className="absolute -right-3 top-1/2 -translate-y-1/2 rotate-90 px-2 py-0.5 rounded bg-sky-500 text-black font-mono text-[9px] font-bold tracking-wider z-20">
+                  <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 rotate-90 px-2 py-0.5 rounded bg-sky-500 text-black font-mono text-[9px] font-bold tracking-wider z-20">
                     HEIGHT: 246px
                   </div>
 

@@ -236,10 +236,11 @@ export const DesignNavigation: React.FC = () => {
             <a
               href="mailto:vutikurishanmukh17@gmail.com"
               onClick={() => playClick(850, 0.03, 'sine')}
-              className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-white text-black hover:bg-neutral-100 text-[12px] font-semibold tracking-tight transition-all shadow-[0_2px_14px_rgba(255,255,255,0.18),inset_0_1px_0_rgba(255,255,255,0.8)] active:scale-[0.97] group cursor-pointer"
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-1.5 rounded-full bg-white text-black hover:bg-neutral-100 text-[11px] sm:text-[12px] font-semibold tracking-tight transition-all shadow-[0_2px_14px_rgba(255,255,255,0.18),inset_0_1px_0_rgba(255,255,255,0.8)] active:scale-[0.97] group cursor-pointer"
             >
-              <span>Let's Talk</span>
-              <span className="w-4 h-4 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
+              <span className="hidden xs:inline">Let's Talk</span>
+              <span className="xs:hidden">Talk</span>
+              <span className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
                 <ArrowUpRight className="w-2.5 h-2.5 text-black stroke-[3]" />
               </span>
             </a>
@@ -251,7 +252,7 @@ export const DesignNavigation: React.FC = () => {
                 playClick(600, 0.03, 'sine');
                 setIsMobileMenuOpen(!isMobileMenuOpen);
               }}
-              className="p-1.5 rounded-full bg-white/[0.04] border border-white/15 text-white lg:hidden cursor-pointer hover:bg-white/10 transition-colors"
+              className="p-1.5 sm:p-2 rounded-full bg-white/[0.04] border border-white/15 text-white lg:hidden cursor-pointer hover:bg-white/10 transition-colors"
               aria-label="Toggle Navigation Menu"
             >
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -265,13 +266,23 @@ export const DesignNavigation: React.FC = () => {
       {/* ========================================================================= */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -12, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-3 top-16 z-50 p-5 rounded-3xl bg-[#090a0f]/95 border border-white/15 backdrop-blur-3xl shadow-[0_24px_64px_rgba(0,0,0,0.95)] lg:hidden space-y-4"
-          >
+          <>
+            {/* Backdrop Dismiss Layer */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/75 backdrop-blur-md z-40 lg:hidden pointer-events-auto"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: -12, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-x-3 sm:inset-x-6 top-16 sm:top-20 z-50 max-h-[calc(100dvh-5rem)] overflow-y-auto p-4 sm:p-5 rounded-3xl bg-[#090a0f]/95 border border-white/15 backdrop-blur-3xl shadow-[0_24px_64px_rgba(0,0,0,0.95)] lg:hidden space-y-4 custom-scrollbar pb-safe"
+            >
             {/* Top Sheet Telemetry */}
             <div className="flex items-center justify-between pb-3 border-b border-white/10 text-xs text-white/50 font-medium">
               <span className="flex items-center gap-1.5 text-white/70">
@@ -355,8 +366,9 @@ export const DesignNavigation: React.FC = () => {
               </a>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </>
+      )}
+    </AnimatePresence>
     </>
   );
 };
