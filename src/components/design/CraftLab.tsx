@@ -11,6 +11,8 @@ import {
   Code2
 } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
+import { DevModeRedlineInspector } from './DevModeRedlineInspector';
+import { FigmaVariablesBridge } from './FigmaVariablesBridge';
 
 // ==========================================
 // WORKSTATION 01: COMPONENT BLUEPRINT SPECIMENS
@@ -707,6 +709,15 @@ export const CraftLab: React.FC = () => {
         </div>
 
       </div>
+
+      {/* ========================================================================= */}
+      {/* FIGMA DEV MODE & AUTO-LAYOUT REDLINE INSPECTOR ENGINE */}
+      {/* ========================================================================= */}
+      <div className="pt-6 space-y-6">
+        <DevModeRedlineInspector />
+        <FigmaVariablesBridge />
+      </div>
+
     </section>
   );
 };

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, ShieldCheck, Layers, Terminal, Activity, Box } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
 import { DesignWorkstationCanvas } from './DesignWorkstationCanvas';
+import { RecruiterPersonaSelector } from './RecruiterPersonaSelector';
 
 export const ProductHero: React.FC = () => {
   const { playClick } = useSound();
@@ -22,7 +23,7 @@ export const ProductHero: React.FC = () => {
   };
 
   return (
-    <section className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-16 sm:pt-20 pb-6 select-none overflow-hidden">
+    <section id="hero" className="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-20 sm:pt-24 pb-8 select-none overflow-hidden">
       
       {/* Background Technical Hairline Matrix Grid (Linear & Raycast Aesthetic) */}
       <div 
@@ -64,7 +65,7 @@ export const ProductHero: React.FC = () => {
               }`}
             >
               <Terminal className="w-3 h-3" />
-              <span>{isExecutiveMode ? 'Executive Dossier [Active]' : '60s Executive Dossier'}</span>
+              <span>{isExecutiveMode ? 'Persona Dossier [Open]' : 'Tailor Dossier [4 Personas]'}</span>
             </button>
           </div>
 
@@ -121,47 +122,7 @@ export const ProductHero: React.FC = () => {
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="overflow-hidden"
               >
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#0f1015] border border-white/15 space-y-3 shadow-2xl">
-                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                    <span className="text-[10px] font-mono tracking-widest text-white/80 uppercase font-semibold flex items-center gap-1.5">
-                      <Activity className="w-3.5 h-3.5 text-white" />
-                      QUICK SUMMARY // 3 CORE STRENGTHS
-                    </span>
-                    <span className="text-[10px] font-mono text-white/40">AVAILABLE FOR Q3 2026 ROLES</span>
-                  </div>
-
-                  <div className="grid sm:grid-cols-3 gap-2.5">
-                    <div className="p-3 rounded-xl bg-black/50 border border-white/10 space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-mono text-white font-medium">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>7 Shipped Apps</span>
-                      </div>
-                      <p className="text-[11px] text-white/60 leading-relaxed font-sans">
-                        Full-lifecycle products across AI tools, privacy scanners, and interactive 3D web.
-                      </p>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-black/50 border border-white/10 space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-mono text-white font-medium">
-                        <Layers className="w-3.5 h-3.5 text-white/80" />
-                        <span>Design Systems</span>
-                      </div>
-                      <p className="text-[11px] text-white/60 leading-relaxed font-sans">
-                        Figma Variables tied directly to React and TypeScript tokens with 100% consistency.
-                      </p>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-black/50 border border-white/10 space-y-1">
-                      <div className="flex items-center gap-1.5 text-xs font-mono text-white font-medium">
-                        <ShieldCheck className="w-3.5 h-3.5 text-sky-400" />
-                        <span>Production Code</span>
-                      </div>
-                      <p className="text-[11px] text-white/60 leading-relaxed font-sans">
-                        Shipped in React & TypeScript with fast performance, smooth motion, and zero layout shifts.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <RecruiterPersonaSelector />
               </motion.div>
             )}
           </AnimatePresence>

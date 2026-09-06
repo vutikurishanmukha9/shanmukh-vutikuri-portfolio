@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "vite build",
+    "build": "vite build --emptyOutDir false",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "lint:oxlint": "oxlint -c .oxlintrc.json",

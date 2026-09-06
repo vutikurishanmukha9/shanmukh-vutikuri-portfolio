@@ -3,12 +3,12 @@ import { DesignNavigation } from '@/components/design/DesignNavigation';
 import { ProductHero } from '@/components/design/ProductHero';
 import { DesignProcessTimeline } from '@/components/design/DesignProcessTimeline';
 import { ProjectsGrid } from '@/components/design/ProjectsGrid';
-import { RedesignShowcase } from '@/components/design/RedesignShowcase';
 import { CraftLab } from '@/components/design/CraftLab';
 import { DesignPhilosophy } from '@/components/design/DesignPhilosophy';
 import { ToolingGrid } from '@/components/design/ToolingGrid';
 import { DesignSystemStash } from '@/components/design/DesignSystemStash';
 import { DesignFooter } from '@/components/design/DesignFooter';
+import { DesignerCommandPalette } from '@/components/design/DesignerCommandPalette';
 
 const ProductDesigner: React.FC = () => {
   useEffect(() => {
@@ -30,12 +30,14 @@ const ProductDesigner: React.FC = () => {
       {/* Floating Header Dock */}
       <DesignNavigation />
 
+      {/* Global Cmd+K Command Palette */}
+      <DesignerCommandPalette />
+
       {/* Main Page Flow with Cohesive Editorial Spacing */}
       <main className="relative z-10 space-y-4 sm:space-y-6">
         <ProductHero />
         <DesignProcessTimeline />
         <ProjectsGrid />
-        <RedesignShowcase />
         <CraftLab />
         <DesignPhilosophy />
         <ToolingGrid />

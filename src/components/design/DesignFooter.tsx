@@ -108,6 +108,15 @@ export const DesignFooter: React.FC = () => {
               <li>
                 <button
                   type="button"
+                  onClick={() => scrollToSection('process-timeline')}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
+                  Process &amp; AI Systems
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
                   onClick={() => scrollToSection('works')}
                   className="hover:text-white transition-colors cursor-pointer"
                 >

@@ -24,10 +24,10 @@ import {
   MessageSquare,
   Lightbulb,
   Copy,
-  Globe,
   Boxes
 } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
+import { DecisionForkViewer } from './DecisionForkViewer';
 
 export interface ProcessTool {
   name: string;
@@ -1269,6 +1269,13 @@ export const DesignProcessTimeline: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* ========================================================================= */}
+      {/* STRATEGIC DESIGN DECISION AUDIT // A/B FORK INSPECTOR */}
+      {/* ========================================================================= */}
+      <div className="pt-8">
+        <DecisionForkViewer />
+      </div>
 
     </section>
   );
