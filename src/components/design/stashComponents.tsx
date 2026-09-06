@@ -3793,7 +3793,7 @@ export const WaveText: React.FC<WaveTextProps> = ({
 
     // --- 19. SpotlightCard ---
     {
-      id: 'spotlight-card',
+      id: 'react-bits-spotlight-card',
       name: 'SpotlightCard — Radial Specular Illuminator',
       category: 'React Bits & Creative',
       description: 'Dynamic cursor flashlight card with dual-layer radial falloff, glass frosted backdrop, and sub-pixel edge specular sheen.',
@@ -5133,7 +5133,7 @@ export const StackCards: React.FC<{ items: string[] }> = ({ items }) => {
 
     // --- 38. FloatingDock ---
     {
-      id: 'floating-dock',
+      id: 'react-bits-floating-dock',
       name: 'FloatingDock — Glass Capsule Tool Capsule',
       category: 'React Bits & Creative',
       description: 'Suspended frosted glass pill dock with spring proximity expansion, smooth tooltip hovers, and active app glow indicator.',
@@ -5593,7 +5593,7 @@ export const RibbonCursor: React.FC<{ children: React.ReactNode }> = ({ children
 
     // --- 47. MarqueeTicker ---
     {
-      id: 'marquee-ticker',
+      id: 'react-bits-marquee-ticker',
       name: 'MarqueeTicker — Low-Latency Telemetry Streamer',
       category: 'React Bits & Creative',
       description: 'Financial/system telemetry ticker with delta micro-badges, status pings, and real-time live value modulation.',
@@ -5683,7 +5683,7 @@ export const GlowCard: React.FC<{ children: React.ReactNode; glowColor?: string 
 
     // --- 49. MagneticButton ---
     {
-      id: 'magnetic-button',
+      id: 'react-bits-magnetic-button',
       name: 'MagneticButton — Elastic Vector Snap Action',
       category: 'React Bits & Creative',
       description: 'Micro-physics button that latches onto the cursor vector with spring resistance, returning with zero-delay kinetic rebound.',
