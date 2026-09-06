@@ -24,26 +24,29 @@ export const ProjectsGrid: React.FC = () => {
   };
 
   return (
-    <section id="works" className="relative py-3 sm:py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto select-none">
+    <section id="works" className="relative scroll-mt-24 py-3 sm:py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto select-none">
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-3 sm:mb-4 border-b border-white/5 pb-3">
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono tracking-widest text-primary uppercase">
             <Layers className="w-3.5 h-3.5" />
-            <span>CURATED PRODUCT PORTFOLIO // 7 PRODUCTION APPS</span>
+            <span>FEATURED WORK // 7 SHIPPED APPS</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-serif-display font-medium text-white tracking-tight">
-            Curated Product Works
+          <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-semibold tracking-[-0.035em] text-[#f7f8f8] font-jakarta">
+            Featured <span className="font-instrument italic font-normal tracking-normal text-white/95">Work</span> &amp; Case Studies
           </h2>
+          <p className="text-xs sm:text-sm text-white/60 max-w-xl leading-relaxed font-sans">
+            7 production-tested applications across artificial intelligence, privacy infrastructure, and interactive 3D spatial experiences.
+          </p>
         </div>
 
         {/* Filter Pills */}
         <div className="flex items-center gap-1.5 p-1 rounded-xl sm:rounded-full bg-white/5 border border-white/10 overflow-x-auto no-scrollbar max-w-full">
           {[
-            { key: 'all', label: 'All Works (7)' },
-            { key: 'ai', label: 'AI & Arenas' },
-            { key: 'product', label: 'Product & Civic' },
-            { key: 'editorial', label: 'Editorial & 3D' },
+            { key: 'all', label: 'All Projects (7)' },
+            { key: 'ai', label: 'AI Products' },
+            { key: 'product', label: 'Apps & Tools' },
+            { key: 'editorial', label: '3D & Interactive' },
           ].map((f) => (
             <button
               key={f.key}

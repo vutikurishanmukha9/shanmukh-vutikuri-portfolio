@@ -11,7 +11,7 @@ export const RANKED_PRODUCTS: ProjectData[] = [
     description: 'Every AI claims superiority. Tonight they prove it. A high-stakes live arena interface where LLM models battle in real-time.',
     longSummary: 'AI Royal Rumble moves away from dry developer benchmarks into an electrifying, event-driven arena. Users submit complex tasks, watch GPT-4o, Claude, Gemini, Grok, DeepSeek, and LLaMA compete simultaneously, and vote on the victor with sub-100ms reaction times.',
     problem: 'AI model evaluation benchmarks are overwhelmingly boring, static, and disconnected from real user comprehension.',
-    solution: 'Designed an editorial dark luxury canvas with oversized serif typography, live split-pane token streaming, and an arena voting ledger.',
+    solution: 'Designed an editorial dark luxury canvas with high-contrast typography, live split-pane token streaming, and an arena voting ledger.',
     impact: [
       'Rank 01 Flagship for visual distinctiveness and high-impact landing page UX.',
       'High-contrast editorial typography paired with focused dark luxury tone.',
@@ -22,21 +22,42 @@ export const RANKED_PRODUCTS: ProjectData[] = [
     imageSrc: '/ui/AI-Royal Rumble.png',
     screens: [
       {
-        title: 'Headline Statement & Live Prompt Input',
-        subtitle: 'High-contrast typography immediately establishing the event-driven tension.',
-        bgGradient: 'linear-gradient(135deg, rgba(153,27,27,0.25) 0%, rgba(7,8,10,0.95) 100%)'
+        title: 'Hero Landing & Prompt Arena',
+        subtitle: 'Full-bleed editorial landing with oversized headline, task prompt input, and model ticker.',
+        bgGradient: 'linear-gradient(135deg, rgba(153,27,27,0.25) 0%, rgba(7,8,10,0.95) 100%)',
+        imageSrc: '/ui/screens/ai-rumble-landing.png'
       },
       {
-        title: 'Multi-Model Real-Time Battle Canvas',
-        subtitle: 'Simultaneous response rendering across 8 LLM engines with live voting.',
-        bgGradient: 'linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(7,8,10,0.95) 100%)'
+        title: 'Jam Round — Live AI Response Stream',
+        subtitle: 'Each model gets 60 seconds to defend itself. Real-time token streaming with audience reactions.',
+        bgGradient: 'linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(7,8,10,0.95) 100%)',
+        imageSrc: '/ui/screens/ai-rumble-jam.png'
+      },
+      {
+        title: 'The Rankings — Season Leaderboard',
+        subtitle: 'ELO-based model standings with win/loss records and form streaks across all battles.',
+        bgGradient: 'linear-gradient(135deg, rgba(234,88,12,0.15) 0%, rgba(7,8,10,0.95) 100%)',
+        imageSrc: '/ui/screens/ai-rumble-leaderboard.png'
+      },
+      {
+        title: 'Blind Voting & Reaction Ledger',
+        subtitle: 'Unbiased model comparison preventing brand favoritism with live crowd consensus.',
+        bgGradient: 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(7,8,10,0.95) 100%)',
+        imageSrc: '/ui/screens/ai-rumble-voting.png'
       }
     ],
     metrics: [
       { label: 'Priority', value: 'Rank 01', change: 'Flagship' },
       { label: 'Latency', value: '<45ms', change: 'Model Streaming' },
       { label: 'Engagement', value: '92%', change: 'Task Completion' }
-    ]
+    ],
+    specs: {
+      contrast: '19.1:1 (AAA)',
+      baseGrid: '4px Baseline / 8px Spatial',
+      tokensCount: 56,
+      typography: 'Display Sans / JetBrains Mono',
+      motionSpeed: '120ms Spring (damping 24)'
+    }
   },
   {
     id: 'clean-slate',
@@ -61,19 +82,40 @@ export const RANKED_PRODUCTS: ProjectData[] = [
       {
         title: 'Interactive Metadata Telemetry Card',
         subtitle: 'Real-time GPS, device model, and sensitive signal classification.',
-        bgGradient: 'linear-gradient(135deg, rgba(194,65,12,0.2) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(194,65,12,0.2) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/Clean Slate.png'
+      },
+      {
+        title: 'File Metadata Inspector & Upload',
+        subtitle: 'Drag-and-drop file inspection with instant privacy risk grading.',
+        bgGradient: 'linear-gradient(135deg, rgba(194,65,12,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/screens/cleanslate-metadata-inspector.png'
       },
       {
         title: 'Text Studio & Machine Sanitizer',
         subtitle: 'Refining synthetic AI text into authentic, personalized human writing.',
-        bgGradient: 'linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/screens/cleanslate-text-studio.png'
+      },
+      {
+        title: 'Sanitization Results & Before/After',
+        subtitle: '23 metadata fields stripped with full before/after audit trail.',
+        bgGradient: 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/screens/cleanslate-sanitize-results.png'
       }
     ],
     metrics: [
       { label: 'Priority', value: 'Rank 02', change: 'Product Core' },
       { label: 'Detection', value: '23 Fields', change: 'Instant Scan' },
       { label: 'Retention', value: '0 sec', change: 'Zero Storage' }
-    ]
+    ],
+    specs: {
+      contrast: '18.4:1 (AAA)',
+      baseGrid: '8px Grid System',
+      tokensCount: 48,
+      typography: 'Editorial Sans / Mono',
+      motionSpeed: '150ms Spring (damping 28)'
+    }
   },
   {
     id: 'problems-ap',
@@ -98,19 +140,28 @@ export const RANKED_PRODUCTS: ProjectData[] = [
       {
         title: 'Statewide Civic Pulse Dashboard',
         subtitle: 'Real-time breakdown of constituencies, ministries, and district activity.',
-        bgGradient: 'linear-gradient(135deg, rgba(234,88,12,0.2) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(234,88,12,0.2) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/AP@Problems.png'
       },
       {
         title: 'OpenStreetMap Problem Spatial View',
         subtitle: 'Visual geospatial density clusters highlighting urgent public issues.',
-        bgGradient: 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/AP@Problems.png'
       }
     ],
     metrics: [
       { label: 'Priority', value: 'Rank 03', change: 'Civic System' },
       { label: 'Coverage', value: '175 Seats', change: '57 Ministries' },
       { label: 'Friction', value: '0 Login', change: '100% Anonymous' }
-    ]
+    ],
+    specs: {
+      contrast: '17.8:1 (AAA)',
+      baseGrid: '8px Baseline',
+      tokensCount: 44,
+      typography: 'Civic Sans / Clean Mono',
+      motionSpeed: '200ms Ease'
+    }
   },
   {
     id: 'ele-visualize',
@@ -135,19 +186,28 @@ export const RANKED_PRODUCTS: ProjectData[] = [
       {
         title: 'Quantum Interactive 3D Visualizer',
         subtitle: 'Auto-spinning 3D atomic nucleus with orbital magnification controls.',
-        bgGradient: 'linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/Ele-Visualize.png'
       },
       {
         title: 'Atomic Category Discovery Rail',
         subtitle: 'Instant filtering from Alkali metals to Noble gases and Actinides.',
-        bgGradient: 'linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/Ele-Visualize.png'
       }
     ],
     metrics: [
       { label: 'Priority', value: 'Rank 04', change: 'Complex IA' },
       { label: 'Elements', value: '118 Total', change: 'Full System' },
       { label: 'Frame Rate', value: '60 FPS', change: '3D WebGL' }
-    ]
+    ],
+    specs: {
+      contrast: '19.5:1 (AAA)',
+      baseGrid: '4px Precision',
+      tokensCount: 62,
+      typography: 'Scientific Mono / Grotesk',
+      motionSpeed: 'Locked 60fps WebGL'
+    }
   },
   {
     id: 'get-report',
@@ -172,19 +232,28 @@ export const RANKED_PRODUCTS: ProjectData[] = [
       {
         title: 'Active Processing Logs & Ledger',
         subtitle: 'Real-time telemetry tracking Polars ingest, integrity score, and RAG synthesis.',
-        bgGradient: 'linear-gradient(135deg, rgba(136,19,55,0.2) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(136,19,55,0.2) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/GetReport.png'
       },
       {
         title: 'Data Health Score & Grade Certification',
         subtitle: 'Automated statistical verification rating data cleanliness.',
-        bgGradient: 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/GetReport.png'
       }
     ],
     metrics: [
       { label: 'Priority', value: 'Rank 05', change: 'SaaS Design' },
       { label: 'Speed', value: '4 sec', change: 'PDF Generation' },
       { label: 'Integrity', value: 'Grade A', change: 'Automated Audit' }
-    ]
+    ],
+    specs: {
+      contrast: '18.1:1 (AAA)',
+      baseGrid: '8px Spatial',
+      tokensCount: 38,
+      typography: 'Executive Grotesk / Mono',
+      motionSpeed: '180ms Ease'
+    }
   },
   {
     id: 'heart-out',
@@ -196,10 +265,10 @@ export const RANKED_PRODUCTS: ProjectData[] = [
     description: 'Where every quiet story finds a home. Authentic personal experiences, unexpressed letters, and moments of courage free from social performance.',
     longSummary: 'HeartOut rethinks social publishing into an intimate, anonymous sanctuary. Users share unsent letters, life lessons, and quiet reflections without algorithms, follower counts, or performative metrics.',
     problem: 'Modern social networks incentivize performative vanity, leaving no safe space for vulnerable human reflections.',
-    solution: 'Crafted a warm amber editorial serif reading sanctuary with intuitive category cards and an empathetic bottom reflection bar.',
+    solution: 'Crafted a warm amber editorial reading sanctuary with intuitive category cards and an empathetic bottom reflection bar.',
     impact: [
       'Rank 06 Brand & Editorial showcase for human-centered vulnerability.',
-      'Warm serif typography establishing a book-like intimate reading environment.',
+      'Warm typography establishing a book-like intimate reading environment.',
       'High emotional resonance across 6 curated reflection hubs.'
     ],
     tags: ['Editorial Brand', 'Emotional UX', 'Sanctuary Design', 'Writing Platform'],
@@ -209,19 +278,28 @@ export const RANKED_PRODUCTS: ProjectData[] = [
       {
         title: 'Curated Emotional Category Bento',
         subtitle: 'Success stories, unsent letters, sacrifices, and quiet reflections.',
-        bgGradient: 'linear-gradient(135deg, rgba(217,119,6,0.2) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(217,119,6,0.2) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/HeartOut.png'
       },
       {
         title: 'Quiet Reflection Drawer',
         subtitle: 'Distraction-free input mode inviting authentic, unhurried expression.',
-        bgGradient: 'linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/HeartOut.png'
       }
     ],
     metrics: [
       { label: 'Priority', value: 'Rank 06', change: 'Editorial' },
       { label: 'Categories', value: '6 Curated', change: 'Story Hubs' },
       { label: 'Social Clutter', value: '0%', change: 'Algorithm Free' }
-    ]
+    ],
+    specs: {
+      contrast: '16.9:1 (AAA)',
+      baseGrid: '8px Grid',
+      tokensCount: 32,
+      typography: 'Warm Editorial / Sans',
+      motionSpeed: '250ms Gentle Float'
+    }
   },
   {
     id: 'prompt-buddy',
@@ -246,18 +324,27 @@ export const RANKED_PRODUCTS: ProjectData[] = [
       {
         title: 'Structured Prompt Preview Canvas',
         subtitle: 'Clean role, objective, context, instructions, and format breakdown.',
-        bgGradient: 'linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/Prompt Buddy.png'
       },
       {
         title: '4-Step Sequential Workflow Bar',
         subtitle: 'Clear progression: Paste -> Settings -> Generate -> Export.',
-        bgGradient: 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(13,14,19,0.95) 100%)'
+        bgGradient: 'linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(13,14,19,0.95) 100%)',
+        imageSrc: '/ui/Prompt Buddy.png'
       }
     ],
     metrics: [
       { label: 'Priority', value: 'Rank 07', change: 'Clean Flow' },
       { label: 'Steps', value: '4 Steps', change: 'Zero Confusion' },
       { label: 'Retries', value: '-65%', change: 'In AI Responses' }
-    ]
+    ],
+    specs: {
+      contrast: '18.6:1 (AAA)',
+      baseGrid: '4px / 8px Grid',
+      tokensCount: 36,
+      typography: 'UI Sans / Code Mono',
+      motionSpeed: '120ms Snappy'
+    }
   }
 ];

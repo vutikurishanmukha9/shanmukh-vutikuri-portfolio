@@ -9,7 +9,7 @@ export const DesignNavigation: React.FC = () => {
   const { playClick } = useSound();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeNav, setActiveNav] = useState('work');
+  const [activeNav, setActiveNav] = useState('process');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +28,15 @@ export const DesignNavigation: React.FC = () => {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const navItems = [
+    { key: 'process', label: 'Process', target: 'process-timeline' },
+    { key: 'work', label: 'Projects', target: 'works' },
+    { key: 'redesign', label: 'Before & After', target: 'redesign-showcase' },
+    { key: 'labs', label: 'Tokens', target: 'craft-lab' },
+    { key: 'stash', label: '106 Components', target: 'design-stash', highlight: true },
+    { key: 'philosophy', label: 'Principles', target: 'philosophy' },
+  ];
 
   return (
     <>
@@ -49,52 +58,61 @@ export const DesignNavigation: React.FC = () => {
               onClick={() => playClick(600, 0.03, 'sine')}
               className="flex items-center gap-2.5 group"
             >
-              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 group-hover:border-amber-500/40 flex items-center justify-center text-xs font-mono font-bold text-white transition-[border-color,background-color]">
-                DC
+              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 group-hover:border-white/30 flex items-center justify-center text-xs font-mono font-bold text-white transition-[border-color,background-color]">
+                SV
               </div>
-              <span className="text-sm font-medium tracking-tight text-white group-hover:text-amber-400 transition-colors">
-                Design Canvas
+              <span className="text-sm font-semibold tracking-tight text-white group-hover:text-white transition-colors font-jakarta flex items-center gap-1.5">
+                Shanmukha <span className="text-white/40 font-normal font-mono text-[11px]">// Product Design</span>
               </span>
             </Link>
 
-            {/* Quick Switch to Code Mode (Always visible on mobile & desktop) */}
+            {/* Quick Switch to Code Mode */}
             <Link
               to="/"
               onClick={() => playClick(600, 0.03, 'sine')}
               className="inline-flex items-center gap-1 ml-1 sm:ml-2 px-2 py-0.5 rounded-md bg-white/5 hover:bg-white/10 text-[10px] font-mono text-white/60 hover:text-white border border-white/10 transition-colors"
               title="Switch to Engineering Portfolio"
             >
-              <Code className="w-3 h-3" />
+              <Code className="w-3 h-3 text-emerald-400" />
               <span>Dev Mode</span>
             </Link>
           </div>
 
           {/* Center: Desktop Navigation Links */}
-          <div className="hidden md:flex items-center gap-6 text-[11px] font-mono tracking-wider uppercase">
-            {[
-              { key: 'work', label: 'WORK', target: 'works' },
-              { key: 'about', label: 'ABOUT', target: 'philosophy' },
-              { key: 'process', label: 'PROCESS', target: 'craft-lab' },
-              { key: 'labs', label: 'LABS', target: 'craft-lab' },
-              { key: 'notes', label: 'NOTES', target: 'philosophy' },
-            ].map((item) => (
-              <button
-                key={item.key}
-                type="button"
-                onClick={() => scrollToSection(item.target, item.key)}
-                className={`relative py-1 cursor-pointer transition-colors ${
-                  activeNav === item.key ? 'text-white font-semibold' : 'text-white/60 hover:text-white'
-                }`}
-              >
-                <span>{item.label}</span>
-                {activeNav === item.key && (
-                  <motion.span
-                    layoutId="nav-active-dot"
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]"
-                  />
-                )}
-              </button>
-            ))}
+          <div className="hidden md:flex items-center gap-5 text-[11px] font-mono tracking-wider">
+            {navItems.map((item) => {
+              if (item.highlight) {
+                return (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={() => scrollToSection(item.target, item.key)}
+                    className="relative px-3 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-semibold cursor-pointer transition-all duration-150 shadow-[0_0_12px_rgba(52,211,153,0.15)] flex items-center gap-1.5 tabular-nums"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>{item.label}</span>
+                  </button>
+                );
+              }
+              return (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => scrollToSection(item.target, item.key)}
+                  className={`relative py-1 cursor-pointer transition-colors ${
+                    activeNav === item.key ? 'text-white font-semibold' : 'text-white/60 hover:text-white'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {activeNav === item.key && (
+                    <motion.span
+                      layoutId="nav-active-dot"
+                      className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]"
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           {/* Right: Sound Toggle + "• LET'S CONNECT" Pill Button */}
@@ -104,10 +122,10 @@ export const DesignNavigation: React.FC = () => {
             <a
               href="mailto:vutikurishanmukh17@gmail.com"
               onClick={() => playClick(850, 0.03, 'sine')}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-amber-500/30 hover:border-amber-500/60 text-white font-mono text-[11px] tracking-wider uppercase transition-[background-color,border-color,transform] active:scale-95 shadow-[0_0_15px_rgba(245,158,11,0.08)] cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-black hover:bg-white/90 font-mono text-[11px] font-semibold tracking-wider uppercase transition-all duration-200 active:scale-95 shadow-sm cursor-pointer"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse shadow-[0_0_6px_rgba(245,158,11,0.9)]" />
-              <span>LET'S CONNECT</span>
+              <Mail className="w-3 h-3 text-black" />
+              <span>LET'S TALK</span>
             </a>
 
             {/* Mobile Menu Toggle */}
@@ -150,34 +168,25 @@ export const DesignNavigation: React.FC = () => {
                 <span>Switch to Engineering Mode →</span>
               </Link>
 
-              <button
-                type="button"
-                onClick={() => scrollToSection('works', 'work')}
-                className="text-left text-white py-2 border-b border-white/5 active:text-amber-400 transition-colors flex items-center justify-between"
-              >
-                <span>WORK</span>
-                <span className="text-[10px] text-white/40">7 PROJECTS</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('craft-lab', 'process')}
-                className="text-left text-white/80 hover:text-white py-2 border-b border-white/5 active:text-amber-400 transition-colors flex items-center justify-between"
-              >
-                <span>PROCESS & LABS</span>
-                <span className="text-[10px] text-white/40">4 WORKSTATIONS</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('philosophy', 'about')}
-                className="text-left text-white/80 hover:text-white py-2 border-b border-white/5 active:text-amber-400 transition-colors flex items-center justify-between"
-              >
-                <span>PHILOSOPHY</span>
-                <span className="text-[10px] text-white/40">4 TENETS</span>
-              </button>
+              {navItems.map((item) => (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => scrollToSection(item.target, item.key)}
+                  className={`text-left py-2.5 border-b border-white/5 flex items-center justify-between transition-colors ${
+                    item.highlight 
+                      ? 'text-emerald-400 font-bold bg-emerald-500/10 px-3 rounded-lg border-emerald-500/30' 
+                      : 'text-white/80 hover:text-white'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {item.highlight && <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />}
+                </button>
+              ))}
             </div>
 
             <div className="pt-2 flex items-center justify-between border-t border-white/10">
-              <span className="text-[10px] font-mono text-white/40 uppercase">AVAILABLE FOR WORK</span>
+              <span className="text-[10px] font-mono text-white/40 uppercase">AVAILABLE FOR Q3 2026</span>
               <a
                 href="mailto:vutikurishanmukh17@gmail.com"
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-mono text-[10.5px] font-semibold tracking-wider uppercase active:scale-95 transition-transform"

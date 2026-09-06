@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { DesignNavigation } from '@/components/design/DesignNavigation';
 import { ProductHero } from '@/components/design/ProductHero';
+import { DesignProcessTimeline } from '@/components/design/DesignProcessTimeline';
 import { ProjectsGrid } from '@/components/design/ProjectsGrid';
+import { RedesignShowcase } from '@/components/design/RedesignShowcase';
 import { CraftLab } from '@/components/design/CraftLab';
 import { DesignPhilosophy } from '@/components/design/DesignPhilosophy';
 import { ToolingGrid } from '@/components/design/ToolingGrid';
+import { DesignSystemStash } from '@/components/design/DesignSystemStash';
 import { DesignFooter } from '@/components/design/DesignFooter';
 
 const ProductDesigner: React.FC = () => {
@@ -14,40 +17,33 @@ const ProductDesigner: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#07080a] text-white selection:bg-primary/30 selection:text-white font-sans antialiased overflow-x-hidden">
-      {/* Background Geodesic Specular Noise Texture & Subtle Ambient Radial Glow */}
+    <div className="relative min-h-screen bg-[#050608] text-[#f7f8f8] selection:bg-white/20 selection:text-white font-sans antialiased overflow-x-hidden">
+      {/* Subtle Hairline Grid Matrix (Linear & Raycast Aesthetic) */}
       <div 
-        className="fixed inset-0 pointer-events-none z-0 opacity-40"
-        style={{
-          backgroundImage: `radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
-                            radial-gradient(circle at 80% 60%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
-                            radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 50%)`
-        }}
-      />
-
-      {/* Subtle Hairline Grid Matrix */}
-      <div 
-        className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]"
+        className="fixed inset-0 pointer-events-none z-0 opacity-[0.035]"
         style={{
           backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
-          backgroundSize: '4rem 4rem'
+          backgroundSize: '3.5rem 3.5rem'
         }}
       />
 
       {/* Floating Header Dock */}
       <DesignNavigation />
 
-      {/* Main Page Flow with Tight Proportional Spacing */}
-      <main className="relative z-10 space-y-0">
+      {/* Main Page Flow with Cohesive Editorial Spacing */}
+      <main className="relative z-10 space-y-4 sm:space-y-6">
         <ProductHero />
+        <DesignProcessTimeline />
         <ProjectsGrid />
+        <RedesignShowcase />
         <CraftLab />
         <DesignPhilosophy />
         <ToolingGrid />
+        <DesignSystemStash />
       </main>
 
-      {/* Dedicated Luxury Dark Mode Footer with Cursive Signature Signoff */}
-      <div className="relative z-10 mt-3 sm:mt-4">
+      {/* Luxury Dark Mode Footer with Cursive Signature Signoff */}
+      <div className="relative z-10 mt-6 sm:mt-8">
         <DesignFooter />
       </div>
     </div>

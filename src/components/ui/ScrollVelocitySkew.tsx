@@ -1,10 +1,8 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useVelocity, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useVelocity, useSpring, useTransform, type HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
-interface ScrollVelocitySkewProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  className?: string;
+interface ScrollVelocitySkewProps extends HTMLMotionProps<'div'> {
   maxSkew?: number;
 }
 

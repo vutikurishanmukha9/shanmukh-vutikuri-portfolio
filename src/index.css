@@ -35,8 +35,8 @@
 
     --radius: 0.5rem;              /* Precise micro-rounded corners (8px) for technical rigor */
 
-    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Instrument Serif', Georgia, serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
     --font-signature: 'Kaushan Script', 'Caveat', 'Alex Brush', cursive;
   }

@@ -5,7 +5,10 @@ import {
   Palette, 
   Type, 
   Activity, 
-  Command
+  Command,
+  Copy,
+  Check,
+  Code2
 } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
 
@@ -144,12 +147,14 @@ const SCALE_RATIOS = [
 export const CraftLab: React.FC = () => {
   const { playClick } = useSound();
 
-  // Workstation 01 State: Blueprint
+  // Workstation 01 State: Blueprint & Interactive States
   const [selectedBlueprint, setSelectedBlueprint] = useState<BlueprintSpecimen>(BLUEPRINT_COMPONENTS[0]);
   const [blueprintMode, setBlueprintMode] = useState<'preview' | 'blueprint' | 'code'>('blueprint');
+  const [componentState, setComponentState] = useState<'default' | 'hover' | 'loading' | 'error'>('default');
 
-  // Workstation 02 State: Tokens
+  // Workstation 02 State: Tokens & Exporter
   const [selectedTheme, setSelectedTheme] = useState(SEMANTIC_THEMES[0]);
+  const [copiedTokenFormat, setCopiedTokenFormat] = useState<string | null>(null);
 
   // Workstation 03 State: Typography
   const [selectedRatio, setSelectedRatio] = useState(SCALE_RATIOS[0]);
@@ -173,8 +178,8 @@ export const CraftLab: React.FC = () => {
     const s0 = 10.5;
 
     return [
-      { name: 'Display Headline', size: `${s5}px / ${(s5 / 16).toFixed(2)}rem`, font: 'Serif Display 500', tracking: '-0.03em', lh: '1.10' },
-      { name: 'Section Header', size: `${s4}px / ${(s4 / 16).toFixed(2)}rem`, font: 'Serif Display 500', tracking: '-0.02em', lh: '1.20' },
+      { name: 'Display Headline', size: `${s5}px / ${(s5 / 16).toFixed(2)}rem`, font: 'Display Sans 700', tracking: '-0.03em', lh: '1.10' },
+      { name: 'Section Header', size: `${s4}px / ${(s4 / 16).toFixed(2)}rem`, font: 'Display Sans 600', tracking: '-0.02em', lh: '1.20' },
       { name: 'Subsection Title', size: `${s3}px / ${(s3 / 16).toFixed(2)}rem`, font: 'Sans UI 600', tracking: '-0.01em', lh: '1.30' },
       { name: 'Component Title', size: `${s2}px / ${(s2 / 16).toFixed(2)}rem`, font: 'Sans UI 500', tracking: '-0.005em', lh: '1.40' },
       { name: 'Body Narrative', size: `${s1}px / ${(s1 / 16).toFixed(2)}rem`, font: 'Sans UI 400', tracking: '0.00em', lh: '1.60' },
@@ -189,23 +194,47 @@ export const CraftLab: React.FC = () => {
     setMotionTrigger((prev) => prev + 1);
   };
 
+  const handleCopyTokens = (format: 'css' | 'tailwind' | 'json') => {
+    let code = '';
+    if (format === 'css') {
+      code = `:root {\n  --surface-ground: ${selectedTheme.surfaceGround};\n  --surface-raised: ${selectedTheme.surfaceRaised};\n  --color-accent: ${selectedTheme.accent};\n  --border-surface: ${selectedTheme.surfaceBorder};\n  --wcag-contrast: "${selectedTheme.contrastRatio}";\n}`;
+    } else if (format === 'tailwind') {
+      code = `// tailwind.config.ts\nexport default {\n  theme: {\n    extend: {\n      colors: {\n        canvas: '${selectedTheme.surfaceGround}',\n        raised: '${selectedTheme.surfaceRaised}',\n        accent: '${selectedTheme.accent}',\n      }\n    }\n  }\n};`;
+    } else {
+      code = JSON.stringify({
+        name: selectedTheme.name,
+        contrast: selectedTheme.contrastRatio,
+        tokens: {
+          global: selectedTheme.globalToken,
+          semantic: selectedTheme.semanticToken,
+          component: selectedTheme.componentToken,
+          hex: selectedTheme.accent
+        }
+      }, null, 2);
+    }
+    navigator.clipboard.writeText(code);
+    playClick(920, 0.03, 'sine');
+    setCopiedTokenFormat(format);
+    setTimeout(() => setCopiedTokenFormat(null), 2000);
+  };
+
   return (
-    <section id="craft-lab" className="relative py-3 sm:py-4 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto select-none">
+    <section id="craft-lab" className="relative scroll-mt-24 py-6 sm:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto select-none">
       
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-3 sm:mb-4 border-b border-white/5 pb-3">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-6 border-b border-white/5 pb-4">
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono tracking-widest text-primary uppercase">
             <Ruler className="w-3.5 h-3.5" />
-            <span>DESIGN SYSTEM & COMPONENT ARCHITECTURE LAB // 4 INTERACTIVE SPECIMENS</span>
+            <span>INTERACTIVE TOOLS // COLORS &amp; SPACING</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-serif-display font-medium text-white tracking-tight">
-            Design Systems & Component Architecture
+          <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-semibold tracking-[-0.035em] text-[#f7f8f8] font-jakarta">
+            Design Tokens &amp; <span className="font-instrument italic font-normal tracking-normal text-white/95">Visual</span> Systems
           </h2>
         </div>
 
-        <p className="text-xs sm:text-sm text-white/50 max-w-md leading-relaxed">
-          Interactive proof of design systems rigor: optical redline blueprints, 3-tier semantic tokens, harmonic modular scales, and spring kinematics.
+        <p className="text-xs sm:text-sm text-white/60 max-w-md leading-relaxed font-sans">
+          Interactive studio for testing design tokens, typography scales, semantic themes, and physical spring animations.
         </p>
       </div>
 
@@ -215,15 +244,15 @@ export const CraftLab: React.FC = () => {
         {/* ========================================================================= */}
         {/* WORKSTATION 01: LIVING COMPONENT ANATOMY & REDLINE BLUEPRINT STUDIO */}
         {/* ========================================================================= */}
-        <div className="group relative rounded-2xl p-1.5 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-[border-color,background-color] duration-500 overflow-hidden flex flex-col justify-between">
-          <div className="relative rounded-[calc(1rem-0.125rem)] bg-[#0d0e12] border border-white/5 p-4 sm:p-6 flex flex-col justify-between h-full space-y-4">
+        <div className="group relative rounded-3xl p-2 sm:p-2.5 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-[border-color,background-color] duration-500 overflow-hidden flex flex-col justify-between">
+          <div className="relative rounded-[calc(1.5rem-0.125rem)] bg-[#0d0e12] border border-white/5 p-5 sm:p-6 flex flex-col justify-between h-full space-y-4">
             
             {/* Header & Mode Switcher */}
             <div className="flex items-center justify-between pb-3 border-b border-white/5">
               <div className="flex items-center gap-2">
                 <Ruler className="w-3.5 h-3.5 text-primary" />
-                <span className="text-[9.5px] font-mono tracking-widest text-white/70 uppercase">
-                  WORKSTATION 01 // REDLINE BLUEPRINT & ANATOMY
+                <span className="text-[10px] font-mono tracking-widest text-white/70 uppercase">
+                  TOOL 01 // COMPONENT SPACING & SPECS
                 </span>
               </div>
 
@@ -269,8 +298,30 @@ export const CraftLab: React.FC = () => {
               ))}
             </div>
 
+            {/* State Machine Switcher (Default / Hover / Loading / Error) */}
+            <div className="flex items-center justify-between gap-2 text-[10px] font-mono text-white/50">
+              <span>TEST STATE:</span>
+              <div className="flex items-center gap-1">
+                {(['default', 'hover', 'loading', 'error'] as const).map((st) => (
+                  <button
+                    key={st}
+                    type="button"
+                    onClick={() => {
+                      playClick(800, 0.02, 'sine');
+                      setComponentState(st);
+                    }}
+                    className={`px-2 py-0.5 rounded uppercase cursor-pointer transition-colors ${
+                      componentState === st ? 'bg-white/20 text-white font-semibold' : 'hover:text-white text-white/40'
+                    }`}
+                  >
+                    {st}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Interactive Stage Canvas */}
-            <div className="relative p-5 rounded-xl bg-[#07080a] border border-white/10 flex flex-col items-center justify-center min-h-[175px] overflow-hidden">
+            <div className="relative p-5 rounded-xl bg-[#07080a] border border-white/10 flex flex-col items-center justify-center min-h-[185px] overflow-hidden">
               
               {/* If Blueprint Mode: Geometric Measurement Matrix */}
               {blueprintMode === 'blueprint' && (
@@ -282,6 +333,10 @@ export const CraftLab: React.FC = () => {
                 <div className={`relative w-full max-w-sm rounded-xl p-4 transition-all duration-300 ${
                   blueprintMode === 'blueprint'
                     ? 'border border-dashed border-primary bg-primary/10 shadow-[0_0_24px_rgba(99,102,241,0.2)]'
+                    : componentState === 'error'
+                    ? 'border border-rose-500/50 bg-rose-500/10'
+                    : componentState === 'hover'
+                    ? 'border border-white/30 bg-white/10 shadow-lg'
                     : 'border border-white/15 bg-white/5 shadow-md'
                 }`}>
                   {blueprintMode === 'blueprint' && (
@@ -290,34 +345,48 @@ export const CraftLab: React.FC = () => {
                     </div>
                   )}
 
-                  {selectedBlueprint.id === 'telemetry-card' && (
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between pb-1.5 border-b border-white/10">
-                        <span className="text-xs font-mono text-white font-semibold">Real-Time Ingestion Node</span>
-                        <span className="text-[10px] font-mono text-emerald-400">99.98% HEALTH</span>
-                      </div>
-                      <p className="text-[11.5px] text-white/70 leading-relaxed font-sans">
-                        Polars multi-threaded ledger running sub-pixel baseline alignment and automated memory eviction.
-                      </p>
+                  {componentState === 'loading' ? (
+                    <div className="space-y-2.5 animate-pulse">
+                      <div className="h-3 w-3/4 bg-white/20 rounded" />
+                      <div className="h-2.5 w-full bg-white/10 rounded" />
+                      <div className="h-2.5 w-1/2 bg-white/10 rounded" />
                     </div>
-                  )}
+                  ) : (
+                    <>
+                      {selectedBlueprint.id === 'telemetry-card' && (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between pb-1.5 border-b border-white/10">
+                            <span className="text-xs font-mono text-white font-semibold">Real-Time Ingestion Node</span>
+                            <span className={`text-[10px] font-mono ${componentState === 'error' ? 'text-rose-400' : 'text-emerald-400'}`}>
+                              {componentState === 'error' ? 'ALERT: ANOMALY DETECTED' : '99.98% HEALTH'}
+                            </span>
+                          </div>
+                          <p className="text-[11.5px] text-white/70 leading-relaxed font-sans">
+                            Polars multi-threaded ledger running sub-pixel baseline alignment and automated memory eviction.
+                          </p>
+                        </div>
+                      )}
 
-                  {selectedBlueprint.id === 'command-input' && (
-                    <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 border border-white/10">
-                      <div className="flex items-center gap-2 text-xs font-mono text-white/80">
-                        <Command className="w-3.5 h-3.5 text-primary" />
-                        <span>Search design tokens (e.g. --color-zinc)...</span>
-                      </div>
-                      <span className="text-[9px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-white/50">ESC</span>
-                    </div>
-                  )}
+                      {selectedBlueprint.id === 'command-input' && (
+                        <div className={`flex items-center justify-between px-3 py-2 rounded-lg bg-white/5 border ${
+                          componentState === 'error' ? 'border-rose-500 text-rose-400' : 'border-white/10 text-white/80'
+                        }`}>
+                          <div className="flex items-center gap-2 text-xs font-mono">
+                            <Command className="w-3.5 h-3.5 text-primary" />
+                            <span>Search design tokens (e.g. --color-zinc)...</span>
+                          </div>
+                          <span className="text-[9px] font-mono bg-white/10 px-1.5 py-0.5 rounded text-white/50">ESC</span>
+                        </div>
+                      )}
 
-                  {selectedBlueprint.id === 'segmented-pill' && (
-                    <div className="p-1 rounded-full bg-white/5 border border-white/10 flex items-center justify-between">
-                      <span className="px-3 py-1 rounded-full bg-white text-black text-xs font-mono font-semibold">PREVIEW</span>
-                      <span className="px-3 py-1 text-xs font-mono text-white/60">SCHEMA</span>
-                      <span className="px-3 py-1 text-xs font-mono text-white/60">TOKENS</span>
-                    </div>
+                      {selectedBlueprint.id === 'segmented-pill' && (
+                        <div className="p-1 rounded-full bg-white/5 border border-white/10 flex items-center justify-between">
+                          <span className="px-3 py-1 rounded-full bg-white text-black text-xs font-mono font-semibold">PREVIEW</span>
+                          <span className="px-3 py-1 text-xs font-mono text-white/60">SCHEMA</span>
+                          <span className="px-3 py-1 text-xs font-mono text-white/60">TOKENS</span>
+                        </div>
+                      )}
+                    </>
                   )}
 
                   {blueprintMode === 'blueprint' && (
@@ -345,7 +414,7 @@ export const CraftLab: React.FC = () => {
             </div>
 
             <p className="text-xs text-white/60 pt-2 border-t border-white/5 leading-relaxed">
-              Every production component is architected on strict 4px/8px spatial increments with zero layout shifting.
+              Every component uses consistent 4px and 8px spacing for clean, reliable layouts.
             </p>
 
           </div>
@@ -354,17 +423,17 @@ export const CraftLab: React.FC = () => {
         {/* ========================================================================= */}
         {/* WORKSTATION 02: 3-TIER SEMANTIC TOKEN VARIABLE PIPELINE */}
         {/* ========================================================================= */}
-        <div className="group relative rounded-2xl p-1.5 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-[border-color,background-color] duration-500 overflow-hidden flex flex-col justify-between">
-          <div className="relative rounded-[calc(1rem-0.125rem)] bg-[#0d0e12] border border-white/5 p-4 sm:p-6 flex flex-col justify-between h-full space-y-4">
+        <div className="group relative rounded-3xl p-2 sm:p-2.5 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-[border-color,background-color] duration-500 overflow-hidden flex flex-col justify-between">
+          <div className="relative rounded-[calc(1.5rem-0.125rem)] bg-[#0d0e12] border border-white/5 p-5 sm:p-6 flex flex-col justify-between h-full space-y-4">
             
             <div className="flex items-center justify-between pb-3 border-b border-white/5">
               <div className="flex items-center gap-2">
                 <Palette className="w-3.5 h-3.5 text-amber-500" />
-                <span className="text-[9.5px] font-mono tracking-widest text-white/70 uppercase">
-                  WORKSTATION 02 // 3-TIER TOKEN PIPELINE
+                <span className="text-[10px] font-mono tracking-widest text-white/70 uppercase">
+                  TOOL 02 // COLOR THEMES & TOKENS
                 </span>
               </div>
-              <span className="text-[9.5px] font-mono text-emerald-400 font-bold">
+              <span className="text-[10px] font-mono text-emerald-400 font-bold">
                 CONTRAST: {selectedTheme.contrastRatio}
               </span>
             </div>
@@ -408,9 +477,9 @@ export const CraftLab: React.FC = () => {
               </div>
             </div>
 
-            {/* Live Token Transformation Canvas */}
+            {/* Live Token Transformation Canvas & 1-Click Code Exporter */}
             <div 
-              className="p-3.5 rounded-xl border transition-[background-color,border-color] duration-300 space-y-1.5"
+              className="p-3.5 rounded-xl border transition-[background-color,border-color] duration-300 space-y-2"
               style={{ background: selectedTheme.surfaceRaised, borderColor: selectedTheme.surfaceBorder }}
             >
               <div className="flex items-center justify-between text-xs font-mono">
@@ -422,10 +491,31 @@ export const CraftLab: React.FC = () => {
               <p className="text-[11.5px] text-white/70 leading-relaxed font-sans">
                 Tokens compile directly from Figma variables into TypeScript schemas with zero manual synchronization.
               </p>
+
+              {/* 1-Click Token Exporter Action Buttons */}
+              <div className="pt-2 flex items-center justify-between border-t border-white/10 text-[10px] font-mono">
+                <span className="text-white/40 flex items-center gap-1">
+                  <Code2 className="w-3 h-3 text-amber-400" />
+                  EXPORT TOKENS:
+                </span>
+                <div className="flex items-center gap-1.5">
+                  {(['css', 'tailwind', 'json'] as const).map((fmt) => (
+                    <button
+                      key={fmt}
+                      type="button"
+                      onClick={() => handleCopyTokens(fmt)}
+                      className="px-2 py-0.5 rounded bg-white/10 hover:bg-white text-white hover:text-black uppercase cursor-pointer transition-colors flex items-center gap-1"
+                    >
+                      {copiedTokenFormat === fmt ? <Check className="w-2.5 h-2.5" /> : <Copy className="w-2.5 h-2.5" />}
+                      <span>{copiedTokenFormat === fmt ? 'Copied' : fmt}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <p className="text-xs text-white/60 pt-2 border-t border-white/5 leading-relaxed">
-              Strict 3-tier architecture separating raw hex values from semantic intent and component execution.
+              Clean color organization that makes switching themes and dark mode effortless.
             </p>
 
           </div>
@@ -434,17 +524,17 @@ export const CraftLab: React.FC = () => {
         {/* ========================================================================= */}
         {/* WORKSTATION 03: HARMONIC MODULAR TYPOGRAPHY SCALE */}
         {/* ========================================================================= */}
-        <div className="group relative rounded-2xl p-1.5 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-[border-color,background-color] duration-500 overflow-hidden flex flex-col justify-between">
-          <div className="relative rounded-[calc(1rem-0.125rem)] bg-[#0d0e12] border border-white/5 p-4 sm:p-6 flex flex-col justify-between h-full space-y-4">
+        <div className="group relative rounded-3xl p-2 sm:p-2.5 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-[border-color,background-color] duration-500 overflow-hidden flex flex-col justify-between">
+          <div className="relative rounded-[calc(1.5rem-0.125rem)] bg-[#0d0e12] border border-white/5 p-5 sm:p-6 flex flex-col justify-between h-full space-y-4">
             
             <div className="flex items-center justify-between pb-3 border-b border-white/5">
               <div className="flex items-center gap-2">
                 <Type className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-[9.5px] font-mono tracking-widest text-white/70 uppercase">
-                  WORKSTATION 03 // MODULAR TYPOGRAPHY SCALE
+                <span className="text-[10px] font-mono tracking-widest text-white/70 uppercase">
+                  TOOL 03 // TYPE SIZES & FONTS
                 </span>
               </div>
-              <span className="text-[9.5px] font-mono text-emerald-400">
+              <span className="text-[10px] font-mono text-emerald-400">
                 {selectedRatio.name.split(' ')[0]} RATIO
               </span>
             </div>
@@ -505,7 +595,7 @@ export const CraftLab: React.FC = () => {
             </div>
 
             <p className="text-xs text-white/60 pt-2 border-t border-white/5 leading-relaxed">
-              Harmonic mathematical scale pairing modern serif display titles with crisp, high-density monospace labels.
+              Balanced typography scale pairing modern headings with clean, readable text.
             </p>
 
           </div>
@@ -514,18 +604,18 @@ export const CraftLab: React.FC = () => {
         {/* ========================================================================= */}
         {/* WORKSTATION 04: KINETIC SPRING PHYSICS & SUB-16MS MOTION LAB */}
         {/* ========================================================================= */}
-        <div className="group relative rounded-2xl p-1.5 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-[border-color,background-color] duration-500 overflow-hidden flex flex-col justify-between">
-          <div className="relative rounded-[calc(1rem-0.125rem)] bg-[#0d0e12] border border-white/5 p-4 sm:p-6 flex flex-col justify-between h-full space-y-4">
+        <div className="group relative rounded-3xl p-2 sm:p-2.5 bg-white/[0.03] border border-white/10 hover:border-white/20 transition-[border-color,background-color] duration-500 overflow-hidden flex flex-col justify-between">
+          <div className="relative rounded-[calc(1.5rem-0.125rem)] bg-[#0d0e12] border border-white/5 p-5 sm:p-6 flex flex-col justify-between h-full space-y-4">
             
             <div className="flex items-center justify-between pb-3 border-b border-white/5">
               <div className="flex items-center gap-2">
                 <Activity className="w-3.5 h-3.5 text-primary" />
-                <span className="text-[9.5px] font-mono tracking-widest text-white/70 uppercase">
-                  WORKSTATION 04 // SPRING KINEMATICS & VELOCITY
+                <span className="text-[10px] font-mono tracking-widest text-white/70 uppercase">
+                  TOOL 04 // SMOOTH ANIMATIONS
                 </span>
               </div>
-              <span className="text-[9.5px] font-mono text-emerald-400">
-                LATENCY: &lt;16ms (60FPS LOCKED)
+              <span className="text-[10px] font-mono text-emerald-400">
+                SMOOTH 60FPS
               </span>
             </div>
 
@@ -540,7 +630,7 @@ export const CraftLab: React.FC = () => {
                 onClick={handleTriggerMotion}
                 className="w-full sm:w-auto px-6 py-3 sm:py-2.5 rounded-full bg-white text-black font-mono text-xs font-semibold shadow-lg cursor-pointer select-none active:scale-95 transition-transform text-center"
               >
-                TEST MASS-SPRING RELEASE
+                CLICK TO TEST ANIMATION
               </motion.button>
 
               <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] font-mono text-white/50 pt-1">
@@ -610,7 +700,7 @@ export const CraftLab: React.FC = () => {
             </div>
 
             <p className="text-xs text-white/60 pt-2 border-t border-white/5 leading-relaxed">
-              Mass-spring kinetic curves replace artificial linear transitions, delivering visceral physical tactile feedback.
+              Natural spring animations that give buttons and cards a responsive, tactile feel.
             </p>
 
           </div>

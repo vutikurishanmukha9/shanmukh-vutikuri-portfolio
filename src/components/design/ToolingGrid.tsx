@@ -6,37 +6,37 @@ const TOOLS = [
   { 
     name: 'Figma Variables & Auto-Layout', 
     category: 'Design Systems & Component Sets', 
-    level: 'Expert Systems Mastery', 
+    level: 'Advanced Figma Systems', 
     icon: Figma 
   },
   { 
     name: 'Design Tokens & Style Dictionary', 
-    category: 'Semantic Multi-Brand Variable Architecture', 
-    level: 'Production Pipeline', 
+    category: 'Design Tokens & Color Scales', 
+    level: 'Production Ready', 
     icon: Layers 
   },
   { 
     name: 'React 19 & Radix Primitives', 
-    category: 'Unstyled Accessible Component Architecture', 
+    category: 'Accessible Web Components', 
     level: 'Frontend Engineering', 
     icon: Code 
   },
   { 
     name: 'Framer Motion & Spring Physics', 
-    category: 'Kinetic Ergonomics & Micro-Interactions', 
-    level: 'Sub-16ms Fluid Motion', 
+    category: 'Smooth Animations & Transitions', 
+    level: 'Fluid 60fps Motion', 
     icon: Sliders 
   },
   { 
     name: 'Spline & 3D Spatial Canvas', 
-    category: 'Spatial Interfaces & Interactive WebGL Models', 
-    level: 'Spatial Computing', 
+    category: '3D Web & Interactive Graphics', 
+    level: 'Interactive 3D', 
     icon: Box 
   },
   { 
     name: 'WCAG 2.2 AAA Accessibility', 
-    category: 'High-Contrast Luminance & Keyboard Navigation', 
-    level: 'Strict Compliance', 
+    category: 'Screen Readers & Keyboard Navigation', 
+    level: 'Universal Accessibility', 
     icon: ShieldCheck 
   },
 ];
@@ -49,15 +49,15 @@ export const ToolingGrid: React.FC = () => {
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono tracking-widest text-primary uppercase">
             <Palette className="w-3.5 h-3.5" />
-            <span>DESIGN INFRASTRUCTURE & STANDARDS</span>
+            <span>TOOLS &amp; TECHNOLOGIES</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-serif-display font-medium text-white tracking-tight">
-            Tooling, Tokens & Technical Stack
+          <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-semibold tracking-[-0.035em] text-[#f7f8f8] font-jakarta">
+            Production <span className="font-instrument italic font-normal tracking-normal text-white/95">Tooling</span> &amp; Tech Stack
           </h2>
         </div>
 
-        <p className="text-xs sm:text-sm text-white/50 max-w-md leading-relaxed">
-          The software stack, token variable pipelines, and accessibility standards utilized to ship production-grade digital products.
+        <p className="text-xs sm:text-sm text-white/60 max-w-md leading-relaxed font-sans">
+          The design software, coding frameworks, and accessibility standards I use every day.
         </p>
       </div>
 
@@ -75,7 +75,7 @@ export const ToolingGrid: React.FC = () => {
               className="p-4 sm:p-5 rounded-xl bg-[#0d0e12] border border-white/5 hover:border-white/20 transition-[border-color,background-color] duration-300 flex items-start justify-between gap-3 group"
             >
               <div className="space-y-1">
-                <h3 className="text-xs sm:text-sm font-semibold text-white group-hover:text-primary transition-colors">
+                <h3 className="text-xs sm:text-sm font-semibold text-white group-hover:text-primary transition-colors font-jakarta tracking-tight">
                   {tool.name}
                 </h3>
                 <p className="text-[11px] text-white/50 leading-relaxed font-sans">{tool.category}</p>

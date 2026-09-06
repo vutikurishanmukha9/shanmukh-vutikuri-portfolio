@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useInView, type MarginType, type TargetAndTransition, type Transition } from 'framer-motion';
+import { motion, useInView, type TargetAndTransition, type Transition } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export interface SplitTextProps {
@@ -14,7 +14,7 @@ export interface SplitTextProps {
   animate?: TargetAndTransition;
   transition?: Transition;
   threshold?: number;
-  rootMargin?: MarginType;
+  rootMargin?: any;
   textAlign?: 'left' | 'center' | 'right' | 'justify';
   onLetterAnimationComplete?: () => void;
   triggerOnHover?: boolean;

@@ -22,6 +22,12 @@ export default {
       fontFamily: {
         sans: ['var(--font-primary)'],
         display: ['var(--font-display)'],
+        jakarta: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+        instrument: ['"Instrument Serif"', 'Georgia', 'serif'],
+        serif: ['var(--font-display)', 'Cormorant Garamond', 'Georgia', 'serif'],
+        mono: ['var(--font-mono)', 'JetBrains Mono', 'monospace'],
+        grotesk: ['"Space Grotesk"', 'sans-serif'],
+        syne: ['"Syne"', 'sans-serif'],
         signature: ['var(--font-signature)', 'Caveat', 'cursive'],
       },
       colors: {

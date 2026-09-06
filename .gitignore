@@ -43,3 +43,12 @@ coverage/
 .turbo/
 .next/
 *.tsbuildinfo
+
+# Design docs
+Design MD/
+"Design MD"/
+
+# Scratch & temporary test scripts
+scratch/
+
+

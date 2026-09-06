@@ -68,11 +68,11 @@ export const DesignFooter: React.FC = () => {
           
           {/* Col 1: Brand & Manifesto */}
           <div className="space-y-3 md:col-span-2">
-            <h3 className="text-xl sm:text-2xl font-serif-display font-medium text-white tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-jakarta font-semibold tracking-[-0.03em] text-[#f7f8f8]">
               Vutikuri Shanmukha
             </h3>
             <p className="text-xs sm:text-sm text-white/55 leading-relaxed max-w-md font-sans">
-              Product & Interaction Designer crafting high-velocity digital experiences through cognitive psychology, design system rigor, and sub-pixel engineering.
+              Product &amp; Interaction Designer building clean digital experiences, consistent design systems, and thoughtful user interfaces.
             </p>
 
             <div className="flex items-center gap-2 pt-2">
@@ -111,7 +111,7 @@ export const DesignFooter: React.FC = () => {
                   onClick={() => scrollToSection('works')}
                   className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Curated Works (7)
+                  Featured Projects <span className="tabular-nums">(7)</span>
                 </button>
               </li>
               <li>
@@ -120,7 +120,16 @@ export const DesignFooter: React.FC = () => {
                   onClick={() => scrollToSection('craft-lab')}
                   className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Design Systems & Lab
+                  Design Tokens &amp; Styles
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => scrollToSection('design-stash')}
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer font-medium"
+                >
+                  Free Components <span className="tabular-nums">(106)</span>
                 </button>
               </li>
               <li>
@@ -129,7 +138,7 @@ export const DesignFooter: React.FC = () => {
                   onClick={() => scrollToSection('philosophy')}
                   className="hover:text-white transition-colors cursor-pointer"
                 >
-                  Design Philosophy
+                  Design Principles
                 </button>
               </li>
             </ul>
@@ -138,7 +147,7 @@ export const DesignFooter: React.FC = () => {
           {/* Col 3: Telemetry & Time */}
           <div className="space-y-3">
             <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase block">
-              TELEMETRY & AVAILABILITY
+              AVAILABILITY &amp; TIME
             </span>
             <div className="space-y-1.5 text-xs font-mono">
               <div className="flex items-center justify-between text-white/70">
@@ -147,11 +156,11 @@ export const DesignFooter: React.FC = () => {
               </div>
               <div className="flex items-center justify-between text-white/50">
                 <span>IST (LOCAL):</span>
-                <span className="text-white">{time.ist}</span>
+                <span className="text-white tabular-nums">{time.ist}</span>
               </div>
               <div className="flex items-center justify-between text-white/50">
                 <span>UTC CLOCK:</span>
-                <span className="text-white">{time.utc}</span>
+                <span className="text-white tabular-nums">{time.utc}</span>
               </div>
             </div>
           </div>
@@ -161,7 +170,7 @@ export const DesignFooter: React.FC = () => {
         {/* Bottom Strip */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[10.5px] font-mono text-white/40">
           <div className="flex items-center gap-2">
-            <span>© {currentYear} Vutikuri Shanmukha.</span>
+            <span className="tabular-nums">© {currentYear} Vutikuri Shanmukha.</span>
             <span>All rights reserved.</span>
           </div>
 

@@ -103,7 +103,7 @@ export const GrindingActivitySection = () => {
                                 <GitHubCalendar
                                     username={GITHUB_USERNAME}
                                     year="last"
-                                    colorScheme={theme === 'dark' ? 'dark' : 'light'}
+                                    colorScheme={(theme as string) === 'dark' ? 'dark' : 'light'}
                                     theme={calendarTheme}
                                     blockSize={13}
                                     blockMargin={4}

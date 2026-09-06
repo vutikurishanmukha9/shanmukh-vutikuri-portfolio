@@ -140,7 +140,7 @@ export const ContactSection = () => {
                 {/* Contact Details */}
                 <div className="space-y-3 mb-8">
                   {contactInfo.map((contact) => (
-                    <ContactCard key={contact.platform} contact={contact} />
+                    <ContactCard key={contact.label} contact={contact} />
                   ))}
                 </div>
               </div>
