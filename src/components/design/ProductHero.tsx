@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, CheckCircle2, ShieldCheck, Layers, Terminal, Activity, Box } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Layers, Terminal, Activity, Box, Sparkles } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
+import FluidOrb from '@/components/ui/fluid-orb';
 import { DesignWorkstationCanvas } from './DesignWorkstationCanvas';
 import { RecruiterPersonaSelector } from './RecruiterPersonaSelector';
 
 export const ProductHero: React.FC = () => {
   const { playClick } = useSound();
   const [isExecutiveMode, setIsExecutiveMode] = useState(false);
+  const [orbColor, setOrbColor] = useState('#1A73F2');
 
   const scrollToSection = (id: string) => {
     playClick(800, 0.03, 'sine');
@@ -34,6 +36,22 @@ export const ProductHero: React.FC = () => {
         }}
       />
 
+      {/* Ambient WebGL Fluid Orb Backdrop (Rare UI swamimalode07/rare-ui/fluid-orb) */}
+      <div className="pointer-events-none absolute -top-12 sm:-top-6 right-[-20px] sm:right-4 lg:right-12 z-0 opacity-45 sm:opacity-60 transition-opacity duration-700 select-none">
+        <div className="relative">
+          <FluidOrb 
+            size={340} 
+            color={orbColor} 
+            className="scale-75 sm:scale-95 lg:scale-110 filter drop-shadow-[0_0_50px_rgba(0,0,0,0.6)]" 
+          />
+          {/* Ethereal atmospheric diffuse illumination */}
+          <div 
+            className="absolute inset-0 rounded-full blur-[100px] opacity-25 -z-10 transition-colors duration-700"
+            style={{ backgroundColor: orbColor }}
+          />
+        </div>
+      </div>
+
       {/* ========================================================================= */}
       {/* HERO STAGE: LEFT TYPOGRAPHY & BIO  vs  RIGHT INTERACTIVE WORKSTATION */}
       {/* ========================================================================= */}
@@ -42,7 +60,7 @@ export const ProductHero: React.FC = () => {
         {/* Left Column: Headline, Pill, Discipline Strip & Bio (7 Columns) */}
         <div className="lg:col-span-7 space-y-6 text-left">
           
-          {/* Top Control Strip: Disciplinary Pill Badge + 60s Executive Dossier Switcher */}
+          {/* Top Control Strip: Disciplinary Pill Badge + 60s Executive Dossier + Fluid Orb Controller */}
           <div className="flex flex-wrap items-center gap-2.5">
             <motion.div
               initial={{ opacity: 0, y: -8 }}
@@ -54,7 +72,7 @@ export const ProductHero: React.FC = () => {
               <span>STAFF PRODUCT DESIGNER</span>
             </motion.div>
 
-            {/* Fast-Track 60s Recruiter / Executive Dossier Switcher (No AI slop icons) */}
+            {/* Fast-Track 60s Recruiter / Executive Dossier Switcher */}
             <button
               type="button"
               onClick={toggleExecutiveMode}
@@ -67,6 +85,38 @@ export const ProductHero: React.FC = () => {
               <Terminal className="w-3 h-3" />
               <span>{isExecutiveMode ? 'Persona Dossier [Open]' : 'Tailor Dossier [4 Personas]'}</span>
             </button>
+
+            {/* Interactive Ambient Fluid Orb Shader Palette Switcher */}
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#111218]/90 border border-white/10 text-[10px] font-mono text-white/70">
+              <span className="flex items-center gap-1 text-white/50 uppercase tracking-widest text-[9.5px]">
+                <Sparkles className="w-2.5 h-2.5 text-cyan-400" />
+                <span>FLUID ORB</span>
+              </span>
+              <div className="flex items-center gap-1.5 pl-1.5 border-l border-white/10">
+                {[
+                  { name: 'Azure', hex: '#1A73F2' },
+                  { name: 'Flame', hex: '#F75001' },
+                  { name: 'Emerald', hex: '#10B981' },
+                  { name: 'Violet', hex: '#8B5CF6' }
+                ].map((palette) => (
+                  <button
+                    key={palette.hex}
+                    type="button"
+                    title={`Fluid Orb: ${palette.name}`}
+                    onClick={() => {
+                      playClick(880, 0.02, 'sine');
+                      setOrbColor(palette.hex);
+                    }}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-200 cursor-pointer ${
+                      orbColor === palette.hex
+                        ? 'scale-125 ring-2 ring-white ring-offset-1 ring-offset-[#111218]'
+                        : 'opacity-50 hover:opacity-100 hover:scale-110'
+                    }`}
+                    style={{ backgroundColor: palette.hex }}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Main Giant Headline: Crisp Negative-Tracking Typography (Linear & Apple Style) */}

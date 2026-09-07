@@ -11,6 +11,7 @@ import {
   Code2
 } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
+import FluidOrb from '@/components/ui/fluid-orb';
 import { DevModeRedlineInspector } from './DevModeRedlineInspector';
 import { FigmaVariablesBridge } from './FigmaVariablesBridge';
 
@@ -71,6 +72,21 @@ const BLUEPRINT_COMPONENTS: BlueprintSpecimen[] = [
       'background: var(--surface-inset)',
       'transition: layout 200ms cubic-bezier(0.16, 1, 0.3, 1)',
       'indicator-bg: var(--ink-inverse)'
+    ]
+  },
+  {
+    id: 'fluid-orb',
+    name: '04 // Rare UI Ambient Fluid Orb',
+    category: 'WebGL 1.0 Generative Shader',
+    padding: 'p: 0 | canvas: 2x DPR',
+    radius: '9999px (rounded-full)',
+    border: '0px (shader falloff)',
+    shadow: '0 0 40px rgba(26, 115, 242, 0.35)',
+    cssTokens: [
+      'background: transparent',
+      'shader: 2D FBM (3-octave Perlin)',
+      'drift: vec2(sin(t), cos(t))',
+      'registry: swamimalode07/rare-ui/fluid-orb'
     ]
   }
 ];
@@ -386,6 +402,15 @@ export const CraftLab: React.FC = () => {
                           <span className="px-3 py-1 rounded-full bg-white text-black text-xs font-mono font-semibold">PREVIEW</span>
                           <span className="px-3 py-1 text-xs font-mono text-white/60">SCHEMA</span>
                           <span className="px-3 py-1 text-xs font-mono text-white/60">TOKENS</span>
+                        </div>
+                      )}
+
+                      {selectedBlueprint.id === 'fluid-orb' && (
+                        <div className="flex flex-col items-center justify-center py-1">
+                          <FluidOrb 
+                            size={120} 
+                            color={componentState === 'error' ? '#F43F5E' : componentState === 'hover' ? '#00E5FF' : '#1A73F2'} 
+                          />
                         </div>
                       )}
                     </>

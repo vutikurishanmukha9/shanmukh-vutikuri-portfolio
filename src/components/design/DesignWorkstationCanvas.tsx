@@ -5,11 +5,15 @@ import {
   Ruler, 
   Code2, 
   ShieldCheck, 
-  Maximize2
+  Maximize2,
+  Sparkles,
+  Copy,
+  Check
 } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
+import FluidOrb from '@/components/ui/fluid-orb';
 
-type WorkstationMode = 'specimen' | 'redlines' | 'tokens';
+type WorkstationMode = 'specimen' | 'redlines' | 'tokens' | 'fluid-orb';
 
 interface DesignWorkstationCanvasProps {
   onNavigateToWorks?: () => void;
@@ -23,6 +27,9 @@ export const DesignWorkstationCanvas: React.FC<DesignWorkstationCanvasProps> = (
   const [isAuditing, setIsAuditing] = useState<boolean>(false);
   const [auditProgress, setAuditProgress] = useState<number>(100);
   const [activeCategory, setActiveCategory] = useState<'privacy' | 'performance'>('privacy');
+  const [orbColor, setOrbColor] = useState<string>('#1A73F2');
+  const [orbSize, setOrbSize] = useState<number>(200);
+  const [copiedCommand, setCopiedCommand] = useState<boolean>(false);
 
   const switchMode = (mode: WorkstationMode) => {
     playClick(800, 0.02, 'sine');
@@ -114,6 +121,20 @@ export const DesignWorkstationCanvas: React.FC<DesignWorkstationCanvasProps> = (
             >
               <Code2 className="w-3 h-3" />
               <span>Tokens</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => switchMode('fluid-orb')}
+              className={`px-2 sm:px-2.5 py-1 rounded-md text-[9.5px] sm:text-[10.5px] font-mono tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1 sm:gap-1.5 ${
+                activeMode === 'fluid-orb'
+                  ? 'bg-cyan-400 text-black font-semibold shadow-sm'
+                  : 'text-white/60 hover:text-white'
+              }`}
+              title="Rare UI WebGL Fluid Orb"
+            >
+              <Sparkles className="w-3 h-3" />
+              <span>Fluid Orb</span>
             </button>
           </div>
 
@@ -342,6 +363,110 @@ export const DesignWorkstationCanvas: React.FC<DesignWorkstationCanvasProps> = (
                     <span className="text-purple-400">--contrast-body:</span>
                     <span className="text-emerald-400">18.4:1 (AAA Pass)</span>
                   </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ========================================================================= */}
+          {/* MODE 4: RARE UI WEBGL FLUID ORB SPECIMEN */}
+          {/* ========================================================================= */}
+          {activeMode === 'fluid-orb' && (
+            <motion.div
+              key="fluid-orb"
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.25 }}
+              className="relative z-10 my-auto py-2 flex flex-col items-center justify-center space-y-3.5"
+            >
+              {/* Centered Fluid Orb with Diffuse Atmospheric Aura */}
+              <div className="relative flex items-center justify-center p-1">
+                <div 
+                  className="absolute inset-0 rounded-full blur-3xl opacity-35 pointer-events-none transition-colors duration-500"
+                  style={{ backgroundColor: orbColor }}
+                />
+                <FluidOrb 
+                  size={orbSize} 
+                  color={orbColor} 
+                  className="shadow-[0_0_40px_rgba(0,0,0,0.9)] border border-white/10"
+                />
+              </div>
+
+              {/* Interactive Orb Controls (Size, Swatches & CLI Command) */}
+              <div className="w-full max-w-sm p-3 rounded-xl bg-black/80 border border-white/10 backdrop-blur-md space-y-2.5">
+                <div className="flex items-center justify-between text-[10px] font-mono">
+                  <span className="text-white/50 uppercase tracking-wider flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    FLUID SHADER PALETTE
+                  </span>
+                  <span className="text-cyan-400 font-semibold">{orbColor}</span>
+                </div>
+
+                {/* Color Swatch Row */}
+                <div className="flex items-center justify-between gap-1.5">
+                  {[
+                    { label: 'Azure', hex: '#1A73F2' },
+                    { label: 'Flame', hex: '#F75001' },
+                    { label: 'Cyan', hex: '#00E5FF' },
+                    { label: 'Emerald', hex: '#10B981' },
+                    { label: 'Violet', hex: '#8B5CF6' },
+                    { label: 'Rose', hex: '#F43F5E' }
+                  ].map((palette) => (
+                    <button
+                      key={palette.hex}
+                      type="button"
+                      onClick={() => {
+                        playClick(900, 0.02, 'sine');
+                        setOrbColor(palette.hex);
+                      }}
+                      className={`flex-1 py-1.5 rounded-md flex items-center justify-center transition-all cursor-pointer border ${
+                        orbColor === palette.hex
+                          ? 'border-white scale-105 shadow-[0_0_10px_rgba(255,255,255,0.35)]'
+                          : 'border-transparent opacity-60 hover:opacity-100'
+                      }`}
+                      style={{ backgroundColor: `${palette.hex}22` }}
+                      title={palette.label}
+                    >
+                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: palette.hex }} />
+                    </button>
+                  ))}
+                </div>
+
+                {/* Size Presets & CLI Quick-Copy Trigger */}
+                <div className="flex items-center justify-between pt-1.5 border-t border-white/5 text-[10px] font-mono">
+                  <div className="flex items-center gap-1">
+                    <span className="text-white/40 mr-1">SIZE:</span>
+                    {[160, 200, 240].map((s) => (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => {
+                          playClick(780, 0.02, 'triangle');
+                          setOrbSize(s);
+                        }}
+                        className={`px-1.5 py-0.5 rounded transition-colors cursor-pointer ${
+                          orbSize === s ? 'bg-white text-black font-semibold' : 'text-white/50 hover:text-white'
+                        }`}
+                      >
+                        {s}px
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playClick(1050, 0.03, 'sine');
+                      navigator.clipboard.writeText('npx shadcn@latest add swamimalode07/rare-ui/fluid-orb');
+                      setCopiedCommand(true);
+                      setTimeout(() => setCopiedCommand(false), 2000);
+                    }}
+                    className="inline-flex items-center gap-1 text-white/70 hover:text-white transition-colors cursor-pointer"
+                  >
+                    {copiedCommand ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-white/50" />}
+                    <span>{copiedCommand ? 'Copied CLI' : 'Copy CLI'}</span>
+                  </button>
                 </div>
               </div>
             </motion.div>
