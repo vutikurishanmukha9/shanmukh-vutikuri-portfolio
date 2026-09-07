@@ -39,7 +39,7 @@ export const DesignNavigation: React.FC = () => {
     { key: 'labs', label: 'Tokens & Lab', target: 'craft-lab', icon: Sliders },
     { key: 'philosophy', label: 'Principles', target: 'philosophy', icon: Compass },
     { key: 'tools', label: 'Tooling', target: 'tools', icon: Cpu },
-    { key: 'stash', label: 'Design System', target: 'design-stash', badge: '106', icon: Layers },
+    { key: 'stash', label: 'Design System', target: 'design-stash', badge: '125', icon: Layers },
   ];
 
   // Precision ScrollSpy to keep navbar flawlessly in sync with the viewport

@@ -115,7 +115,7 @@ export const DesignerCommandPalette: React.FC = () => {
     },
     {
       id: 'nav-stash',
-      title: 'Jump to Component Library Stash (106 Bits)',
+      title: 'Jump to Component Library Stash (125 Bits)',
       category: 'Navigation',
       shortcut: 'S',
       icon: Box,

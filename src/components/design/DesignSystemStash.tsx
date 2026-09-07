@@ -257,6 +257,7 @@ export const DesignSystemStash: React.FC = () => {
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs font-mono">
               {[
                 { key: 'all', label: `All (${STASH_COMPONENTS.length})` },
+                { key: 'Rare UI & Shaders', label: `Rare UI & Shaders (${STASH_COMPONENTS.filter(c => c.category === 'Rare UI & Shaders').length})` },
                 { key: 'React Bits & Creative', label: `Animations & Effects (${STASH_COMPONENTS.filter(c => c.category === 'React Bits & Creative').length})` },
                 { key: 'Surfaces & Cards', label: `Cards & Surfaces (${STASH_COMPONENTS.filter(c => c.category === 'Surfaces & Cards').length})` },
                 { key: 'Controls & Navigation', label: `Buttons & Nav (${STASH_COMPONENTS.filter(c => c.category === 'Controls & Navigation').length})` },

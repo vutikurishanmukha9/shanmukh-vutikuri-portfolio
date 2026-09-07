@@ -138,7 +138,7 @@ export const DesignFooter: React.FC = () => {
                   onClick={() => scrollToSection('design-stash')}
                   className="text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer font-medium"
                 >
-                  Free Components <span className="tabular-nums">(106)</span>
+                  Free Components <span className="tabular-nums">(125)</span>
                 </button>
               </li>
               <li>

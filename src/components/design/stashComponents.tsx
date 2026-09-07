@@ -53,6 +53,7 @@ import {
   Orbit,
   FolderOpen
 } from 'lucide-react';
+import { buildRareUiComponents } from './rareUiStashComponents';
 
 export type StashCategory = 
   | 'Surfaces & Cards' 
@@ -62,6 +63,7 @@ export type StashCategory =
   | 'Feedback & Overlays'
   | 'Developer & System Tools'
   | 'React Bits & Creative'
+  | 'Rare UI & Shaders'
   | 'Hooks & Utilities';
 
 export interface StashComponent {
@@ -5861,7 +5863,12 @@ export const AnimatedTabs: React.FC<{ tabs: string[] }> = ({ tabs }) => {
     </div>
   );
 };`
-    }
+    },
+
+    // =========================================================================
+    // 9. RARE UI & SHADERS (19 items)
+    // =========================================================================
+    ...buildRareUiComponents(ctx)
 
   ];
 }

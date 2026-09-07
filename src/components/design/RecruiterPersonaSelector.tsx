@@ -59,14 +59,14 @@ export const PERSONA_DATA: Record<RecruiterPersonaKey, PersonaContent> = {
     badgeColor: 'text-sky-400 border-sky-500/30 bg-sky-500/10',
     summary: 'Building unified design token architectures bridging Figma Variables directly with React 19 and Tailwind CSS v4. Enforcing 100% component reusability and zero layout shift.',
     jumpTarget: 'design-stash',
-    jumpLabel: 'Inspect 106 Stash Components',
+    jumpLabel: 'Inspect 125 Stash Components',
     metrics: [
-      { label: 'Stash Components', value: '106 Items', detail: 'Production-ready TSX specimens' },
+      { label: 'Stash Components', value: '125 Items', detail: 'Production-ready TSX specimens' },
       { label: 'Figma Token Parity', value: '100%', detail: 'CSS variables mapped to Figma JSON' },
       { label: 'Contrast Ratio', value: 'WCAG AAA', detail: '7.4:1 contrast verified across themes' }
     ],
     recommendedProjects: [
-      { name: 'Component Stash', tag: '106 Open Interactive Bits' },
+      { name: 'Component Stash', tag: '125 Open Interactive Bits' },
       { name: 'Craft Lab Tokens', tag: 'Auto-Layout & Spring Physics' },
       { name: 'CleanSlate Architecture', tag: 'Atomic Design Hierarchy' }
     ]

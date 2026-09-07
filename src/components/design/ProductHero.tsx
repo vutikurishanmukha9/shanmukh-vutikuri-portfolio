@@ -195,7 +195,7 @@ export const ProductHero: React.FC = () => {
             <span className="text-white/20">/</span>
             <div className="flex items-center gap-1.5 text-emerald-400 font-medium font-mono tabular-nums">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-              <span>106 OPEN COMPONENTS</span>
+              <span>125 OPEN COMPONENTS</span>
             </div>
           </motion.div>
 
@@ -220,7 +220,7 @@ export const ProductHero: React.FC = () => {
               </div>
             </div>
 
-            {/* Action Buttons: View Projects + Browse 106 Components */}
+            {/* Action Buttons: View Projects + Browse 125 Components */}
             <div className="sm:ml-auto flex flex-wrap items-center gap-3 w-full sm:w-auto">
               <button
                 type="button"
@@ -239,7 +239,7 @@ export const ProductHero: React.FC = () => {
                 className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-center gap-2 px-5 py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400 font-mono text-xs tracking-wider transition-all duration-200 active:scale-95 cursor-pointer shadow-[0_0_15px_rgba(52,211,153,0.15)] font-semibold"
               >
                 <Box className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Browse 106 Components</span>
+                <span>Browse 125 Components</span>
               </button>
             </div>
 
